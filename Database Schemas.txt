@@ -1,0 +1,28 @@
+Static & dynamic information pertains to memory allocation. It does not mean that the values are fixed.
+
+Last update: 5-14-16 (Prototype Update)
+
+METADATA
+--------
+Tables:
+	Static_variables (MemberCount INTEGER, ChannelCount INTEGER)
+	* MemberCount exists so that we know the bounds of the member id's. 
+	  For example, if there are 50 members, we cannot have a member id
+	  of 62.
+
+MEMBER
+------
+Tables:
+	User_Info (id PRIMARY KEY, Username varchar(20), Password varchar(20)) // static variables
+	Channels_Hosting (host MEMBER.user_info.id, hosting CHANNEL.channel_info.id)
+	Channels_Broadcasting (host MEMBER.user_info.id, broadcasting CHANNEL.channel_info.id)
+
+CHANNEL
+-------
+Tables:
+	Channel_Info (id PRIMARY KEY, DateCreated DATETIME, Host MEMBER.user_info.id) // static variables
+	Broadcast_Member (Broadcaster MEMBER.user_info.id, CurrentLat FLOAT, CurrentLong FLOAT) 
+	Location_History (Broadcaster MEMBER.user_info.id, time DATETIME, Latitude FLOAT, Longitude FLOAT) 
+
+	*inherits data from broadcastmember
+	*broadcast_member would also hold status posts and other relevant information in later versions
