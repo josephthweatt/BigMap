@@ -40,11 +40,16 @@
     
             $query = "SELECT * FROM user_info WHERE username = \"" .$userInfo[0] . "\"";
             $userArray = getFromTable($query);
+            if ($userArray == null) {
+                echo "User does not exist";
+                return 0;
+            }
             if ($userInfo[1] == $userArray["password"]) {
                 return $userArray["id"];
+            } else {
+                echo "Invalid password";
+                return 0;
             }
-            echo "User does not exist";
-            return 0;
         }
     
         function getNewChannelId() {
