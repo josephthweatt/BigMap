@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                 userInfo[1] = password.getText().toString();
 
                 // send userInfo to the Server
-                
+
             }
         });
     }
