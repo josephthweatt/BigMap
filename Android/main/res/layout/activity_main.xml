@@ -43,5 +43,13 @@
             android:id="@+id/enter_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/submit_signin_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:background="@color/colorAccent"
+            android:text="Sign In"/>
     </LinearLayout>
 </RelativeLayout>
