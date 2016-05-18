@@ -37,7 +37,7 @@ public class APIHandler extends AsyncTask {
             switch (((Integer) params[0]).intValue()) {
                 case 0: return signInSuccessful();
                 // the locationPacket will need to be the object right after the switch
-                case 1: return sentLocationPacket((HashMap<Double, Double>) params[++i]);
+                case 1: return sentLocationPacket((Double[]) params[++i]);
             }
         }
         return null;
@@ -96,7 +96,7 @@ public class APIHandler extends AsyncTask {
     }
 
     // will send location packet from LocationService to the server
-    private Boolean sentLocationPacket(HashMap<Double, Double> packet) {
+    private Boolean sentLocationPacket(Double[] packet) {
         return false; //temporary
     }
 

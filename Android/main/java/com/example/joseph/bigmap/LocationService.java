@@ -14,7 +14,7 @@ import java.util.TimerTask;
 // Wll recieve and submit location data to the databas
 public class LocationService extends Service {
     private LocationManager locationManager;
-    private Map<Double, Double> locationPacket;
+    private Double[] locationPacket;
 
     private APIHandler handler;
 
@@ -25,7 +25,7 @@ public class LocationService extends Service {
     @Override
     public void onCreate() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationPacket = new HashMap<Double, Double>();
+        locationPacket = new Double[2];
 
         Timer timer = new Timer();
         TimerTask receiveLocation = new  ReceiveLocationTask();
@@ -41,7 +41,8 @@ public class LocationService extends Service {
         public void run() {
             try {
                 location = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
-                locationPacket.put(location.getLatitude(), location.getLongitude());
+                locationPacket[0] = location.getLatitude();
+                locationPacket[1] = location.getLongitude();
             } catch (SecurityException e) {
                 Log.e("Security Exception: ", "android.permission.ACCESS_FINE_LOCATION");
             }
