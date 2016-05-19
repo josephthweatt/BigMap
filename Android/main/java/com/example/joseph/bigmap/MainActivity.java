@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
                 // send userInfo to the Server, wait 5 secs max for response
                 APIHandler handler = new APIHandler(userInfo);
                 try {
-                    handler.execute(new Integer(0)).get(5000, TimeUnit.MILLISECONDS);
-                } catch (InterruptedException e) { e.printStackTrace(); }
-                catch (TimeoutException e) { e.printStackTrace(); }
-                catch (ExecutionException e) { e.printStackTrace(); }
+                    handler.execute(0).get(5000, TimeUnit.MILLISECONDS);
+                } catch (InterruptedException|TimeoutException|ExecutionException e) {
+                    e.printStackTrace();
+                }
 
                 // launch the next activity (user's main menu)
                 if (handler.signInSuccessful) {
@@ -56,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = shared.edit();
                     editor.putString("username", userInfo[0]);
                     editor.putString("password", userInfo[1]);
+                    editor.apply();
 
                     Intent gotoMainMenu = new Intent(MainActivity.this, MainMenuActivity.class);
                     startActivity(gotoMainMenu);
                 } else {
-                    ((TextView) findViewById(R.id.main_header))
-                            .setText("Login Failed, try again");
+                    header.setText("Login Failed, try again");
                 }
             }
         });
