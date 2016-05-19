@@ -2,12 +2,13 @@ package com.example.joseph.bigmap;
 
 import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Binder;
+import android.os.IBinder;
 import android.util.Log;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,6 +21,17 @@ public class LocationService extends Service {
 
     public LocationService (APIHandler handler) {
         this.handler = handler;
+    }
+
+    /**
+     * Class for clients to access.  Because we know this service always
+     * runs in the same process as its clients, we don't need to deal with
+     * IPC.
+     */
+    public class LocalBinder extends Binder {
+        LocationService getService() {
+            return LocationService.this;
+        }
     }
 
     @Override
@@ -35,6 +47,13 @@ public class LocationService extends Service {
 
     }
 
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mBinder;
+    }
+
+    // This is the object that receives interactions from clients.
+    private final IBinder mBinder = new LocalBinder();
 
     private class ReceiveLocationTask extends TimerTask {
         Location location;

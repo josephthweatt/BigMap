@@ -4,14 +4,17 @@
 		<title>User Sign up</title>
 	</head>
 	<body>
-		<?php 
+		<?php
 			$userInfoTable = "user_info";
 			$metaInfoTable = "static_variables";
 			$newMembers = 0;
-			
-			$con = mysqli_connect("localhost", "root") or die(mysqli_error($con));
 
-			mysqli_select_db($con, "bm_metadata") or die(mysqli_error($con));
+			echo "all is well";
+			$con = new mysqli("localhost", "sql_username", "sql_password") or die(mysqli_error($con));
+			echo "connected";
+			$con->select_db("bm_metadata");
+			echo "meta selected";
+
 			$query = "SELECT MemberCount from " . $metaInfoTable . " ROW LIMIT 1";
 			$result = mysqli_query($con, $query);
 			$row = mysqli_fetch_assoc($result);
