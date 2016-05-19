@@ -2,6 +2,7 @@ package com.example.joseph.bigmap;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,11 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 public class MainActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "StoredUserInfo";
-    Button submit;
+    TextView header;
     EditText username;
     EditText password;
+    Button submit;
 
     String[] userInfo;
 
@@ -27,15 +33,21 @@ public class MainActivity extends AppCompatActivity {
         submit = (Button) findViewById(R.id.submit_signin_info);
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View args) {
+                header = (TextView) findViewById(R.id.main_header);
+                header.setText("Please Wait...");
+
                 username = (EditText) findViewById(R.id.enter_username);
                 password = (EditText) findViewById(R.id.enter_password);
                 userInfo[0] = username.getText().toString().trim();
                 userInfo[1] = password.getText().toString().trim();
 
-
-                // send userInfo to the Server
+                // send userInfo to the Server, wait 5 secs max for response
                 APIHandler handler = new APIHandler(userInfo);
-                handler.execute(new Integer(0));
+                try {
+                    handler.execute(new Integer(0)).get(5000, TimeUnit.MILLISECONDS);
+                } catch (InterruptedException e) { e.printStackTrace(); }
+                catch (TimeoutException e) { e.printStackTrace(); }
+                catch (ExecutionException e) { e.printStackTrace(); }
 
                 // launch the next activity (user's main menu)
                 if (handler.signInSuccessful) {

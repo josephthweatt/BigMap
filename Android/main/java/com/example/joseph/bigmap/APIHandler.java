@@ -49,8 +49,8 @@ public class APIHandler extends AsyncTask {
 
     private void signInSuccessful() {
         List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
-        parameters.add(new AbstractMap.SimpleEntry("user-info", userInputs[0]));
-        parameters.add(new AbstractMap.SimpleEntry("user-info", userInputs[1]));
+        parameters.add(new AbstractMap.SimpleEntry("user-info[]", userInputs[0]));
+        parameters.add(new AbstractMap.SimpleEntry("user-info[]", userInputs[1]));
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
@@ -62,7 +62,7 @@ public class APIHandler extends AsyncTask {
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
             connection.setDoOutput(true);
-            
+
             OutputStream os = connection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
             writer.write(getQuery(parameters));
@@ -72,11 +72,21 @@ public class APIHandler extends AsyncTask {
 
             connection.connect();
 
-            InputStream stream = connection.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(stream));
+            String line;
+            String response = "";
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
 
-            if(reader.readLine().contains("Welcome back, ")) {
+                while ((line = reader.readLine()) != null) {
+                    response += line;
+                }
+            }
+
+            if(response.contains("Welcome back, ")) {
                 signInSuccessful = true;
+            } else {
+                signInSuccessful = false;
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
