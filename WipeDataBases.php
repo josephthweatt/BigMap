@@ -5,7 +5,8 @@
     </head>
     <body>
         <?php
-            $con = mysqli_connect("localhost", "root");
+            $con = mysqli_connect("localhost", "username", "password");
+
             function truncateTable($tableName) {
                 global $con;
                 $query = "TRUNCATE TABLE " . $tableName;

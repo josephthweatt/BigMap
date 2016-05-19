@@ -5,7 +5,10 @@
 </head>
 <body>
     <?php
-        $con = mysqli_connect("localhost", "root");
+        // error_reporting(E_ALL); // uncomment for debugging
+        $con = mysqli_connect("localhost", "username", "password");
+
+        mysqli_select_db($con, "bm_members");
         if (isset($_POST["user-info"])) {
             $userInfo = $_POST["user-info"];
             if ($memberId = userExists($userInfo)) {

@@ -4,24 +4,24 @@
 		<title>User Sign up</title>
 	</head>
 	<body>
-		<?php
+		<?php 
+			// error_reporting(E_ALL); // uncomment for debugging
 			$userInfoTable = "user_info";
 			$metaInfoTable = "static_variables";
 			$newMembers = 0;
 
-			echo "all is well";
-			$con = new mysqli("localhost", "sql_username", "sql_password") or die(mysqli_error($con));
-			echo "connected";
-			$con->select_db("bm_metadata");
-			echo "meta selected";
+			$con = mysqli_connect("localhost", "username", "password") 
+				or die(mysqli_error($con));
 
+			mysqli_select_db($con, "bm_metadata") or die (mysqli_error($con));
 			$query = "SELECT MemberCount from " . $metaInfoTable . " ROW LIMIT 1";
 			$result = mysqli_query($con, $query);
 			$row = mysqli_fetch_assoc($result);
 			$currentMembers = $row["MemberCount"];
 			$newMembers = $currentMembers + 1;
 
-			mysqli_select_db($con, "bm_members") or die(mysqli_error($con));
+			$con->select_db("bm_members") or die(mysqli_error($con));
+
 			isset($_POST["signup"]) ? $userInfo = $_POST["signup"] : die("signup not set");
 			if (newUserValid()) {
 				$query = "INSERT INTO " . $userInfoTable . " VALUES (" . $newMembers

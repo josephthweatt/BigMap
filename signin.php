@@ -5,7 +5,8 @@
         </head>
         <body>
             <?php
-                $con = mysqli_connect("localhost", "root") or die(mysqli_error($con));
+                $con = mysqli_connect("localhost", "username", "password") or 
+                    die(mysqli_error($con));
 
                 if (isset($_POST["user-info"])) {
                     $userInfo = $_POST["user-info"];
@@ -19,7 +20,7 @@
                     global $con;
                     mysqli_select_db($con, "bm_members");
 
-                    $query = "SELECT * FROM user_info WHERE username = \"" .$userInfo[0] . "\"";
+                    $query = "SELECT * FROM user_info WHERE username = \"" . $userInfo[0] . "\"";
                     $userArray = getFromTable($query);
                     if ($userArray == null) {
                         echo "User does not exist";
