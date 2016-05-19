@@ -16,16 +16,18 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 // Interacts with the BigMap server, specifically PHP code made to work with Android
 public class APIHandler extends AsyncTask {
     public static String URLHead = "http://jathweatt.com/BigMap/";
-    public static String signIn = "SignIn.php";
+    public static String signIn = "signin.php";
     public String[] userInputs;
 
+    public Boolean signInSuccessful;
+
     public APIHandler(String[] inputs) {
+        signInSuccessful = false;
         userInputs = inputs;
     }
 
@@ -35,7 +37,9 @@ public class APIHandler extends AsyncTask {
         // to handle multiple API processes
         for (int i = 0; i < params.length; i++) {
             switch (((Integer) params[0]).intValue()) {
-                case 0: return signInSuccessful();
+                case 0:
+                    signInSuccessful();
+                    break;
                 // the locationPacket will need to be the object right after the switch
                 case 1: return sentLocationPacket((Double[]) params[++i]);
             }
@@ -43,22 +47,22 @@ public class APIHandler extends AsyncTask {
         return null;
     }
 
-    private Boolean signInSuccessful() {
+    private void signInSuccessful() {
+        List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
+        parameters.add(new AbstractMap.SimpleEntry("user-info", userInputs[0]));
+        parameters.add(new AbstractMap.SimpleEntry("user-info", userInputs[1]));
+
         HttpURLConnection connection = null;
         BufferedReader reader = null;
         URL url;
         try {
             // get output stream for the connection and write the parameter query string to it
-            url = new URL(URLHead + signIn);
+            url = new URL(URLHead + signIn.toLowerCase());
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
             connection.setDoOutput(true);
-
-            List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
-            parameters.add(new AbstractMap.SimpleEntry("user-info", userInputs[0]));
-            parameters.add(new AbstractMap.SimpleEntry("user-info", userInputs[1]));
-
+            
             OutputStream os = connection.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
             writer.write(getQuery(parameters));
@@ -72,14 +76,12 @@ public class APIHandler extends AsyncTask {
             reader = new BufferedReader(new InputStreamReader(stream));
 
             if(reader.readLine().contains("Welcome back, ")) {
-                return true;
+                signInSuccessful = true;
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            return false;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -92,7 +94,6 @@ public class APIHandler extends AsyncTask {
                 }
             }
         }
-        return false;
     }
 
     // will send location packet from LocationService to the server
