@@ -21,8 +21,9 @@ CHANNEL
 -------
 Tables:
 	Channel_Info (id PRIMARY KEY, DateCreated DATETIME, Host MEMBER.user_info.id) // static variables
-	Broadcast_Member (Broadcaster MEMBER.user_info.id, CurrentLat FLOAT, CurrentLong FLOAT) 
+	Broadcast_Member (Broadcaster MEMBER.user_info.id, Channel Channel_Info.id, CurrentLat FLOAT, CurrentLong FLOAT) 
 	Location_History (Broadcaster MEMBER.user_info.id, time DATETIME, Latitude FLOAT, Longitude FLOAT) 
 
 	*inherits data from broadcastmember
 	*broadcast_member would also hold status posts and other relevant information in later versions
+	*location history does not need a channel id, because the channel id does not impact the broadcaster's location

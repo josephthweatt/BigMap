@@ -7,7 +7,21 @@
     isset($_POST["channel-id"]) ? $channelId = $_POST["channel-id"] : die("channel id not specified");
 
     if ($id = userExists($userInfo) && channelExists($channelId)) {
-        
+        // Add the connection to the member database
+        mysqli_select_db($con, "bm_channel");
+        $query = "INSERT INTO channels_broadcasting VALUES (" . $id . ", " . $channelId . ")";
+        mysqli_query($con, $query);
+
+        /**************************************************************************************
+         *  create the broadcast_member and location_history for the new broadcaster
+         *  we will only need to insert the values of the member ids. Other values set to null
+         **************************************************************************************/
+        $query = "INSERT INTO broadcaster_info VALUES (". $id . ", " . null . ", " . null . ")";
+        mysqli_query($con, $query);
+        $query = "INSERT INTO channel_info VALUES ("
+            . $id . ", " . null . ", " . null . ", " . null . ")";
+        mysqli_query($con, $query);
+        echo $userInfo[0] . " has joined channel " . $channelId; // End of script
     }
 
     function userExists($userInfo) {
