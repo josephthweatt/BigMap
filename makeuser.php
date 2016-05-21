@@ -6,6 +6,8 @@
 	<body>
 		<?php 
 			// error_reporting(E_ALL); // uncomment for debugging
+			include 'MemberUtilities.php';
+		
 			$userInfoTable = "user_info";
 			$metaInfoTable = "static_variables";
 			$newMembers = 0;
@@ -23,7 +25,7 @@
 			$con->select_db("bm_members") or die(mysqli_error($con));
 
 			isset($_POST["signup"]) ? $userInfo = $_POST["signup"] : die("signup not set");
-			if (newUserValid()) {
+			if (userNotFound()) {
 				$query = "INSERT INTO " . $userInfoTable . " VALUES (" . $newMembers
 					. ", \"" . $userInfo[0] . "\", \"" . $userInfo[1] . "\")";
 				mysqli_query($con, $query) or die(mysqli_error($con));
@@ -33,29 +35,6 @@
 				$query = "UPDATE " . $metaInfoTable . " SET MemberCount = " . $newMembers;
 				mysqli_query($con, $query) or die(mysqli_error($con));
 				echo "User info has been stored";
-			}
-
-			//returns true if the username isn't found in the db
-			function newUserValid() {
-				global $con, $userInfo;
-				$query = "SELECT * FROM user_info";
-				$users = mysqli_query($con, $query);
-
-				if ($userInfo[0] == "") {
-					echo "Please enter a username";
-					return false;
-				} else if ($userInfo[1] == "") {
-					echo "Please enter a password";
-					return false;
-				} else {
-					foreach ($users as $user) {
-						if ($userInfo[0] == $user["username"]) {
-							echo "This user already exists";
-							return false;
-						}
-					}
-				}
-				return true;
 			}
 		?>
 	</body>
