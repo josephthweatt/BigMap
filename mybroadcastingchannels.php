@@ -9,7 +9,8 @@
 
     isset($_POST["user-info"]) ? $userInfo = $_POST["user-info"] : die("user info not set");
 
-    if ($id = userExists($userInfo)) {
+    $id = userExists($userInfo);
+    if ($id != 0 && !newBroadcaster($id)) {
         $query = "SELECT * FROM channels_broadcasting WHERE broadcasting = " . $id;
         $channelIds = getFromTable($query);
         $idString = "Your broadcasting channels: ";
@@ -17,4 +18,6 @@
             $idString .= $id . " ";
         }
         echo $idString; // final result
+    } else {
+        echo "You have not registered to any channels";
     }
