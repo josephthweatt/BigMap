@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("password", userInfo[1]);
                     editor.apply();
 
-                    Intent gotoMainMenu = new Intent(MainActivity.this, MainMenuActivity.class);
-                    startActivity(gotoMainMenu);
+                    Intent goToMainMenu = new Intent(MainActivity.this, MainMenuActivity.class);
+                    startActivity(goToMainMenu);
                 } else {
                     header.setText("Login Failed, try again");
                 }

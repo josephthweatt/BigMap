@@ -25,6 +25,7 @@ public class APIHandler extends AsyncTask {
     public static String myBroadcastingChannels = "mybroadcastingchannels.php";
 
     public static Boolean signInSuccessful;
+    public static Boolean isBroadcasting;
     public static String[] userInputs;
     public static String cachedPHPData; // stores data from server
 
@@ -36,6 +37,7 @@ public class APIHandler extends AsyncTask {
 
     public APIHandler(String[] inputs) {
         signInSuccessful = false;
+        isBroadcasting = false;
         userInputs = inputs;
     }
 
@@ -49,7 +51,7 @@ public class APIHandler extends AsyncTask {
                     signInSuccessful();
                     break;
                 // the locationPacket will need to be the object right after the switch
-                case 1: checkForBroadcastingChannels(); break;
+                case 1: isBroadcasting = checkForBroadcastingChannels(); break;
                 case 2: return sentLocationPacket((Double[]) params[++i]);
             }
         }
@@ -123,7 +125,7 @@ public class APIHandler extends AsyncTask {
         URL url;
         try {
             // get output stream for the connection and write the parameter query string to it
-            url = new URL(URLHead + signIn.toLowerCase());
+            url = new URL(URLHead + myBroadcastingChannels.toLowerCase());
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
@@ -148,13 +150,13 @@ public class APIHandler extends AsyncTask {
                     response += line;
                 }
             }
-            if (response.contains("Your Databases:")) {
+            if (response.contains("Your broadcasting channels: ")) {
                 cachedPHPData = response;
                 return true;
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }  finally {
+        } finally {
             if (connection != null) {
                 connection.disconnect();
             }
