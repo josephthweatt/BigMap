@@ -22,11 +22,11 @@
             mysqli_select_db($con, "bm_members");
             truncateTable("user_info");
             truncateTable("channels_hosting");
-            truncateTable("channels_broadcasting");
 
             // wipe channel data
             mysqli_select_db($con, "bm_channel");
             truncateTable("location_history");
+            truncateTable("channels_broadcasting");
             truncateTable("channel_info");
             truncateTable("broadcast_member");
 

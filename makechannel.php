@@ -6,7 +6,7 @@
 <body>
     <?php
         // error_reporting(E_ALL); // uncomment for debugging
-        $con = mysqli_connect("localhost", "username", "password");
+        $con = mysqli_connect("localhost", "root");
 
         mysqli_select_db($con, "bm_members");
         if (isset($_POST["user-info"])) {

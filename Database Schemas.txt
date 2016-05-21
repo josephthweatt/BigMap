@@ -15,13 +15,14 @@ MEMBER
 Tables:
 	User_Info (id PRIMARY KEY, Username varchar(20), Password varchar(20)) // static variables
 	Channels_Hosting (host MEMBER.user_info.id, hosting CHANNEL.channel_info.id)
-	Channels_Broadcasting (host MEMBER.user_info.id, broadcasting CHANNEL.channel_info.id)
+	
 
 CHANNEL
 -------
 Tables:
 	Channel_Info (id PRIMARY KEY, DateCreated DATETIME, Host MEMBER.user_info.id) // static variables
-	Broadcast_Member (Broadcaster MEMBER.user_info.id, Channel Channel_Info.id, CurrentLat FLOAT, CurrentLong FLOAT) 
+	Channels_Broadcasting (host MEMBER.user_info.id, broadcasting CHANNEL.channel_info.id) // which member broadcasts to which channel
+	Broadcast_Member (Broadcaster MEMBER.user_info.id, CurrentLat FLOAT, CurrentLong FLOAT) // the current location of a user
 	Location_History (Broadcaster MEMBER.user_info.id, time DATETIME, Latitude FLOAT, Longitude FLOAT) 
 
 	*inherits data from broadcastmember
