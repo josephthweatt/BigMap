@@ -11,7 +11,7 @@
 
     $id = userExists($userInfo);
     if ($id != 0 && !newBroadcaster($id)) {
-        $query = "SELECT * FROM channels_broadcasting WHERE broadcasting = " . $id;
+        $query = "SELECT channel_id FROM channels_broadcasting WHERE user_id = " . $id;
         $channelIds = getFromTable($query);
         $idString = "Your broadcasting channels: ";
         foreach ($channelIds as $id) {
