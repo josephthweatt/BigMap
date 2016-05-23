@@ -24,12 +24,10 @@ public class ChannelListActivity
 
         // create list
         channelList = (ListView) findViewById(R.id.channel_listView);
-
         ArrayAdapter<String> adapter
                 = new ArrayAdapter<String>(
                 this,android.R.layout.simple_expandable_list_item_1,APIHandler.channelsAsString());
         channelList.setAdapter(adapter);
-
         channelList.setOnItemClickListener(this);
     }
 
@@ -38,7 +36,7 @@ public class ChannelListActivity
         TextView temp = (TextView) view;
 
         // open channel activity
-        //Intent channelActivity = new Intent(ChannelListActivity.this, ChannelActivity.class);
-        //startActivity(channelActivity);
+        Intent channelActivity = new Intent(ChannelListActivity.this, ChannelActivity.class);
+        startActivity(channelActivity);
     }
 }

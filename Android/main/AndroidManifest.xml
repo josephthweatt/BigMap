@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".ChannelListActivity">
         </activity>
+        <activity android:name=".ChannelActivity">
+        </activity>
     </application>
 
 </manifest>
