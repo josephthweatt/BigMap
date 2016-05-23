@@ -17,43 +17,48 @@ import java.net.URLEncoder;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 // Interacts with the BigMap server, specifically PHP code made to work with Android
 public class APIHandler extends AsyncTask {
     public static String URLHead = "http://jathweatt.com/BigMap/";
     public static String signIn = "signin.php";
-    public static String myBroadcastingChannels = "mybroadcastingchannels.php";
+    public static String myBroadcastingChannels = "MyBroadcastingChannels.php";
 
     public static Boolean signInSuccessful;
     public static Boolean isBroadcasting;
+    public static ArrayList<Integer> userChannels;
     public static String[] userInputs;
     public static String cachedPHPData; // stores data from server
 
-    public APIHandler() {
+    public int executeCommand;
+
+    public APIHandler(int command) {
         if (userInputs[0] == null) {
             Log.e("User not entered: ", "No user profile was given");
         }
+        executeCommand = command;
     }
 
-    public APIHandler(String[] inputs) {
+    public APIHandler(String[] inputs, int command) {
         signInSuccessful = false;
         isBroadcasting = false;
         userInputs = inputs;
+        executeCommand = command;
     }
 
     @Override
     protected Object doInBackground(Object[] params) {
-        // haven't tested this yet, but hopefully it will allow this class
-        // to handle multiple API processes
-        for (int i = 0; i < params.length; i++) {
-            switch (((Integer) params[0]).intValue()) {
-                case 0:
-                    signInSuccessful();
-                    break;
-                // the locationPacket will need to be the object right after the switch
-                case 1: isBroadcasting = checkForBroadcastingChannels(); break;
-                case 2: return sentLocationPacket((Double[]) params[++i]);
-            }
+        switch (executeCommand) {
+            case 0:
+                signInSuccessful(); break;
+            case 1:
+                if (isBroadcasting = checkForBroadcastingChannels()) {
+                    userChannels = getBroadcastingChannels();
+                }
+                break;
+            case 2:
+                userChannels = getBroadcastingChannels(); break;
         }
         return null;
     }
@@ -125,7 +130,7 @@ public class APIHandler extends AsyncTask {
         URL url;
         try {
             // get output stream for the connection and write the parameter query string to it
-            url = new URL(URLHead + myBroadcastingChannels.toLowerCase());
+            url = new URL(URLHead + myBroadcastingChannels);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
@@ -171,8 +176,21 @@ public class APIHandler extends AsyncTask {
         return false;
     }
 
+    public ArrayList<Integer> getBroadcastingChannels () {
+        if (cachedPHPData.contains("Your broadcasting channels: ")) {
+            ArrayList<Integer> userChannels = new ArrayList<Integer>();
+            Scanner reader = new Scanner(cachedPHPData);
+
+            while (reader.hasNextInt()) {
+                userChannels.add(reader.nextInt());
+            }
+            return userChannels;
+        }
+        return null;
+    }
+
     // will send location packet from LocationService to the server
-    private Boolean sentLocationPacket(Double[] packet) {
+    private Boolean sendLocationPacket(Double[] packet) {
         return false; //temporary
     }
 

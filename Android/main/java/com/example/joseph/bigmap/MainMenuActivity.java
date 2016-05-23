@@ -38,19 +38,22 @@ public class MainMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 welcome.setText("Connecting to Channels...");
                 // see if the user has any channels, allow up to 5 seconds
-                APIHandler handler = new APIHandler();
+                APIHandler handler = new APIHandler(1);
                 try {
-                    handler.execute(0).get(5000, TimeUnit.MILLISECONDS);
+                    handler.execute().get(5000, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException|TimeoutException |ExecutionException e) {
                     welcome.setText("Connection Failed");
                     Toast.makeText(getApplicationContext(),
                             "Can't connect to server", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
+                    return;
                 }
 
                 if (handler.isBroadcasting) {
                     Intent goToChannels = new Intent(MainMenuActivity.this, ChannelListActivity.class);
                     startActivity(goToChannels);
+                } else {
+                    welcome.setText("You are not broadcasting to any channels");
                 }
             }
         });
