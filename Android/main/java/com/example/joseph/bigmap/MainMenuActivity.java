@@ -50,8 +50,8 @@ public class MainMenuActivity extends AppCompatActivity {
                 }
 
                 if (handler.isBroadcasting) {
-                    Intent goToChannels = new Intent(MainMenuActivity.this, ChannelListActivity.class);
-                    startActivity(goToChannels);
+                    Intent channels = new Intent(MainMenuActivity.this, ChannelListActivity.class);
+                    startActivity(channels);
                 } else {
                     welcome.setText("You are not broadcasting to any channels");
                 }

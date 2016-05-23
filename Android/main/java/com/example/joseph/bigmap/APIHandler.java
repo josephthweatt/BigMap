@@ -53,7 +53,7 @@ public class APIHandler extends AsyncTask {
             case 0:
                 signInSuccessful(); break;
             case 1:
-                if (isBroadcasting = checkForBroadcastingChannels()) {
+                if (isBroadcasting = isBroadcastingChannels()) {
                     userChannels = getBroadcastingChannels();
                 }
                 break;
@@ -120,7 +120,7 @@ public class APIHandler extends AsyncTask {
         }
     }
 
-    private Boolean checkForBroadcastingChannels() {
+    private Boolean isBroadcastingChannels() {
         List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
         parameters.add(new AbstractMap.SimpleEntry("user-info[]", userInputs[0]));
         parameters.add(new AbstractMap.SimpleEntry("user-info[]", userInputs[1]));
@@ -177,12 +177,14 @@ public class APIHandler extends AsyncTask {
     }
 
     public ArrayList<Integer> getBroadcastingChannels () {
-        if (cachedPHPData.contains("Your broadcasting channels: ")) {
+        String title = "Your broadcasting channels: ";
+        if (cachedPHPData.contains(title)) {
             ArrayList<Integer> userChannels = new ArrayList<Integer>();
-            Scanner reader = new Scanner(cachedPHPData);
+            String[] channels
+                    = cachedPHPData.substring(title.length(), cachedPHPData.length()).split(" ");
 
-            while (reader.hasNextInt()) {
-                userChannels.add(reader.nextInt());
+            for (String number : channels) {
+                userChannels.add(Integer.parseInt(number));
             }
             return userChannels;
         }
