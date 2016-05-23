@@ -57,8 +57,6 @@ public class APIHandler extends AsyncTask {
                     userChannels = getBroadcastingChannels();
                 }
                 break;
-            case 2:
-                userChannels = getBroadcastingChannels(); break;
         }
         return null;
     }
@@ -176,7 +174,7 @@ public class APIHandler extends AsyncTask {
         return false;
     }
 
-    public ArrayList<Integer> getBroadcastingChannels () {
+    private ArrayList<Integer> getBroadcastingChannels () {
         String title = "Your broadcasting channels: ";
         if (cachedPHPData.contains(title)) {
             ArrayList<Integer> userChannels = new ArrayList<Integer>();
@@ -215,5 +213,16 @@ public class APIHandler extends AsyncTask {
         }
 
         return result.toString();
+    }
+
+    /*******************************
+     * Non-asynchronous messages
+     ******************************/
+    public static String[] channelsAsString () {
+        String[] channels = new String[userChannels.size()];
+        for (int i = 0; i < userChannels.size(); i++) {
+            channels[i] = userChannels.get(i).toString();
+        }
+        return channels;
     }
 }

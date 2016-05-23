@@ -15,10 +15,8 @@
         android:text="Your Channels"/>
 
     <ListView
-        android:id="@+id/channel_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin"/>
+        android:id="@+id/channel_listView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>
