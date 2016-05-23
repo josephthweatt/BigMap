@@ -1,5 +1,6 @@
 package com.example.joseph.bigmap;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class ChannelActivity extends AppCompatActivity{
+    public static final String PREFS_NAME = "StoredUserInfo";
+    SharedPreferences sharedPreferences;
+
     Boolean broadcasting;
     Button broadcastButton;
 
+    String header;
     int channelId;
 
     @Override
@@ -18,13 +23,16 @@ public class ChannelActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.channel_activity);
 
-        if (broadcasting == null) {
+        channelId = getIntent().getIntExtra("channelId", 0);
+        header = "Channel " + channelId;
+        ((TextView) findViewById(R.id.channel_header)).setText(header);
+
+        sharedPreferences = getSharedPreferences(PREFS_NAME, 0);
+        if (sharedPreferences.contains(header)) {
+            broadcasting = sharedPreferences.getBoolean(header, false);
+        } else {
             broadcasting = false;
         }
-
-        channelId = getIntent().getIntExtra("channelId", 0);
-        String header = "Channel " + channelId;
-        ((TextView) findViewById(R.id.channel_header)).setText(header);
 
         broadcastButton = (Button) findViewById(R.id.channel_button);
         setButtonState(broadcasting);
@@ -35,6 +43,15 @@ public class ChannelActivity extends AppCompatActivity{
                 setButtonState(!broadcasting);
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        // saves the state of channel broadcasting
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(header, broadcasting);
+        editor.apply();
+        super.onPause();
     }
 
     public void setButtonState(Boolean selectedState) {

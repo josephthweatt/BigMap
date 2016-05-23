@@ -1,3 +1,4 @@
 To do:
 -make signin case insensitive for the username input
 -put php files into their own seperate folder (make html docs link to folder)
+-find a more secure way to store user info and password on Android (instead of using MODE_WORLD_WRITEABLE)
