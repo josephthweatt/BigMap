@@ -33,10 +33,10 @@ public class ChannelListActivity
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        TextView temp = (TextView) view;
-
+        int channelId = Integer.parseInt(((TextView) view).getText().toString());
         // open channel activity
         Intent channelActivity = new Intent(ChannelListActivity.this, ChannelActivity.class);
+        channelActivity.putExtra("channelId", channelId);
         startActivity(channelActivity);
     }
 }

@@ -5,10 +5,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class ChannelActivity extends AppCompatActivity{
     Boolean broadcasting;
     Button broadcastButton;
+
+    int channelId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -18,6 +21,10 @@ public class ChannelActivity extends AppCompatActivity{
         if (broadcasting == null) {
             broadcasting = false;
         }
+
+        channelId = getIntent().getIntExtra("channelId", 0);
+        String header = "Channel " + channelId;
+        ((TextView) findViewById(R.id.channel_header)).setText(header);
 
         broadcastButton = (Button) findViewById(R.id.channel_button);
         setButtonState(broadcasting);
