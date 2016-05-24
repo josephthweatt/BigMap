@@ -2,14 +2,11 @@ package com.example.joseph.bigmap;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,15 +22,17 @@ public class ChannelListActivity
         // create list
         channelList = (ListView) findViewById(R.id.channel_listView);
         ArrayAdapter<String> adapter
-                = new ArrayAdapter<String>(
-                this,android.R.layout.simple_expandable_list_item_1,APIHandler.channelsAsString());
+                = new ArrayAdapter<String>(this,R.layout.channel_list_item,
+                R.id.channel_list_item, APIHandler.channelsAsString());
         channelList.setAdapter(adapter);
         channelList.setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        int channelId = Integer.parseInt(((TextView) view).getText().toString());
+        TextView textView = (TextView) view;
+        int channelId = Integer.parseInt(textView.getText().toString());
+
         // open channel activity
         Intent channelActivity = new Intent(ChannelListActivity.this, ChannelActivity.class);
         channelActivity.putExtra("channelId", channelId);
