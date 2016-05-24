@@ -89,6 +89,6 @@
     function getFromTable($query) {
         global $con;
         $object = mysqli_query($con, $query)
-        or die ("Error submitting query message: " . $query);
+            or die ("Error submitting query message: " . $query);
         return mysqli_fetch_assoc($object);
     }

@@ -10,12 +10,13 @@
     isset($_POST["user-info"]) ? $userInfo = $_POST["user-info"] : die("user info not set");
 
     $id = userExists($userInfo);
-    if ($id != 0 && !newBroadcaster($id)) {
+    if ($id != 0 && !newBroadcaster($id)) { // bm_channel selected here
         $query = "SELECT channel_id FROM channels_broadcasting WHERE user_id = " . $id;
-        $channelIds = getFromTable($query);
+        $queryObject = mysqli_query($con, $query);
+
         $idString = "Your broadcasting channels: ";
-        foreach ($channelIds as $id) {
-            $idString .= $id . " ";
+        while ($channel = mysqli_fetch_assoc($queryObject)) {
+            $idString .= $channel["channel_id"] . " ";
         }
         echo $idString; // final result
     } else {
