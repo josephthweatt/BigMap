@@ -1,17 +1,21 @@
 package com.example.joseph.bigmap;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ChannelActivity extends AppCompatActivity{
     public static final String PREFS_NAME = "StoredUserInfo";
     SharedPreferences sharedPreferences;
 
+    APIHandler handler;
     Boolean broadcasting;
     Button broadcastButton;
 
@@ -58,7 +62,16 @@ public class ChannelActivity extends AppCompatActivity{
         if (selectedState) { // user is broadcasting
             broadcastButton.setBackgroundColor(
                     ContextCompat.getColor(getApplicationContext(), R.color.broadcasting));
-            broadcastButton.setText("Broadcasting");
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                handler = new APIHandler(2);
+
+
+                broadcastButton.setText("Broadcasting");
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "GPS permissions not granted", Toast.LENGTH_SHORT).show();
+            }
         } else { // user not broadcasting
             broadcastButton.setBackgroundColor(
                     ContextCompat.getColor(getApplicationContext(), R.color.notBroadcasting));
