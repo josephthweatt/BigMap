@@ -19,15 +19,20 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 // Will receive and submit location data to the database
 public class LocationService extends Service implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static HashMap<Long, Coordinates> locationPacket;
+    private static APIHandler apiHandler;
     private static FusedLocationProviderApi fusedLocation = LocationServices.FusedLocationApi;
     private static GoogleApiClient googleApiClient;
     private static LocationRequest locationRequest;
+
+    Timer timer;
 
     public LocationService() {
         locationPacket = new HashMap<Long, Coordinates>();
@@ -49,6 +54,11 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 .addOnConnectionFailedListener(this)
                 .build();
         googleApiClient.connect();
+
+        timer = new Timer();
+        TimerTask submitPacket = new SubmitLocationPacket();
+        timer.schedule(submitPacket, 2000, 2000);
+
         return START_STICKY;
     }
 
@@ -56,6 +66,18 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    // Access APIHandler every 'x' seconds to send the locationPacket to the server
+    private class SubmitLocationPacket extends TimerTask {
+        public void run() {
+            apiHandler = new APIHandler(2);
+            apiHandler.execute(2);
+        }
+    }
+
+    public static void clearLocationPacket() {
+        locationPacket.clear();
     }
 
     /****************************

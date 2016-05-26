@@ -59,6 +59,9 @@ public class APIHandler extends AsyncTask {
                     userChannels = getBroadcastingChannels();
                 }
                 break;
+            case 2:
+                // TODO: send out location with sendLocationPacket
+                LocationService.clearLocationPacket();
         }
         return null;
     }
@@ -190,8 +193,8 @@ public class APIHandler extends AsyncTask {
     }
 
     // TODO: will send location packet from LocationService to the server
-    private Boolean sendLocationPacket() {
-        return false; //temporary
+    private void sendLocationPacket() {
+
     }
 
     // method turns query params to a POST String. I found the method on this stackoverflow thread:
