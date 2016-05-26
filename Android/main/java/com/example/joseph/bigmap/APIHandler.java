@@ -1,21 +1,7 @@
 package com.example.joseph.bigmap;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderApi;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -30,12 +16,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 // Interacts with the BigMap server, specifically PHP code made to work with Android
-public class APIHandler extends AsyncTask implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class APIHandler extends AsyncTask {
 
     public static String URLHead = "http://jathweatt.com/BigMap/";
     public static String signIn = "signin.php";
@@ -44,16 +28,9 @@ public class APIHandler extends AsyncTask implements GoogleApiClient.ConnectionC
     public static Boolean signInSuccessful;
     public static Boolean isBroadcasting;
     public static ArrayList<Integer> userChannels;
-    public static String[] userInputs;
-    public static String cachedPHPData; // stores data from server
-    private static HashMap<Long, Coordinates> locationPacket;
-
-    private Context mContext;
-    private static FusedLocationProviderApi fusedLocation = LocationServices.FusedLocationApi;
-    private static GoogleApiClient googleApiClient;
-    private static LocationRequest locationRequest;
-
-    public int executeCommand;
+    private static String[] userInputs;
+    private static String cachedPHPData; // stores data from server
+    private int executeCommand;
 
     public APIHandler(int command) {
         if (userInputs[0] == null) {
@@ -63,13 +40,12 @@ public class APIHandler extends AsyncTask implements GoogleApiClient.ConnectionC
         executeCommand = command;
     }
 
-    public APIHandler(String[] inputs, int command, Context context) {
-        mContext = context;
+    // should be the first constructor called (to set the static methods
+    public APIHandler(String[] inputs, int command) {
         signInSuccessful = false;
         isBroadcasting = false;
         userInputs = inputs;
         executeCommand = command;
-        locationPacket = new HashMap<Long, Coordinates>();
     }
 
     @Override
@@ -82,19 +58,6 @@ public class APIHandler extends AsyncTask implements GoogleApiClient.ConnectionC
                 if (isBroadcasting = isBroadcastingChannels()) {
                     userChannels = getBroadcastingChannels();
                 }
-                break;
-            case 2:
-                googleApiClient = new GoogleApiClient.Builder(mContext)
-                        .addApi(LocationServices.API)
-                        .addConnectionCallbacks(this)
-                        .addOnConnectionFailedListener(this)
-                        .build();
-                locationRequest = new LocationRequest();
-                locationRequest.setInterval(5000); // look at provider every 5 seconds
-                locationRequest.setFastestInterval(1000); // or one second if its convenient
-                locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-
-                googleApiClient.connect();
                 break;
         }
         return null;
@@ -138,12 +101,7 @@ public class APIHandler extends AsyncTask implements GoogleApiClient.ConnectionC
                     response += line;
                 }
             }
-
-            if (response.contains("Welcome back, ")) {
-                signInSuccessful = true;
-            } else {
-                signInSuccessful = false;
-            }
+            signInSuccessful = response.contains("Welcome back, ");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -231,8 +189,8 @@ public class APIHandler extends AsyncTask implements GoogleApiClient.ConnectionC
         return null;
     }
 
-    // will send location packet from LocationService to the server
-    private Boolean sendLocationPacket(Double[] packet) {
+    // TODO: will send location packet from LocationService to the server
+    private Boolean sendLocationPacket() {
         return false; //temporary
     }
 
@@ -266,63 +224,5 @@ public class APIHandler extends AsyncTask implements GoogleApiClient.ConnectionC
             channels[i] = userChannels.get(i).toString();
         }
         return channels;
-    }
-
-    /*******************
-     * Google Maps API
-     * @param bundle
-     *******************/
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        requestLocationUpdates();
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.e("Error connecting", connectionResult.getErrorMessage());
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        locationPacket.put(location.getTime(),
-                new Coordinates(location.getLatitude(), location.getLongitude()));
-    }
-
-    public void requestLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(mContext,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(mContext,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                googleApiClient, locationRequest, this);
-    }
-
-    /********************************************
-     * A simple class to hold coordinate objects
-     ********************************************/
-    private class Coordinates {
-        public double lat, lon;
-
-        public Coordinates(double lat, double lon) {
-            this.lat = lat;
-            this.lon = lon;
-        }
     }
 }

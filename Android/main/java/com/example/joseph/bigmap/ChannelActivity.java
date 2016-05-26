@@ -1,6 +1,7 @@
 package com.example.joseph.bigmap;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -15,12 +16,12 @@ public class ChannelActivity extends AppCompatActivity{
     public static final String PREFS_NAME = "StoredUserInfo";
     SharedPreferences sharedPreferences;
 
-    APIHandler handler;
-    Boolean broadcasting;
+    String header;
     Button broadcastButton;
 
-    String header;
     int channelId;
+    Boolean broadcasting;
+    private static LocationService locationService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,8 +65,8 @@ public class ChannelActivity extends AppCompatActivity{
                     ContextCompat.getColor(getApplicationContext(), R.color.broadcasting));
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
-                handler = new APIHandler(2);
-
+                locationService = new LocationService();
+                startService(new Intent(ChannelActivity.this, LocationService.class));
 
                 broadcastButton.setText("Broadcasting");
             } else {

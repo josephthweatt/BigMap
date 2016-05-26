@@ -1,77 +1,115 @@
 package com.example.joseph.bigmap;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
-import android.os.Binder;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderApi;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
-// Wll recieve and submit location data to the databas
-public class LocationService extends Service {
-    private LocationManager locationManager;
-    private Double[] locationPacket;
+import java.util.HashMap;
 
-    private APIHandler handler;
+// Will receive and submit location data to the database
+public class LocationService extends Service implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    public LocationService (APIHandler handler) {
-        this.handler = handler;
+    private static HashMap<Long, Coordinates> locationPacket;
+    private static FusedLocationProviderApi fusedLocation = LocationServices.FusedLocationApi;
+    private static GoogleApiClient googleApiClient;
+    private static LocationRequest locationRequest;
+
+    public LocationService() {
+        locationPacket = new HashMap<Long, Coordinates>();
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(5000); // look at provider every 5 seconds
+        locationRequest.setFastestInterval(1000); // or one second if its convenient
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
     }
 
-    /**
-     * Class for clients to access.  Because we know this service always
-     * runs in the same process as its clients, we don't need to deal with
-     * IPC.
-     */
-    public class LocalBinder extends Binder {
-        LocationService getService() {
-            return LocationService.this;
-        }
+    public void stopBroadcastLocation() {
+        googleApiClient.disconnect();
     }
 
     @Override
-    public void onCreate() {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationPacket = new Double[2];
-
-        Timer timer = new Timer();
-        TimerTask receiveLocation = new  ReceiveLocationTask();
-        TimerTask submitPacket = new SubmitLocationPacket();
-        timer.schedule(receiveLocation, 0, 1000);
-        timer.schedule(submitPacket, 0, 1000);
-
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        googleApiClient.connect();
+        return START_STICKY;
     }
 
+    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return mBinder;
+        return null;
     }
 
-    // This is the object that receives interactions from clients.
-    private final IBinder mBinder = new LocalBinder();
+    /****************************
+     * Override Maps API methods
+     * @param bundle
+     ****************************/
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        requestLocationUpdates();
+    }
 
-    private class ReceiveLocationTask extends TimerTask {
-        Location location;
-        public void run() {
-            try {
-                location = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
-                locationPacket[0] = location.getLatitude();
-                locationPacket[1] = location.getLongitude();
-            } catch (SecurityException e) {
-                Log.e("Security Exception: ", "android.permission.ACCESS_FINE_LOCATION");
-            }
+    @Override
+    public void onConnectionSuspended(int i) {
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.e("Error connecting", connectionResult.getErrorMessage());
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        locationPacket.put(location.getTime(),
+                new Coordinates(location.getLatitude(), location.getLongitude()));
+    }
+
+    public void requestLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
         }
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                googleApiClient, locationRequest, this);
     }
 
-    // sends location packet to the BigMap database
-    private class SubmitLocationPacket extends TimerTask{
-        public void run() {
-            handler.execute(new Integer(1), locationPacket);
+    /*************************************
+     * A small class for storing location
+     *************************************/
+    private class Coordinates {
+        public double lat, lon;
+        public Coordinates(double lat, double lon) {
+            this.lat = lat;
+            this.lon = lon;
         }
     }
 }

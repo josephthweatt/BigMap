@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 userInfo[1] = password.getText().toString().trim();
 
                 // send userInfo to the Server, wait 5 secs max for response
-                APIHandler handler = new APIHandler(userInfo, 0, getApplicationContext());
+                APIHandler handler = new APIHandler(userInfo, 0);
                 try {
                     handler.execute(0).get(5000, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException|TimeoutException|ExecutionException e) {
