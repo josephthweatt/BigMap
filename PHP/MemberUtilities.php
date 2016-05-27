@@ -24,6 +24,25 @@
         }
     }
 
+    // checks if the user is within a channel
+    function isAMember($channelId) {
+        global $con;
+        global $userId;
+
+        mysqli_select_db($con, "bm_channel");
+        $query = "SELECT COUNT(*) FROM channels_broadcasting WHERE user_id = "
+            . $userId . " AND channel_id = " . $channelId;
+        return mysqli_query($con, $query); // returns 1 if it finds a match
+    }
+
+    function getUserId($userInfo) {
+        global $con;
+        mysqli_select_db($con, "bm_members");
+        $query = "SELECT id FROM user_info WHERE username = \""
+            . $userInfo[0] . "\" AND password = \"" . $userInfo[1] . "\"";
+        return mysqli_query($con, $query);
+    }
+
     //returns true if the username isn't found in the db
     function userNotFound() {
         global $con, $userInfo;
