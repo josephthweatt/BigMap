@@ -10,7 +10,8 @@
     isset($_POST["user-info"]) ? $userInfo = $_POST["user-info"] : die("user info not set");
 
     $id = userExists($userInfo);
-    if ($id != 0 && !newBroadcaster($id)) { // bm_channel selected here
+    if ($id != 0) { // bm_channel selected here
+        newBroadcaster($id) ? echo "You have not registered to any channels";
         $query = "SELECT channel_id FROM channels_broadcasting WHERE user_id = " . $id;
         $queryObject = mysqli_query($con, $query);
 
@@ -19,6 +20,4 @@
             $idString .= $channel["channel_id"] . " ";
         }
         echo $idString; // final result
-    } else {
-        echo "You have not registered to any channels";
-    }
+    } 
