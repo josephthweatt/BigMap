@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <!--THIS IS A TEST FORM USED TO DEBUG ReceiveLocationPacket.php. 
+        It should not be used in the actual system, but archived for future testing-->
+    <head>
+        <title>Enter a location for a user</title>
+    </head>
+    <body>
+        <form action="PHP/RecieveLocationPacket.php" method="post">
+            <fieldset>
+                <legend>Give location to a user</legend>
+                Username:<br>
+                <input type="text" name="user-info[]">
+                <br>Password:<br>
+                <input type="password" name="user-info[]">
+                <br>Channel ID (there can actually be many of these, 
+                    but this is just a test so we won't bother with it now)<br>
+                <input type="number" name="channelIds[]">
+                <br>Time<br>
+                <input type="text" name="locationPacket[]">
+                <br>latitude<br>
+                <input type="text" name="locationPacket[]">
+                <br>longitude<br>
+                <input type="text" name="locationPacket[]">
+                <br>
+                <input type="submit">
+            </fieldset>
+        </form>
+    </body>
+</html>

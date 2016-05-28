@@ -4,3 +4,4 @@ To do:
 -title PHP files so that they have matching title format(X)
 -find a more secure way to store user info and password on Android (instead of using MODE_WORLD_WRITEABLE)
 -make sure that checking you broadcasting channels doesn't reconstruct the locationService
+-learn about mod_rewrite to hide php files from public knowledge

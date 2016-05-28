@@ -21,7 +21,7 @@
 
     isset($_POST["userInfo"]) ? $userInfo = $_POST["userInfo"] : die ("no user id specified");
     isset($_POST["channelIds"]) ? $channelIds = $_POST["channelIds"] : die ("channel ids not specified");
-    isset($_POST["locationPacket"]) ? $locationPacket = $_POST["userId"] : die ("location Packet not found");
+    isset($_POST["locationPacket"]) ? $locationPacket = $_POST["locationPacket"] : die ("location Packet not found");
 
     userExists($userInfo) ? $userId = getUserId($userInfo) : die ("user does not exist");
 
