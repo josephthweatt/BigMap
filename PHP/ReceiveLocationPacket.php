@@ -23,7 +23,7 @@
     isset($_POST["channelIds"]) ? $channelIds = $_POST["channelIds"] : die ("channel ids not specified");
     isset($_POST["locationPacket"]) ? $locationPacket = $_POST["locationPacket"] : die ("location Packet not found");
 
-    userExists($userInfo) ? $userId = getUserId($userInfo) : die ("user does not exist");
+    userExists($userInfo) ? $userId = getUserId($userInfo) : die ();
 
     foreach ($channelIds as $channelId) {
         if (isAMember($channelId)) {

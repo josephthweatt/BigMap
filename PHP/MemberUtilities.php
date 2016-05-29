@@ -40,7 +40,7 @@
         mysqli_select_db($con, "bm_members");
         $query = "SELECT id FROM user_info WHERE username = \""
             . $userInfo[0] . "\" AND password = \"" . $userInfo[1] . "\"";
-        return mysqli_query($con, $query);
+        return mysqli_query($con, $query)->fetch_array()[0];
     }
 
     //returns true if the username isn't found in the db

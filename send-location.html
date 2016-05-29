@@ -9,13 +9,13 @@
         <script type="text/javascript" src="js/FormFilledOut.js"></script>
     </head>
     <body>
-        <form action="PHP/RecieveLocationPacket.php" method="post" id="f" onsubmit="return formFilledOut()">
+        <form action="PHP/ReceiveLocationPacket.php" method="post" id="f" onsubmit="return formFilledOut()">
             <fieldset>
                 <legend>Give location to a user</legend>
                 Username:<br>
-                <input type="text" name="user-info[]">
+                <input type="text" name="userInfo[]">
                 <br>Password:<br>
-                <input type="password" name="user-info[]">
+                <input type="password" name="userInfo[]">
                 <br>Channel ID (there can actually be many of these, 
                     but this is just a test so we won't bother with it now)<br>
                 <input type="number" name="channelIds[]">
