@@ -11,17 +11,21 @@
      * represent real UTC (we're using UTC because we don't have the time to include
      * location-specific features).
      *
-     * This file receives 3 types of inputs, in the form of POST:
+     * This file receives 4 types of inputs, in the form of POST:
      *      1.) the user's id:          [userid]
      *      2.) channels broadcasting:  [channelId]...
-     *      2.) the locationPacket:     [time, latitude, longitude]...
+     *      3.) the locationPackets:    [time, latitude, longitude]...
+     *      4.) the number of packets   [packetCount]
+     *
+     * The names of the LocationPackets will simply be formatted as locationPacket#,
+     * where '#' is the number (starting from zero. 0 is the earliest packet)
      ***********************************************************************************/
 
     $con = mysqli_connect("localhost", "root");
 
     isset($_POST["userInfo"]) ? $userInfo = $_POST["userInfo"] : die ("no user id specified");
     isset($_POST["channelIds"]) ? $channelIds = $_POST["channelIds"] : die ("channel ids not specified");
-    isset($_POST["locationPacket"]) ? $locationPacket = $_POST["locationPacket"] : die ("location Packet not found");
+    isset($_POST["packetCount"]) ? $packetCount = $_POST["packetCount"] : die ("packet count not specified");
 
     userExists($userInfo) ? $userId = getUserId($userInfo) : die ();
 
@@ -32,22 +36,23 @@
     }
 
     // set the user's current (last known) location
+    $lastLocation = $_POST["locationPacket" . ($packetCount - 1)];
     $query = "UPDATE broadcast_member SET current_lat = "
-        . $locationPacket[1] . ", current_long = " . $locationPacket[2] . " WHERE broadcaster_id = " . $userId;
+        . $lastLocation[1] . ", current_long = " . $lastLocation[2] . " WHERE broadcaster_id = " . $userId;
     mysqli_query($con, $query);
     echo "Locations properly stored"; // end of script
 
     // TODO: turn broadcast_member into something like last_known_location
 
-    // TODO: Make this so that it can add multiple location instances
     function addLocationPacket($channelId) {
         global $con;
-        global $locationPacket;
         global $userId;
+        global $packetCount;
 
-        $query = "INSERT INTO location_history VALUES ("
-            . $userId . "," . $channelId . "," . $locationPacket[0]
-            . "," . $locationPacket[1] . "," . $locationPacket[2] . ")";
-        mysqli_query($con, $query);
-
+        for ($i = 0; $i < $packetCount; $i++) {
+            $query = "INSERT INTO location_history VALUES ("
+                . $userId . "," . $channelId . "," . $_POST["locationPacket" . $i][0]
+                . "," . $_POST["locationPacket" . $i][1] . "," . $_POST["locationPacket" . $i][2] . ")";
+            mysqli_query($con, $query);
+        }
     }
