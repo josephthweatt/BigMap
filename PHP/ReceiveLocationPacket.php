@@ -1,5 +1,5 @@
 <?php
-    // error_reporting(E_ALL); // uncomment for debugging
+    error_reporting(E_ALL); // uncomment for debugging
     include 'MemberUtilities.php';
 
     /************************************************************************************
@@ -14,7 +14,7 @@
      * This file receives 3 types of inputs, in the form of POST:
      *      1.) the user's id:          [userid]
      *      2.) channels broadcasting:  [channelId]...
-     *      2.) the locationPacket:     [time][latitude, longitude]...
+     *      2.) the locationPacket:     [time, latitude, longitude]...
      ***********************************************************************************/
 
     $con = mysqli_connect("localhost", "root");
@@ -30,20 +30,24 @@
             addLocationPacket($channelId);
         }
     }
-    // TODO: turn broadcast_member into something like last_known_location
-    // set the user's current (last known) location
-    $lastLocation = end($locationPacket);
-    $query = "ALTER TABLE broadcast_member SET current_lat = "
-        . $lastLocation[1][0] . "," . $lastLocation[1][1] . " WHERE broadcaster_id = " . $userId;
-    mysqli_query($con, $query); // end of script
 
+    // set the user's current (last known) location
+    $query = "UPDATE broadcast_member SET current_lat = "
+        . $locationPacket[1] . ", current_long = " . $locationPacket[2] . " WHERE broadcaster_id = " . $userId;
+    mysqli_query($con, $query);
+    echo "Locations properly stored"; // end of script
+
+    // TODO: turn broadcast_member into something like last_known_location
+
+    // TODO: Make this so that it can add multiple location instances
     function addLocationPacket($channelId) {
         global $con;
         global $locationPacket;
         global $userId;
-        foreach ($locationPacket as $location) {
-            $query = "INSERT INTO location_history VALUES ("
-                . $userId . "," . $channelId . "," . $location[0] . "," . $location[1][0] . "," . $location[1][1] . ")";
-            mysqli_query($con, $query);
-        }
+
+        $query = "INSERT INTO location_history VALUES ("
+            . $userId . "," . $channelId . "," . $locationPacket[0]
+            . "," . $locationPacket[1] . "," . $locationPacket[2] . ")";
+        mysqli_query($con, $query);
+
     }
