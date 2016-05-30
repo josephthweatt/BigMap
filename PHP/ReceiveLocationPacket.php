@@ -12,7 +12,7 @@
      * location-specific features).
      *
      * This file receives 4 types of inputs, in the form of POST:
-     *      1.) the user's id:          [userid]
+     *      1.) the user's info:          [userInfo]
      *      2.) channels broadcasting:  [channelId]...
      *      3.) the locationPackets:    [time, latitude, longitude]...
      *      4.) the number of packets   [packetCount]
@@ -36,11 +36,15 @@
     }
 
     // set the user's current (last known) location
-    $lastLocation = $_POST["locationPacket" . ($packetCount - 1)];
-    $query = "UPDATE broadcast_member SET current_lat = "
-        . $lastLocation[1] . ", current_long = " . $lastLocation[2] . " WHERE broadcaster_id = " . $userId;
-    mysqli_query($con, $query);
-    echo "Locations properly stored"; // end of script
+    if (isset($_POST["locationPacket" . ($packetCount - 1)])) {
+        $lastLocation = $_POST["locationPacket" . ($packetCount - 1)];
+        $query = "UPDATE broadcast_member SET current_lat = "
+            . $lastLocation[1] . ", current_long = " . $lastLocation[2] . " WHERE broadcaster_id = " . $userId;
+        mysqli_query($con, $query);
+        echo "Locations properly stored"; // end of script
+    } else {
+        echo "lastLocation packet not found";
+    }
 
     // TODO: turn broadcast_member into something like last_known_location
 
@@ -50,9 +54,11 @@
         global $packetCount;
 
         for ($i = 0; $i < $packetCount; $i++) {
-            $query = "INSERT INTO location_history VALUES ("
-                . $userId . "," . $channelId . "," . $_POST["locationPacket" . $i][0]
-                . "," . $_POST["locationPacket" . $i][1] . "," . $_POST["locationPacket" . $i][2] . ")";
-            mysqli_query($con, $query);
+            if (isset($_POST["locationPacket" . $i])) {
+                $query = "INSERT INTO location_history VALUES ("
+                    . $userId . "," . $channelId . "," . $_POST["locationPacket" . $i][0]
+                    . "," . $_POST["locationPacket" . $i][1] . "," . $_POST["locationPacket" . $i][2] . ")";
+                mysqli_query($con, $query);
+            }
         }
     }
