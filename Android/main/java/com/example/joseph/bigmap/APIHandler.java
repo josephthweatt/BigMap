@@ -64,8 +64,12 @@ public class APIHandler extends AsyncTask {
                 }
                 break;
             case 2:
-                // TODO: send out location with sendLocationPacket
-                LocationService.clearLocationPacket();
+                if (sendLocationPacket()) {
+                    Log.e("APIHandler", "error sending locationPacket to server");
+                } else {
+                    Log.i("APIHandler", "locationPacket successfully sent");
+                }
+                break;
         }
         return null;
     }
@@ -209,7 +213,7 @@ public class APIHandler extends AsyncTask {
         parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[0]));
         parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[1]));
         for (int i = 0; i < userChannels.size(); i++) {
-            parameters.add(new AbstractMap.SimpleEntry("channelIds[]", userChannels.get(i));
+            parameters.add(new AbstractMap.SimpleEntry("channelIds[]", userChannels.get(i)));
         }
         // put locationPacket into POST format
         HashMap locationPacket = LocationService.getLocationPacket();
