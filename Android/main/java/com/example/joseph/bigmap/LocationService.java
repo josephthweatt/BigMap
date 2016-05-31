@@ -76,6 +76,10 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         }
     }
 
+    public static HashMap<Long, Coordinates> getLocationPacket() {
+        return locationPacket;
+    }
+
     public static void clearLocationPacket() {
         locationPacket.clear();
     }
@@ -91,6 +95,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
     @Override
     public void onConnectionSuspended(int i) {
+        // TODO: find out what needs to be put here
     }
 
     @Override
@@ -120,14 +125,14 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        LocationServices.FusedLocationApi.requestLocationUpdates(
+        fusedLocation.requestLocationUpdates(
                 googleApiClient, locationRequest, this);
     }
 
     /*************************************
      * A small class for storing location
      *************************************/
-    private class Coordinates {
+    protected class Coordinates {
         public double lat, lon;
         public Coordinates(double lat, double lon) {
             this.lat = lat;

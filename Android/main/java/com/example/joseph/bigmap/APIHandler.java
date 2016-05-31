@@ -16,7 +16,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 // Interacts with the BigMap server, specifically PHP code made to work with Android
 public class APIHandler extends AsyncTask {
@@ -24,6 +27,7 @@ public class APIHandler extends AsyncTask {
     public static String URLHead = "http://jathweatt.com/BigMap/";
     public static String signIn = "signin.php";
     public static String myBroadcastingChannels = "MyBroadcastingChannels.php";
+    public static String receiveLocationPacket = "ReceiveLocationPacket.php";
 
     public static Boolean signInSuccessful;
     public static Boolean isBroadcasting;
@@ -192,9 +196,91 @@ public class APIHandler extends AsyncTask {
         return null;
     }
 
-    // TODO: will send location packet from LocationService to the server
-    private void sendLocationPacket() {
+    /*****************************************************************************
+     *  The server receives location with 4 types of inputs, in the form of POST:
+     *      1.) the user's info:        [userInfo]
+     *      2.) channels broadcasting:  [channelIds]...
+     *      3.) the locationPackets:    [time, latitude, longitude]...
+     *      4.) the number of packets   [packetCount]
+     *  Returns true if the information was successfully stored.
+     *****************************************************************************/
+    private Boolean sendLocationPacket() {
+        List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
+        parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[0]));
+        parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[1]));
+        for (int i = 0; i < userChannels.size(); i++) {
+            parameters.add(new AbstractMap.SimpleEntry("channelIds[]", userChannels.get(i));
+        }
+        // put locationPacket into POST format
+        HashMap locationPacket = LocationService.getLocationPacket();
+        LocationService.Coordinates coordinates;
+        Iterator iterator = locationPacket.entrySet().iterator();
+        int packetNumber = 0;
+        while (iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            coordinates = (LocationService.Coordinates) entry.getValue();
 
+            parameters.add(new AbstractMap.SimpleEntry(
+                    "locationPacket" + packetNumber + "[]", entry.getKey()));
+            parameters.add(new AbstractMap.SimpleEntry(
+                    "locationPacket" + packetNumber + "[]", coordinates.lat));
+            parameters.add(new AbstractMap.SimpleEntry(
+                            "locationPacket" + packetNumber + "[]", coordinates.lon));
+            packetNumber++;
+        }
+        parameters.add(new AbstractMap.SimpleEntry("packetCount", packetNumber));
+
+        HttpURLConnection connection = null;
+        BufferedReader reader = null;
+        URL url;
+        try {
+            // get output stream for the connection and write the parameter query string to it
+            url = new URL(URLHead + receiveLocationPacket);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            OutputStream os = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getQuery(parameters));
+            writer.flush();
+            writer.close();
+            os.close();
+
+            connection.connect();
+
+            String line;
+            String response = "";
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                while ((line = reader.readLine()) != null) {
+                    response += line;
+                }
+            }
+            if (response.contains("Locations properly stored")) {
+                LocationService.clearLocationPacket();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false;
     }
 
     // method turns query params to a POST String. I found the method on this stackoverflow thread:

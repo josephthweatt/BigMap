@@ -1,5 +1,5 @@
 <?php
-    error_reporting(E_ALL); // uncomment for debugging
+    // error_reporting(E_ALL); // uncomment for debugging
     include 'MemberUtilities.php';
 
     /************************************************************************************
@@ -12,8 +12,8 @@
      * location-specific features).
      *
      * This file receives 4 types of inputs, in the form of POST:
-     *      1.) the user's info:          [userInfo]
-     *      2.) channels broadcasting:  [channelId]...
+     *      1.) the user's info:        [userInfo]
+     *      2.) channels broadcasting:  [channelIds]...
      *      3.) the locationPackets:    [time, latitude, longitude]...
      *      4.) the number of packets   [packetCount]
      *
