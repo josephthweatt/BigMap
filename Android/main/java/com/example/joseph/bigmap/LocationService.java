@@ -18,6 +18,9 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,7 +30,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private static String TAG = "LocationService";
 
-    private static HashMap<Long, Coordinates> locationPacket;
+    private static HashMap<String, Coordinates> locationPacket;
     private static FusedLocationProviderApi fusedLocation = LocationServices.FusedLocationApi;
     private static GoogleApiClient googleApiClient;
     private static LocationRequest locationRequest;
@@ -77,7 +80,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         }
     }
 
-    public static HashMap<Long, Coordinates> getLocationPacket() {
+    public static HashMap<String, Coordinates> getLocationPacket() {
         return locationPacket;
     }
 
@@ -105,7 +108,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
     @Override
     public void onLocationChanged(Location location) {
-        locationPacket.put(location.getTime(),
+        locationPacket.put(timeAsString(location),
                 new Coordinates(location.getLatitude(), location.getLongitude()));
     }
 
@@ -127,6 +130,14 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         }
         fusedLocation.requestLocationUpdates(
                 googleApiClient, locationRequest, this);
+    }
+
+    // should return in UTC
+    private String timeAsString (Location location) {
+        // code taken from: stackoverflow.com/questions/12747549/android-location-time-into-date
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date(location.getTime());
+        return format.format(date);
     }
 
     /*************************************
