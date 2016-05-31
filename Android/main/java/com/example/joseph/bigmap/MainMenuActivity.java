@@ -13,10 +13,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-/**
- * Created by Joseph on 5/19/2016.
- */
 public class MainMenuActivity extends AppCompatActivity {
+    private static String TAG = "MainMenuActivity";
     public static final String PREFS_NAME = "StoredUserInfo";
 
     TextView welcome;

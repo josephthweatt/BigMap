@@ -15,10 +15,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "MainActivity";
     public static final String PREFS_NAME = "StoredUserInfo";
-    TextView header;
-    EditText username;
-    EditText password;
+
+    private TextView header;
+    private EditText username;
+    private EditText password;
     Button submit;
 
     String[] userInfo;

@@ -13,15 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ChannelActivity extends AppCompatActivity{
+    private static String TAG = "ChannelActivity";
     public static final String PREFS_NAME = "StoredUserInfo";
     SharedPreferences sharedPreferences;
 
-    String header;
-    Button broadcastButton;
+    private String header;
+    private Button broadcastButton;
 
-    int channelId;
-    Boolean broadcasting;
-    private static LocationService locationService;
+    protected int channelId;
+    protected Boolean broadcasting;
+    LocationService locationService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -25,17 +25,18 @@ import java.util.TimerTask;
 // Will receive and submit location data to the database
 public class LocationService extends Service implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
+    private static String TAG = "LocationService";
 
     private static HashMap<Long, Coordinates> locationPacket;
-    private static APIHandler apiHandler;
     private static FusedLocationProviderApi fusedLocation = LocationServices.FusedLocationApi;
     private static GoogleApiClient googleApiClient;
     private static LocationRequest locationRequest;
+    static APIHandler apiHandler;
 
     Timer timer;
 
     public LocationService() {
-        locationPacket = new HashMap<Long, Coordinates>();
+        locationPacket = new HashMap<>();
         locationRequest = new LocationRequest();
         locationRequest.setInterval(5000); // look at provider every 5 seconds
         locationRequest.setFastestInterval(1000); // or one second if its convenient
@@ -72,7 +73,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     private class SubmitLocationPacket extends TimerTask {
         public void run() {
             apiHandler = new APIHandler(2);
-            apiHandler.execute(2);
+            apiHandler.execute();
         }
     }
 
@@ -86,7 +87,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
     /****************************
      * Override Maps API methods
-     * @param bundle
      ****************************/
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -100,7 +100,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.e("Error connecting", connectionResult.getErrorMessage());
+        Log.e(TAG, connectionResult.getErrorMessage());
     }
 
     @Override

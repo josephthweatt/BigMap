@@ -20,6 +20,8 @@ import com.google.android.gms.location.LocationServices;
 
 public class ChannelListActivity
         extends AppCompatActivity implements AdapterView.OnItemClickListener {
+
+    private static String TAG = "ChannelListActivity";
     ListView channelList;
 
     @Override

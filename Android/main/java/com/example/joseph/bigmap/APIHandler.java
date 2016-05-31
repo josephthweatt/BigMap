@@ -23,6 +23,7 @@ import java.util.Map;
 
 // Interacts with the BigMap server, specifically PHP code made to work with Android
 public class APIHandler extends AsyncTask {
+    private String TAG = "APIHandler";
 
     public static String URLHead = "http://jathweatt.com/BigMap/";
     public static String signIn = "signin.php";
@@ -38,7 +39,7 @@ public class APIHandler extends AsyncTask {
 
     public APIHandler(int command) {
         if (userInputs[0] == null) {
-            Log.e("User not entered: ", "No user profile was given");
+            Log.e(TAG, "No user profile was given");
             return;
         }
         executeCommand = command;
@@ -65,9 +66,9 @@ public class APIHandler extends AsyncTask {
                 break;
             case 2:
                 if (sendLocationPacket()) {
-                    Log.e("APIHandler", "error sending locationPacket to server");
+                    Log.e(TAG, "error sending locationPacket to server");
                 } else {
-                    Log.i("APIHandler", "locationPacket successfully sent");
+                    Log.i(TAG, "locationPacket successfully sent");
                 }
                 break;
         }
