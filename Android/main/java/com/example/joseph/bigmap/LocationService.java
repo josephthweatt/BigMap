@@ -18,10 +18,10 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -132,10 +132,9 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 googleApiClient, locationRequest, this);
     }
 
-    // should return in UTC
     private String timeAsString (Location location) {
         // code taken from: stackoverflow.com/questions/12747549/android-location-time-into-date
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
         Date date = new Date(location.getTime());
         return format.format(date);
     }
