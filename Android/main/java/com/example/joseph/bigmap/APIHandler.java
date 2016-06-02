@@ -66,9 +66,9 @@ public class APIHandler extends AsyncTask {
                 break;
             case 2:
                 if (sendLocationPacket()) {
-                    Log.e(TAG, "error sending locationPacket to server");
-                } else {
                     Log.i(TAG, "locationPacket successfully sent");
+                } else {
+                    Log.e(TAG, "error sending locationPacket to server");
                 }
                 break;
         }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class ChannelActivity extends AppCompatActivity{
 
     protected int channelId;
     protected Boolean broadcasting;
+    static Intent serviceIntent;
     LocationService locationService;
 
     @Override
@@ -32,6 +34,10 @@ public class ChannelActivity extends AppCompatActivity{
         channelId = getIntent().getIntExtra("channelId", 0);
         header = "Channel " + channelId;
         ((TextView) findViewById(R.id.channel_header)).setText(header);
+
+        if (serviceIntent == null) {
+            serviceIntent = new Intent(ChannelActivity.this, LocationService.class);
+        }
 
         sharedPreferences = getSharedPreferences(PREFS_NAME, 0);
         if (sharedPreferences.contains(header)) {
@@ -67,7 +73,7 @@ public class ChannelActivity extends AppCompatActivity{
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 locationService = new LocationService();
-                startService(new Intent(ChannelActivity.this, LocationService.class));
+                startService(serviceIntent);
 
                 broadcastButton.setText("Broadcasting");
             } else {
@@ -75,6 +81,8 @@ public class ChannelActivity extends AppCompatActivity{
                         "GPS permissions not granted", Toast.LENGTH_SHORT).show();
             }
         } else { // user not broadcasting
+            stopService(serviceIntent);
+
             broadcastButton.setBackgroundColor(
                     ContextCompat.getColor(getApplicationContext(), R.color.notBroadcasting));
             broadcastButton.setText("Click to broadcast");

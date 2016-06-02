@@ -46,10 +46,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
     }
 
-    public void stopBroadcastLocation() {
-        googleApiClient.disconnect();
-    }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         googleApiClient = new GoogleApiClient.Builder(this)
@@ -64,6 +60,17 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         timer.schedule(submitPacket, 2000, 2000);
 
         return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        googleApiClient.disconnect();
+        locationPacket.clear();
+        timer.cancel();
+        timer.purge();
+
+        Log.i(TAG, "Service stopped");
+        super.onDestroy();
     }
 
     @Nullable
