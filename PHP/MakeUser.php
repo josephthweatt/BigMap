@@ -12,7 +12,7 @@
 			$metaInfoTable = "static_variables";
 			$newMembers = 0;
 
-			$con = mysqli_connect("localhost", "root") 
+			$con = mysqli_connect("localhost", "root")
 				or die(mysqli_error($con));
 
 			mysqli_select_db($con, "bm_metadata") or die (mysqli_error($con));

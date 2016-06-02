@@ -1,0 +1,21 @@
+[18-May-2016 23:02:49 UTC] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'josephthweatt'@'localhost' (using password: YES) in /home/josephthweatt/public_html/BigMap/makeuser.php on line 13
+[18-May-2016 23:02:49 UTC] PHP Warning:  mysqli_query(): Couldn't fetch mysqli in /home/josephthweatt/public_html/BigMap/makeuser.php on line 17
+[18-May-2016 23:02:49 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/josephthweatt/public_html/BigMap/makeuser.php on line 18
+[18-May-2016 23:02:49 UTC] PHP Warning:  mysqli::select_db(): Couldn't fetch mysqli in /home/josephthweatt/public_html/BigMap/makeuser.php on line 22
+[18-May-2016 23:02:49 UTC] PHP Warning:  mysqli_error(): Couldn't fetch mysqli in /home/josephthweatt/public_html/BigMap/makeuser.php on line 22
+[18-May-2016 23:53:44 UTC] PHP Warning:  mysqli::mysqli(): (28000/1045): Access denied for user 'josephthweatt'@'localhost' (using password: YES) in /home/josephthweatt/public_html/BigMap/makeuser.php on line 13
+[18-May-2016 23:53:44 UTC] PHP Warning:  mysqli_query(): Couldn't fetch mysqli in /home/josephthweatt/public_html/BigMap/makeuser.php on line 17
+[18-May-2016 23:53:44 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/josephthweatt/public_html/BigMap/makeuser.php on line 18
+[18-May-2016 23:53:44 UTC] PHP Warning:  mysqli::select_db(): Couldn't fetch mysqli in /home/josephthweatt/public_html/BigMap/makeuser.php on line 22
+[18-May-2016 23:53:44 UTC] PHP Warning:  mysqli_error(): Couldn't fetch mysqli in /home/josephthweatt/public_html/BigMap/makeuser.php on line 22
+[19-May-2016 00:01:52 UTC] PHP Warning:  mysqli::mysqli(): (42000/1044): Access denied for user 'db_friend'@'localhost' to database 'bm_metadata' in /home/josephthweatt/public_html/BigMap/makeuser.php on line 13
+[19-May-2016 00:01:52 UTC] PHP Warning:  mysqli_query(): Couldn't fetch mysqli in /home/josephthweatt/public_html/BigMap/makeuser.php on line 17
+[19-May-2016 00:01:52 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/josephthweatt/public_html/BigMap/makeuser.php on line 18
+[19-May-2016 00:01:52 UTC] PHP Warning:  mysqli::select_db(): Couldn't fetch mysqli in /home/josephthweatt/public_html/BigMap/makeuser.php on line 22
+[19-May-2016 00:01:52 UTC] PHP Warning:  mysqli_error(): Couldn't fetch mysqli in /home/josephthweatt/public_html/BigMap/makeuser.php on line 22
+[19-May-2016 07:32:29 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/josephthweatt/public_html/BigMap/makeuser.php on line 18
+[19-May-2016 07:34:13 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/josephthweatt/public_html/BigMap/makeuser.php on line 18
+[19-May-2016 07:36:40 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/josephthweatt/public_html/BigMap/makeuser.php on line 18
+[19-May-2016 07:45:58 UTC] PHP Fatal error:  Call to undefined function select_db() in /home/josephthweatt/public_html/BigMap/makeuser.php on line 16
+[21-May-2016 17:49:30 UTC] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/josephthweatt/public_html/BigMap/makeuser.php on line 14
+[21-May-2016 17:49:30 UTC] PHP Warning:  mysqli_error() expects parameter 1 to be mysqli, boolean given in /home/josephthweatt/public_html/BigMap/makeuser.php on line 14

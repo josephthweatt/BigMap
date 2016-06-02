@@ -11,7 +11,9 @@
 
     $id = userExists($userInfo);
     if ($id != 0) { // bm_channel selected here
-        newBroadcaster($id) ? echo "You have not registered to any channels";
+        if (newBroadcaster($id)) { 
+            die ("You have not registered to any channels");
+        }
         $query = "SELECT channel_id FROM channels_broadcasting WHERE user_id = " . $id;
         $queryObject = mysqli_query($con, $query);
 

@@ -62,8 +62,3 @@
             }
         }
     }
-
-    // android time is milliseconds sinceJan 1, 1970
-    // returns format YYYYMMDDHHMMSS
-    function androidTimeToDateTime ($androidtime) {
-    }

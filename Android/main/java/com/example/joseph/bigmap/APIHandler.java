@@ -25,8 +25,8 @@ import java.util.Map;
 public class APIHandler extends AsyncTask {
     private String TAG = "APIHandler";
 
-    public static String URLHead = "http://jathweatt.com/BigMap/";
-    public static String signIn = "signin.php";
+    public static String URLHead = "http://jathweatt.com/BigMap/PHP/";
+    public static String signIn = "SignIn.php";
     public static String myBroadcastingChannels = "MyBroadcastingChannels.php";
     public static String receiveLocationPacket = "ReceiveLocationPacket.php";
 
@@ -88,7 +88,7 @@ public class APIHandler extends AsyncTask {
         URL url;
         try {
             // get output stream for the connection and write the parameter query string to it
-            url = new URL(URLHead + signIn.toLowerCase());
+            url = new URL(URLHead + signIn);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
