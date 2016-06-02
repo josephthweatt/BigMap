@@ -57,7 +57,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
         timer = new Timer();
         TimerTask submitPacket = new SubmitLocationPacket();
-        timer.schedule(submitPacket, 2000, 2000);
+        timer.schedule(submitPacket, 1000, 1000);
 
         return START_STICKY;
     }
@@ -82,8 +82,10 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     // Access APIHandler every 'x' seconds to send the locationPacket to the server
     private class SubmitLocationPacket extends TimerTask {
         public void run() {
-            apiHandler = new APIHandler(2);
-            apiHandler.execute();
+            if (locationPacket.size() > 0) {
+                apiHandler = new APIHandler(2);
+                apiHandler.execute();
+            }
         }
     }
 
