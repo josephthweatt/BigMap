@@ -15,7 +15,7 @@
     isset($_POST["channelId"]) ? $channelId = $_POST["channelId"] : die ("channel ids not specified");
 
     userExists($userInfo) ? $userId = getUserId($userInfo) : die ();
-    if (isAMember($channelId)) {
+    if (alreadyJoined($userId, $channelId)) {
         // begin creating the page ($con currently points to bm_channel)
         echo "<h1>You have entered Channel " . $channelId . "</h1>";
 

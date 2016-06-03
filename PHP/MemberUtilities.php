@@ -24,18 +24,6 @@
         }
     }
 
-    // TODO: delete this method because it already exists as alreadyJoined()
-    // checks if the user is within a channel
-    function isAMember($channelId) {
-        global $con;
-        global $userId;
-
-        mysqli_select_db($con, "bm_channel");
-        $query = "SELECT COUNT(*) FROM channels_broadcasting WHERE user_id = "
-            . $userId . " AND channel_id = " . $channelId;
-        return mysqli_query($con, $query); // returns 1 if it finds a match
-    }
-
     function getUsername($userId) {
         global $con;
         mysqli_select_db($con, "bm_members");
@@ -98,11 +86,11 @@
     }
 
     // true if a user is already in a channel
-    function alreadyJoined($id, $channelId) {
+    function alreadyJoined($userId, $channelId) {
         global $con;
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT COUNT(*) FROM channels_broadcasting WHERE user_id = "
-            . $id . " AND channel_id = " . $channelId;
+            . $userId . " AND channel_id = " . $channelId;
         $result = getFromTable($query);
         return $result["COUNT(*)"]; // returns 1 or 0
     }

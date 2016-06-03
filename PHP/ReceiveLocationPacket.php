@@ -30,7 +30,7 @@
     userExists($userInfo) ? $userId = getUserId($userInfo) : die ();
 
     foreach ($channelIds as $channelId) {
-        if (isAMember($channelId)) {
+        if (alreadyJoined($userId, $channelId)) {
             addLocationPacket($channelId);
         }
     }

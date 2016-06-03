@@ -4,6 +4,7 @@
     <list default="true" id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/MemberUtilities.php" afterPath="$PROJECT_DIR$/PHP/MemberUtilities.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ReceiveLocationPacket.php" afterPath="$PROJECT_DIR$/PHP/ReceiveLocationPacket.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ViewChannelContent.php" afterPath="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
     </list>
     <ignored path="BigMap.iws" />
@@ -36,44 +37,43 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewChannelContent.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ViewChannelContent.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="70" selection-start-line="24" selection-start-column="70" selection-end-line="24" selection-end-column="70" />
+            <state relative-caret-position="190">
+              <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
               <folding>
-                <marker date="1464981439141" expanded="true" signature="919:940" placeholder="..." />
-                <marker date="1464981439141" expanded="true" signature="1018:1222" placeholder="..." />
-                <marker date="1464981439141" expanded="true" signature="1163:1200" placeholder="..." />
+                <marker date="1464982697350" expanded="true" signature="932:953" placeholder="..." />
+                <marker date="1464982697350" expanded="true" signature="1031:1235" placeholder="..." />
+                <marker date="1464982697350" expanded="true" signature="1176:1213" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MemberUtilities.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MemberUtilities.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2142">
-              <caret line="126" column="57" selection-start-line="126" selection-start-column="57" selection-end-line="126" selection-end-column="57" />
+            <state relative-caret-position="99">
+              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
               <folding>
                 <element signature="e#10#335#0#PHP" expanded="true" />
-                <marker date="1464980705574" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
-                <marker date="1464980705574" expanded="true" signature="1299:1403" placeholder="SELECT COUNT... channels_broadcasting" />
-                <marker date="1464980705574" expanded="true" signature="1623:1666" placeholder="SELECT usern... user_info" />
-                <marker date="1464980705574" expanded="true" signature="1623:1667" placeholder="SELECT usern... user_info" />
-                <marker date="1464980705574" expanded="true" signature="1857:1975" placeholder="SELECT id FR... user_info" />
-                <marker date="1464980705574" expanded="true" signature="2183:2206" placeholder="SELECT * FRO... user_info" />
-                <marker date="1464980705574" expanded="true" signature="2960:3031" placeholder="SELECT EXIST... " />
-                <marker date="1464980705574" expanded="true" signature="2974:3012" placeholder="SELECT 1 FRO... channel_info" />
-                <marker date="1464980705574" expanded="true" signature="3331:3393" placeholder="SELECT user_... channels_broadcasting" />
-                <marker date="1464980705574" expanded="true" signature="3331:3394" placeholder="SELECT user_... channels_broadcasting" />
-                <marker date="1464980705574" expanded="true" signature="3643:3743" placeholder="SELECT COUNT... channels_broadcasting" />
-                <marker date="1464980705574" expanded="true" signature="4044:4105" placeholder="SELECT COUNT... broadcast_member" />
-                <marker date="1464980705574" expanded="true" signature="4435:4488" placeholder="SELECT * FRO... location_history" />
-                <marker date="1464980705574" expanded="true" signature="4435:4489" placeholder="SELECT * FRO... location_history" />
-                <marker date="1464980705574" expanded="true" signature="4435:4533" placeholder="SELECT * FRO... location_history" />
-                <marker date="1464980705574" expanded="true" signature="4435:4534" placeholder="SELECT * FRO... location_history" />
-                <marker date="1464980705574" expanded="true" signature="4435:4535" placeholder="SELECT * FRO... location_history" />
+                <marker date="1464982714002" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
+                <marker date="1464982714002" expanded="true" signature="1150:1193" placeholder="SELECT usern... user_info" />
+                <marker date="1464982714002" expanded="true" signature="1150:1194" placeholder="SELECT usern... user_info" />
+                <marker date="1464982714002" expanded="true" signature="1384:1502" placeholder="SELECT id FR... user_info" />
+                <marker date="1464982714002" expanded="true" signature="1710:1733" placeholder="SELECT * FRO... user_info" />
+                <marker date="1464982714002" expanded="true" signature="2487:2558" placeholder="SELECT EXIST... " />
+                <marker date="1464982714002" expanded="true" signature="2501:2539" placeholder="SELECT 1 FRO... channel_info" />
+                <marker date="1464982714002" expanded="true" signature="2858:2920" placeholder="SELECT user_... channels_broadcasting" />
+                <marker date="1464982714002" expanded="true" signature="2858:2921" placeholder="SELECT user_... channels_broadcasting" />
+                <marker date="1464982714002" expanded="true" signature="3174:3278" placeholder="SELECT COUNT... channels_broadcasting" />
+                <marker date="1464982714002" expanded="true" signature="3579:3640" placeholder="SELECT COUNT... broadcast_member" />
+                <marker date="1464982714002" expanded="true" signature="3970:4023" placeholder="SELECT * FRO... location_history" />
+                <marker date="1464982714002" expanded="true" signature="3970:4024" placeholder="SELECT * FRO... location_history" />
+                <marker date="1464982714002" expanded="true" signature="3970:4068" placeholder="SELECT * FRO... location_history" />
+                <marker date="1464982714002" expanded="true" signature="3970:4069" placeholder="SELECT * FRO... location_history" />
+                <marker date="1464982714002" expanded="true" signature="3970:4070" placeholder="SELECT * FRO... location_history" />
               </folding>
             </state>
           </provider>
@@ -82,11 +82,11 @@
       <file leaf-file-name="ReceiveLocationPacket.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/ReceiveLocationPacket.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+            <state relative-caret-position="197">
+              <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
               <folding>
-                <marker date="1464899078711" expanded="true" signature="2088:2231" placeholder="UPDATE broad... " />
-                <marker date="1464899078711" expanded="true" signature="2731:2966" placeholder="INSERT INTO location_history... " />
+                <marker date="1464982625435" expanded="true" signature="2101:2244" placeholder="UPDATE broad... " />
+                <marker date="1464982625435" expanded="true" signature="2744:2979" placeholder="INSERT INTO location_history... " />
               </folding>
             </state>
           </provider>
@@ -102,8 +102,9 @@
       <list>
         <option value="$PROJECT_DIR$/To do list.txt" />
         <option value="$PROJECT_DIR$/view-channel-content.html" />
-        <option value="$PROJECT_DIR$/PHP/MemberUtilities.php" />
+        <option value="$PROJECT_DIR$/PHP/ReceiveLocationPacket.php" />
         <option value="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
+        <option value="$PROJECT_DIR$/PHP/MemberUtilities.php" />
       </list>
     </option>
   </component>
@@ -235,12 +236,12 @@
       <option name="presentableId" value="Default" />
       <updated>1464935218992</updated>
       <workItem from="1464935220347" duration="4521000" />
-      <workItem from="1464978088940" duration="3378000" />
+      <workItem from="1464978088940" duration="4216000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7899000" />
+    <option name="totallyTimeSpent" value="8737000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="638" y="0" width="1282" height="1040" extended-state="0" />
@@ -251,6 +252,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32975295" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -261,7 +263,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -295,9 +296,9 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1464981439141" expanded="true" signature="919:940" placeholder="..." />
-            <marker date="1464981439141" expanded="true" signature="1018:1222" placeholder="..." />
-            <marker date="1464981439141" expanded="true" signature="1163:1200" placeholder="..." />
+            <marker date="1464982697350" expanded="true" signature="932:953" placeholder="..." />
+            <marker date="1464982697350" expanded="true" signature="1031:1235" placeholder="..." />
+            <marker date="1464982697350" expanded="true" signature="1176:1213" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -307,8 +308,8 @@
         <state relative-caret-position="493">
           <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="68" />
           <folding>
-            <marker date="1464899078711" expanded="true" signature="2088:2231" placeholder="UPDATE broad... " />
-            <marker date="1464899078711" expanded="true" signature="2731:2966" placeholder="INSERT INTO location_history... " />
+            <marker date="1464982625435" expanded="true" signature="2101:2244" placeholder="UPDATE broad... " />
+            <marker date="1464982625435" expanded="true" signature="2744:2979" placeholder="INSERT INTO location_history... " />
           </folding>
         </state>
       </provider>
@@ -319,23 +320,22 @@
           <caret line="129" column="36" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
           <folding>
             <element signature="e#10#335#0#PHP" expanded="true" />
-            <marker date="1464980705574" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
-            <marker date="1464980705574" expanded="true" signature="1299:1403" placeholder="SELECT COUNT... channels_broadcasting" />
-            <marker date="1464980705574" expanded="true" signature="1623:1666" placeholder="SELECT usern... user_info" />
-            <marker date="1464980705574" expanded="true" signature="1623:1667" placeholder="SELECT usern... user_info" />
-            <marker date="1464980705574" expanded="true" signature="1857:1975" placeholder="SELECT id FR... user_info" />
-            <marker date="1464980705574" expanded="true" signature="2183:2206" placeholder="SELECT * FRO... user_info" />
-            <marker date="1464980705574" expanded="true" signature="2960:3031" placeholder="SELECT EXIST... " />
-            <marker date="1464980705574" expanded="true" signature="2974:3012" placeholder="SELECT 1 FRO... channel_info" />
-            <marker date="1464980705574" expanded="true" signature="3331:3393" placeholder="SELECT user_... channels_broadcasting" />
-            <marker date="1464980705574" expanded="true" signature="3331:3394" placeholder="SELECT user_... channels_broadcasting" />
-            <marker date="1464980705574" expanded="true" signature="3643:3743" placeholder="SELECT COUNT... channels_broadcasting" />
-            <marker date="1464980705574" expanded="true" signature="4044:4105" placeholder="SELECT COUNT... broadcast_member" />
-            <marker date="1464980705574" expanded="true" signature="4435:4488" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464980705574" expanded="true" signature="4435:4489" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464980705574" expanded="true" signature="4435:4533" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464980705574" expanded="true" signature="4435:4534" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464980705574" expanded="true" signature="4435:4535" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464982714002" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
+            <marker date="1464982714002" expanded="true" signature="1150:1193" placeholder="SELECT usern... user_info" />
+            <marker date="1464982714002" expanded="true" signature="1150:1194" placeholder="SELECT usern... user_info" />
+            <marker date="1464982714002" expanded="true" signature="1384:1502" placeholder="SELECT id FR... user_info" />
+            <marker date="1464982714002" expanded="true" signature="1710:1733" placeholder="SELECT * FRO... user_info" />
+            <marker date="1464982714002" expanded="true" signature="2487:2558" placeholder="SELECT EXIST... " />
+            <marker date="1464982714002" expanded="true" signature="2501:2539" placeholder="SELECT 1 FRO... channel_info" />
+            <marker date="1464982714002" expanded="true" signature="2858:2920" placeholder="SELECT user_... channels_broadcasting" />
+            <marker date="1464982714002" expanded="true" signature="2858:2921" placeholder="SELECT user_... channels_broadcasting" />
+            <marker date="1464982714002" expanded="true" signature="3174:3278" placeholder="SELECT COUNT... channels_broadcasting" />
+            <marker date="1464982714002" expanded="true" signature="3579:3640" placeholder="SELECT COUNT... broadcast_member" />
+            <marker date="1464982714002" expanded="true" signature="3970:4023" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464982714002" expanded="true" signature="3970:4024" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464982714002" expanded="true" signature="3970:4068" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464982714002" expanded="true" signature="3970:4069" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464982714002" expanded="true" signature="3970:4070" placeholder="SELECT * FRO... location_history" />
           </folding>
         </state>
       </provider>
@@ -381,50 +381,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PHP/ReceiveLocationPacket.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+        <state relative-caret-position="197">
+          <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
           <folding>
-            <marker date="1464899078711" expanded="true" signature="2088:2231" placeholder="UPDATE broad... " />
-            <marker date="1464899078711" expanded="true" signature="2731:2966" placeholder="INSERT INTO location_history... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2142">
-          <caret line="126" column="57" selection-start-line="126" selection-start-column="57" selection-end-line="126" selection-end-column="57" />
-          <folding>
-            <element signature="e#10#335#0#PHP" expanded="true" />
-            <marker date="1464980705574" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
-            <marker date="1464980705574" expanded="true" signature="1299:1403" placeholder="SELECT COUNT... channels_broadcasting" />
-            <marker date="1464980705574" expanded="true" signature="1623:1666" placeholder="SELECT usern... user_info" />
-            <marker date="1464980705574" expanded="true" signature="1623:1667" placeholder="SELECT usern... user_info" />
-            <marker date="1464980705574" expanded="true" signature="1857:1975" placeholder="SELECT id FR... user_info" />
-            <marker date="1464980705574" expanded="true" signature="2183:2206" placeholder="SELECT * FRO... user_info" />
-            <marker date="1464980705574" expanded="true" signature="2960:3031" placeholder="SELECT EXIST... " />
-            <marker date="1464980705574" expanded="true" signature="2974:3012" placeholder="SELECT 1 FRO... channel_info" />
-            <marker date="1464980705574" expanded="true" signature="3331:3393" placeholder="SELECT user_... channels_broadcasting" />
-            <marker date="1464980705574" expanded="true" signature="3331:3394" placeholder="SELECT user_... channels_broadcasting" />
-            <marker date="1464980705574" expanded="true" signature="3643:3743" placeholder="SELECT COUNT... channels_broadcasting" />
-            <marker date="1464980705574" expanded="true" signature="4044:4105" placeholder="SELECT COUNT... broadcast_member" />
-            <marker date="1464980705574" expanded="true" signature="4435:4488" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464980705574" expanded="true" signature="4435:4489" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464980705574" expanded="true" signature="4435:4533" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464980705574" expanded="true" signature="4435:4534" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464980705574" expanded="true" signature="4435:4535" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464982625435" expanded="true" signature="2101:2244" placeholder="UPDATE broad... " />
+            <marker date="1464982625435" expanded="true" signature="2744:2979" placeholder="INSERT INTO location_history... " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="70" selection-start-line="24" selection-start-column="70" selection-end-line="24" selection-end-column="70" />
+        <state relative-caret-position="190">
+          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
           <folding>
-            <marker date="1464981439141" expanded="true" signature="919:940" placeholder="..." />
-            <marker date="1464981439141" expanded="true" signature="1018:1222" placeholder="..." />
-            <marker date="1464981439141" expanded="true" signature="1163:1200" placeholder="..." />
+            <marker date="1464982697350" expanded="true" signature="932:953" placeholder="..." />
+            <marker date="1464982697350" expanded="true" signature="1031:1235" placeholder="..." />
+            <marker date="1464982697350" expanded="true" signature="1176:1213" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+          <folding>
+            <element signature="e#10#335#0#PHP" expanded="true" />
+            <marker date="1464982714002" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
+            <marker date="1464982714002" expanded="true" signature="1150:1193" placeholder="SELECT usern... user_info" />
+            <marker date="1464982714002" expanded="true" signature="1150:1194" placeholder="SELECT usern... user_info" />
+            <marker date="1464982714002" expanded="true" signature="1384:1502" placeholder="SELECT id FR... user_info" />
+            <marker date="1464982714002" expanded="true" signature="1710:1733" placeholder="SELECT * FRO... user_info" />
+            <marker date="1464982714002" expanded="true" signature="2487:2558" placeholder="SELECT EXIST... " />
+            <marker date="1464982714002" expanded="true" signature="2501:2539" placeholder="SELECT 1 FRO... channel_info" />
+            <marker date="1464982714002" expanded="true" signature="2858:2920" placeholder="SELECT user_... channels_broadcasting" />
+            <marker date="1464982714002" expanded="true" signature="2858:2921" placeholder="SELECT user_... channels_broadcasting" />
+            <marker date="1464982714002" expanded="true" signature="3174:3278" placeholder="SELECT COUNT... channels_broadcasting" />
+            <marker date="1464982714002" expanded="true" signature="3579:3640" placeholder="SELECT COUNT... broadcast_member" />
+            <marker date="1464982714002" expanded="true" signature="3970:4023" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464982714002" expanded="true" signature="3970:4024" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464982714002" expanded="true" signature="3970:4068" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464982714002" expanded="true" signature="3970:4069" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464982714002" expanded="true" signature="3970:4070" placeholder="SELECT * FRO... location_history" />
           </folding>
         </state>
       </provider>
