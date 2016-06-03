@@ -1,6 +1,9 @@
 package com.example.joseph.bigmap;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -24,6 +27,9 @@ import java.util.Map;
 // Interacts with the BigMap server, specifically PHP code made to work with Android
 public class APIHandler extends AsyncTask {
     private String TAG = "APIHandler";
+    public static final String PREFS_NAME = "StoredUserInfo";
+    public static Context context;
+    static SharedPreferences sharedPreferences;
 
     public static String URLHead = "http://jathweatt.com/BigMap/PHP/";
     public static String signIn = "SignIn.php";
@@ -33,6 +39,7 @@ public class APIHandler extends AsyncTask {
     public static Boolean signInSuccessful;
     public static Boolean isBroadcasting;
     public static ArrayList<Integer> userChannels;
+    public static ArrayList<Integer> broadcastingChannels;
     private static String[] userInputs;
     private static String cachedPHPData; // stores data from server
     private int executeCommand;
@@ -54,6 +61,11 @@ public class APIHandler extends AsyncTask {
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
     protected Object doInBackground(Object[] params) {
         switch (executeCommand) {
             case 0:
@@ -61,12 +73,17 @@ public class APIHandler extends AsyncTask {
                 break;
             case 1:
                 if (isBroadcasting = isBroadcastingChannels()) {
-                    userChannels = getBroadcastingChannels();
+                    userChannels = getRegisteredChannels();
                 }
                 break;
             case 2:
                 if (sendLocationPacket()) {
-                    Log.i(TAG, "locationPacket successfully sent");
+                    String ids = "";
+                    for (int i : broadcastingChannels) {
+                        ids += i + " ";
+                    }
+                    Log.i(TAG, "locationPacket successfully sent to channel: "
+                            + ids);
                 } else {
                     Log.e(TAG, "error sending locationPacket to server");
                 }
@@ -186,7 +203,8 @@ public class APIHandler extends AsyncTask {
         return false;
     }
 
-    private ArrayList<Integer> getBroadcastingChannels() {
+    // returns all registered channels (even ones not currently broadcasting)
+    private ArrayList<Integer> getRegisteredChannels() {
         String title = "Your broadcasting channels: ";
         if (cachedPHPData.contains(title)) {
             ArrayList<Integer> userChannels = new ArrayList<Integer>();
@@ -201,6 +219,23 @@ public class APIHandler extends AsyncTask {
         return null;
     }
 
+    // results found in broadcastingChannels
+    protected static void setBroadcastingChannels() {
+        if (broadcastingChannels == null) {
+            broadcastingChannels = new ArrayList<>();
+        }
+        // TODO: find out when/where the context should be assigned, its currently at login
+        sharedPreferences = context.getSharedPreferences(PREFS_NAME, 0);
+
+        broadcastingChannels.clear();
+        for (Integer i : userChannels) {
+            // check if user wants to broadcast the channel
+            if (sharedPreferences.getBoolean("Channel " + i, false)) {
+                broadcastingChannels.add(i);
+            }
+        }
+    }
+
     /*****************************************************************************
      *  The server receives location with 4 types of inputs, in the form of POST:
      *      1.) the user's info:        [userInfo]
@@ -213,8 +248,8 @@ public class APIHandler extends AsyncTask {
         List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
         parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[0]));
         parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[1]));
-        for (int i = 0; i < userChannels.size(); i++) {
-            parameters.add(new AbstractMap.SimpleEntry("channelIds[]", userChannels.get(i)));
+        for (int i : broadcastingChannels) {
+            parameters.add(new AbstractMap.SimpleEntry("channelIds[]", i));
         }
         // put locationPacket into POST format
         HashMap locationPacket = LocationService.getLocationPacket();

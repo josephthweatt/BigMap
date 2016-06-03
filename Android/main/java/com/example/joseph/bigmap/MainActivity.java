@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("password", userInfo[1]);
                     editor.apply();
 
+                    // pass context to APIHandler so that can access sharedPrefs
+                    APIHandler.context = getApplicationContext();
+
                     Intent goToMainMenu = new Intent(MainActivity.this, MainMenuActivity.class);
                     startActivity(goToMainMenu);
                 } else {

@@ -36,7 +36,10 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     private static LocationRequest locationRequest;
     static APIHandler apiHandler;
 
-    Timer timer;
+    // TODO: ChannelActivity should not directly control the service, it should only
+    // TODO: tell the service when a channel has started/stopped broadcasting
+    static Timer timer;
+    static TimerTask submitPacket;
 
     public LocationService() {
         locationPacket = new HashMap<>();
@@ -56,7 +59,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         googleApiClient.connect();
 
         timer = new Timer();
-        TimerTask submitPacket = new SubmitLocationPacket();
+        submitPacket  = new SubmitLocationPacket();
         timer.schedule(submitPacket, 1000, 1000);
 
         return START_STICKY;
@@ -64,6 +67,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
     @Override
     public void onDestroy() {
+        //
         googleApiClient.disconnect();
         locationPacket.clear();
         timer.cancel();

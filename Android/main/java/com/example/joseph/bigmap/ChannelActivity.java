@@ -47,26 +47,17 @@ public class ChannelActivity extends AppCompatActivity{
         }
 
         broadcastButton = (Button) findViewById(R.id.channel_button);
-        setButtonState(broadcasting);
+        setBroadcastState(broadcasting);
         broadcastButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // change current state of broadcasting
-                setButtonState(!broadcasting);
+                setBroadcastState(!broadcasting);
             }
         });
     }
 
-    @Override
-    public void onPause() {
-        // saves the state of channel broadcasting
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(header, broadcasting);
-        editor.apply();
-        super.onPause();
-    }
-
-    public void setButtonState(Boolean selectedState) {
+    public void setBroadcastState(Boolean selectedState) {
         if (selectedState) { // user is broadcasting
             broadcastButton.setBackgroundColor(
                     ContextCompat.getColor(getApplicationContext(), R.color.broadcasting));
@@ -88,5 +79,16 @@ public class ChannelActivity extends AppCompatActivity{
             broadcastButton.setText("Click to broadcast");
         }
         broadcasting = selectedState;
+        storeBroadcastState();
+    }
+
+    public void storeBroadcastState() {
+        // saves the state of channel broadcasting
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(header, broadcasting);
+        editor.apply();
+
+        // update the list in the APIHandler
+        APIHandler.setBroadcastingChannels();
     }
 }
