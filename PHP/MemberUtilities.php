@@ -24,6 +24,7 @@
         }
     }
 
+    // TODO: delete this method because it already exists as alreadyJoined
     // checks if the user is within a channel
     function isAMember($channelId) {
         global $con;
@@ -33,6 +34,13 @@
         $query = "SELECT COUNT(*) FROM channels_broadcasting WHERE user_id = "
             . $userId . " AND channel_id = " . $channelId;
         return mysqli_query($con, $query); // returns 1 if it finds a match
+    }
+
+    function getUsername($userId) {
+        global $con;
+        mysqli_select_db($con, "bm_members");
+        $query = "SELECT username FROM `user_info` WHERE id = " . $userId;
+        return mysqli_query($con, $query);
     }
 
     function getUserId($userInfo) {
@@ -80,6 +88,15 @@
         }
     }
 
+    function getChannelMembers($channelId) {
+        global $con;
+        mysqli_select_db($con, "bm_channel");
+
+        $query = "SELECT user_id FROM `channels_broadcasting` WHERE channel_id = "
+            . $channelId;
+        return getFromTable($query);
+    }
+
     // true if a user is already in a channel
     function alreadyJoined($id, $channelId) {
         global $con;
@@ -91,17 +108,26 @@
     }
 
     // return true if the user needs a broadcasting profile
-    function newBroadcaster($id) {
+    function newBroadcaster($userId) {
         global $con;
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT COUNT(*) FROM broadcast_member WHERE broadcaster_id = "
-            . $id;
+            . $userId;
         $result = getFromTable($query);
         if ($result["COUNT(*)"] == 0) {
             return true;
         } else {
             return false;
         }
+    }
+
+    function getLocationHistory($userId) {
+        global $con;
+        global $channelId;
+        mysqli_select_db($con, "bm_channel");
+        $query = "SELECT * FROM location_history WHERE broadcaster_id = "
+            . $userId . " AND channel_id = " . $channelId;
+        return getFromTable($query);
     }
 
     // takes connection and query to return an array of something

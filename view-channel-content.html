@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<!-- 
+		 This channel will allow users to view user location and history.
+		 They may only have access to this if they are members of the 
+		 channel, meaning that they are either users or the channel owners.
+	-->
+	<head>
+		<title>View Channel Locations</title>
+        <!-- saved from url=(0014)about:internet -->
+        <!-- saved from url=(0016)http://localhost -->
+        <script type="text/javascript" src="js/FormFilledOut.js"></script>
+	</head>
+	<body>
+		<form action="PHP/ViewChannelContent.php" method="post" id="f" onsubmit="return formFilledOut()">
+            <fieldset>
+                <legend>View a Channel</legend>
+                Username:<br>
+                <input type="text" name="userInfo[]">
+                <br>Password:<br>
+                <input type="password" name="userInfo[]">
+                <br>Channel Number<br>
+                <input type="number" name="channelId">
+                <br>
+                <input type="submit">
+            </fieldset>
+        </form>
+	</body>
+</html>
