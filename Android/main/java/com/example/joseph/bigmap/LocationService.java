@@ -40,6 +40,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     // TODO: tell the service when a channel has started/stopped broadcasting
     static Timer timer;
     static TimerTask submitPacket;
+    private static boolean run;
 
     public LocationService() {
         locationPacket = new HashMap<>();
@@ -58,6 +59,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 .build();
         googleApiClient.connect();
 
+        run = true;
         timer = new Timer();
         submitPacket  = new SubmitLocationPacket();
         timer.schedule(submitPacket, 1000, 1000);
@@ -67,11 +69,9 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
     @Override
     public void onDestroy() {
-        //
         googleApiClient.disconnect();
         locationPacket.clear();
-        timer.cancel();
-        timer.purge();
+        run = false;
 
         Log.i(TAG, "Service stopped");
         super.onDestroy();
@@ -86,9 +86,15 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     // Access APIHandler every 'x' seconds to send the locationPacket to the server
     private class SubmitLocationPacket extends TimerTask {
         public void run() {
-            if (locationPacket.size() > 0) {
-                apiHandler = new APIHandler(2);
-                apiHandler.execute();
+            if (run) {
+                if (locationPacket.size() > 0) {
+                    apiHandler = new APIHandler(2);
+                    apiHandler.execute();
+                }
+            } else {
+                submitPacket.cancel();
+                timer.cancel();
+                timer.purge();
             }
         }
     }

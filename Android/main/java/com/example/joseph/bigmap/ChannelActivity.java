@@ -63,26 +63,46 @@ public class ChannelActivity extends AppCompatActivity{
                     ContextCompat.getColor(getApplicationContext(), R.color.broadcasting));
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
-                locationService = new LocationService();
-                startService(serviceIntent);
-
+                startBroadcasting();
                 broadcastButton.setText("Broadcasting");
             } else {
                 Toast.makeText(getApplicationContext(),
                         "GPS permissions not granted", Toast.LENGTH_SHORT).show();
             }
         } else { // user not broadcasting
-            stopService(serviceIntent);
-
+            stopBroadcasting();
             broadcastButton.setBackgroundColor(
                     ContextCompat.getColor(getApplicationContext(), R.color.notBroadcasting));
             broadcastButton.setText("Click to broadcast");
         }
-        broadcasting = selectedState;
-        storeBroadcastState();
     }
 
-    public void storeBroadcastState() {
+    private void startBroadcasting() {
+        if (locationService == null) {
+            locationService = new LocationService();
+        }
+        broadcasting = true;
+        storeBroadcastState();
+        APIHandler.setBroadcastingChannels();
+        // TODO: make sure the service doesn't stop every time the activity refreshes
+        // begin locationService if the APIHandler just received its first broadcasting channel
+        if (APIHandler.broadcastingChannels.size() == 1) {
+            startService(serviceIntent);
+        }
+    }
+
+    private void stopBroadcasting() {
+        broadcasting = false;
+        storeBroadcastState();
+        APIHandler.setBroadcastingChannels();
+        // TODO: make sure the service doesn't stop every time the activity refreshes
+        // stop the locationService if there are no other channels broadcasting
+        if (APIHandler.broadcastingChannels.size() == 0 && locationService != null) {
+            stopService(serviceIntent);
+        }
+    }
+
+    private void storeBroadcastState() {
         // saves the state of channel broadcasting
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(header, broadcasting);
