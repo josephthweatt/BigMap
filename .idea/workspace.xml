@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/MemberUtilities.php" afterPath="$PROJECT_DIR$/PHP/MemberUtilities.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/To do list.txt" afterPath="$PROJECT_DIR$/To do list.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ViewChannelContent.php" afterPath="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
     </list>
     <ignored path="BigMap.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,7 +25,7 @@
     <favorites_list name="BigMap" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="view-channel-content.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view-channel-content.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -40,24 +39,12 @@
       <file leaf-file-name="ViewChannelContent.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
+            <state relative-caret-position="408">
+              <caret line="24" column="70" selection-start-line="24" selection-start-column="70" selection-end-line="24" selection-end-column="70" />
               <folding>
-                <marker date="1464940082951" expanded="true" signature="990:1010" placeholder="..." />
-                <marker date="1464940082951" expanded="true" signature="1132:1153" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReceiveLocationPacket.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PHP/ReceiveLocationPacket.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="68" />
-              <folding>
-                <marker date="1464899078711" expanded="true" signature="2088:2231" placeholder="UPDATE broad... " />
-                <marker date="1464899078711" expanded="true" signature="2731:2966" placeholder="INSERT INTO location_history... " />
+                <marker date="1464981439141" expanded="true" signature="919:940" placeholder="..." />
+                <marker date="1464981439141" expanded="true" signature="1018:1222" placeholder="..." />
+                <marker date="1464981439141" expanded="true" signature="1163:1200" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -66,26 +53,40 @@
       <file leaf-file-name="MemberUtilities.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1097">
-              <caret line="129" column="36" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
+            <state relative-caret-position="2142">
+              <caret line="126" column="57" selection-start-line="126" selection-start-column="57" selection-end-line="126" selection-end-column="57" />
               <folding>
-                <marker date="1464938667771" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
-                <marker date="1464938667771" expanded="true" signature="1297:1401" placeholder="SELECT COUNT... channels_broadcasting" />
-                <marker date="1464938667771" expanded="true" signature="1621:1664" placeholder="SELECT usern... user_info" />
-                <marker date="1464938667771" expanded="true" signature="1621:1665" placeholder="SELECT usern... user_info" />
-                <marker date="1464938667771" expanded="true" signature="1849:1967" placeholder="SELECT id FR... user_info" />
-                <marker date="1464938667771" expanded="true" signature="2175:2198" placeholder="SELECT * FRO... user_info" />
-                <marker date="1464938667771" expanded="true" signature="2952:3023" placeholder="SELECT EXIST... " />
-                <marker date="1464938667771" expanded="true" signature="2966:3004" placeholder="SELECT 1 FRO... channel_info" />
-                <marker date="1464938667771" expanded="true" signature="3323:3385" placeholder="SELECT user_... channels_broadcasting" />
-                <marker date="1464938667771" expanded="true" signature="3323:3386" placeholder="SELECT user_... channels_broadcasting" />
-                <marker date="1464938667771" expanded="true" signature="3635:3735" placeholder="SELECT COUNT... channels_broadcasting" />
-                <marker date="1464938667771" expanded="true" signature="4036:4097" placeholder="SELECT COUNT... broadcast_member" />
-                <marker date="1464938667771" expanded="true" signature="4442:4495" placeholder="SELECT * FRO... location_history" />
-                <marker date="1464938667771" expanded="true" signature="4442:4496" placeholder="SELECT * FRO... location_history" />
-                <marker date="1464938667771" expanded="true" signature="4442:4540" placeholder="SELECT * FRO... location_history" />
-                <marker date="1464938667771" expanded="true" signature="4442:4541" placeholder="SELECT * FRO... location_history" />
-                <marker date="1464938667771" expanded="true" signature="4442:4542" placeholder="SELECT * FRO... location_history" />
+                <element signature="e#10#335#0#PHP" expanded="true" />
+                <marker date="1464980705574" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
+                <marker date="1464980705574" expanded="true" signature="1299:1403" placeholder="SELECT COUNT... channels_broadcasting" />
+                <marker date="1464980705574" expanded="true" signature="1623:1666" placeholder="SELECT usern... user_info" />
+                <marker date="1464980705574" expanded="true" signature="1623:1667" placeholder="SELECT usern... user_info" />
+                <marker date="1464980705574" expanded="true" signature="1857:1975" placeholder="SELECT id FR... user_info" />
+                <marker date="1464980705574" expanded="true" signature="2183:2206" placeholder="SELECT * FRO... user_info" />
+                <marker date="1464980705574" expanded="true" signature="2960:3031" placeholder="SELECT EXIST... " />
+                <marker date="1464980705574" expanded="true" signature="2974:3012" placeholder="SELECT 1 FRO... channel_info" />
+                <marker date="1464980705574" expanded="true" signature="3331:3393" placeholder="SELECT user_... channels_broadcasting" />
+                <marker date="1464980705574" expanded="true" signature="3331:3394" placeholder="SELECT user_... channels_broadcasting" />
+                <marker date="1464980705574" expanded="true" signature="3643:3743" placeholder="SELECT COUNT... channels_broadcasting" />
+                <marker date="1464980705574" expanded="true" signature="4044:4105" placeholder="SELECT COUNT... broadcast_member" />
+                <marker date="1464980705574" expanded="true" signature="4435:4488" placeholder="SELECT * FRO... location_history" />
+                <marker date="1464980705574" expanded="true" signature="4435:4489" placeholder="SELECT * FRO... location_history" />
+                <marker date="1464980705574" expanded="true" signature="4435:4533" placeholder="SELECT * FRO... location_history" />
+                <marker date="1464980705574" expanded="true" signature="4435:4534" placeholder="SELECT * FRO... location_history" />
+                <marker date="1464980705574" expanded="true" signature="4435:4535" placeholder="SELECT * FRO... location_history" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReceiveLocationPacket.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PHP/ReceiveLocationPacket.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+              <folding>
+                <marker date="1464899078711" expanded="true" signature="2088:2231" placeholder="UPDATE broad... " />
+                <marker date="1464899078711" expanded="true" signature="2731:2966" placeholder="INSERT INTO location_history... " />
               </folding>
             </state>
           </provider>
@@ -112,12 +113,14 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="638" />
+    <option name="width" value="1282" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -178,8 +181,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -202,6 +205,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -215,6 +224,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="" />
@@ -222,36 +234,45 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1464935218992</updated>
-      <workItem from="1464935220347" duration="4063000" />
+      <workItem from="1464935220347" duration="4521000" />
+      <workItem from="1464978088940" duration="3378000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4063000" />
+    <option name="totallyTimeSpent" value="7899000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="638" y="0" width="1282" height="1040" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15876777" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -261,11 +282,68 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/view-channel-content.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1464981439141" expanded="true" signature="919:940" placeholder="..." />
+            <marker date="1464981439141" expanded="true" signature="1018:1222" placeholder="..." />
+            <marker date="1464981439141" expanded="true" signature="1163:1200" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/ReceiveLocationPacket.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="68" />
+          <folding>
+            <marker date="1464899078711" expanded="true" signature="2088:2231" placeholder="UPDATE broad... " />
+            <marker date="1464899078711" expanded="true" signature="2731:2966" placeholder="INSERT INTO location_history... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2142">
+          <caret line="129" column="36" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
+          <folding>
+            <element signature="e#10#335#0#PHP" expanded="true" />
+            <marker date="1464980705574" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
+            <marker date="1464980705574" expanded="true" signature="1299:1403" placeholder="SELECT COUNT... channels_broadcasting" />
+            <marker date="1464980705574" expanded="true" signature="1623:1666" placeholder="SELECT usern... user_info" />
+            <marker date="1464980705574" expanded="true" signature="1623:1667" placeholder="SELECT usern... user_info" />
+            <marker date="1464980705574" expanded="true" signature="1857:1975" placeholder="SELECT id FR... user_info" />
+            <marker date="1464980705574" expanded="true" signature="2183:2206" placeholder="SELECT * FRO... user_info" />
+            <marker date="1464980705574" expanded="true" signature="2960:3031" placeholder="SELECT EXIST... " />
+            <marker date="1464980705574" expanded="true" signature="2974:3012" placeholder="SELECT 1 FRO... channel_info" />
+            <marker date="1464980705574" expanded="true" signature="3331:3393" placeholder="SELECT user_... channels_broadcasting" />
+            <marker date="1464980705574" expanded="true" signature="3331:3394" placeholder="SELECT user_... channels_broadcasting" />
+            <marker date="1464980705574" expanded="true" signature="3643:3743" placeholder="SELECT COUNT... channels_broadcasting" />
+            <marker date="1464980705574" expanded="true" signature="4044:4105" placeholder="SELECT COUNT... broadcast_member" />
+            <marker date="1464980705574" expanded="true" signature="4435:4488" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464980705574" expanded="true" signature="4435:4489" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464980705574" expanded="true" signature="4435:4533" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464980705574" expanded="true" signature="4435:4534" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464980705574" expanded="true" signature="4435:4535" placeholder="SELECT * FRO... location_history" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/To do list.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -273,7 +351,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -281,43 +358,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="8" selection-end-column="70" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
+    <entry file="file://$PROJECT_DIR$/PHP/MyBroadcastingChannels.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1097">
-          <caret line="129" column="36" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1464938667771" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
-            <marker date="1464938667771" expanded="true" signature="1297:1401" placeholder="SELECT COUNT... channels_broadcasting" />
-            <marker date="1464938667771" expanded="true" signature="1621:1664" placeholder="SELECT usern... user_info" />
-            <marker date="1464938667771" expanded="true" signature="1621:1665" placeholder="SELECT usern... user_info" />
-            <marker date="1464938667771" expanded="true" signature="1849:1967" placeholder="SELECT id FR... user_info" />
-            <marker date="1464938667771" expanded="true" signature="2175:2198" placeholder="SELECT * FRO... user_info" />
-            <marker date="1464938667771" expanded="true" signature="2952:3023" placeholder="SELECT EXIST... " />
-            <marker date="1464938667771" expanded="true" signature="2966:3004" placeholder="SELECT 1 FRO... channel_info" />
-            <marker date="1464938667771" expanded="true" signature="3323:3385" placeholder="SELECT user_... channels_broadcasting" />
-            <marker date="1464938667771" expanded="true" signature="3323:3386" placeholder="SELECT user_... channels_broadcasting" />
-            <marker date="1464938667771" expanded="true" signature="3635:3735" placeholder="SELECT COUNT... channels_broadcasting" />
-            <marker date="1464938667771" expanded="true" signature="4036:4097" placeholder="SELECT COUNT... broadcast_member" />
-            <marker date="1464938667771" expanded="true" signature="4442:4495" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464938667771" expanded="true" signature="4442:4496" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464938667771" expanded="true" signature="4442:4540" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464938667771" expanded="true" signature="4442:4541" placeholder="SELECT * FRO... location_history" />
-            <marker date="1464938667771" expanded="true" signature="4442:4542" placeholder="SELECT * FRO... location_history" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/ReceiveLocationPacket.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="68" />
-          <folding>
-            <marker date="1464899078711" expanded="true" signature="2088:2231" placeholder="UPDATE broad... " />
-            <marker date="1464899078711" expanded="true" signature="2731:2966" placeholder="INSERT INTO location_history... " />
+            <marker date="1464899079928" expanded="true" signature="637:698" placeholder="SELECT chann... channels_broadcasting" />
           </folding>
         </state>
       </provider>
@@ -330,13 +379,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/ReceiveLocationPacket.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="35" column="5" selection-start-line="35" selection-start-column="5" selection-end-line="35" selection-end-column="5" />
+          <folding>
+            <marker date="1464899078711" expanded="true" signature="2088:2231" placeholder="UPDATE broad... " />
+            <marker date="1464899078711" expanded="true" signature="2731:2966" placeholder="INSERT INTO location_history... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2142">
+          <caret line="126" column="57" selection-start-line="126" selection-start-column="57" selection-end-line="126" selection-end-column="57" />
+          <folding>
+            <element signature="e#10#335#0#PHP" expanded="true" />
+            <marker date="1464980705574" expanded="true" signature="628:693" placeholder="SELECT * FRO... user_info" />
+            <marker date="1464980705574" expanded="true" signature="1299:1403" placeholder="SELECT COUNT... channels_broadcasting" />
+            <marker date="1464980705574" expanded="true" signature="1623:1666" placeholder="SELECT usern... user_info" />
+            <marker date="1464980705574" expanded="true" signature="1623:1667" placeholder="SELECT usern... user_info" />
+            <marker date="1464980705574" expanded="true" signature="1857:1975" placeholder="SELECT id FR... user_info" />
+            <marker date="1464980705574" expanded="true" signature="2183:2206" placeholder="SELECT * FRO... user_info" />
+            <marker date="1464980705574" expanded="true" signature="2960:3031" placeholder="SELECT EXIST... " />
+            <marker date="1464980705574" expanded="true" signature="2974:3012" placeholder="SELECT 1 FRO... channel_info" />
+            <marker date="1464980705574" expanded="true" signature="3331:3393" placeholder="SELECT user_... channels_broadcasting" />
+            <marker date="1464980705574" expanded="true" signature="3331:3394" placeholder="SELECT user_... channels_broadcasting" />
+            <marker date="1464980705574" expanded="true" signature="3643:3743" placeholder="SELECT COUNT... channels_broadcasting" />
+            <marker date="1464980705574" expanded="true" signature="4044:4105" placeholder="SELECT COUNT... broadcast_member" />
+            <marker date="1464980705574" expanded="true" signature="4435:4488" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464980705574" expanded="true" signature="4435:4489" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464980705574" expanded="true" signature="4435:4533" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464980705574" expanded="true" signature="4435:4534" placeholder="SELECT * FRO... location_history" />
+            <marker date="1464980705574" expanded="true" signature="4435:4535" placeholder="SELECT * FRO... location_history" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
+        <state relative-caret-position="408">
+          <caret line="24" column="70" selection-start-line="24" selection-start-column="70" selection-end-line="24" selection-end-column="70" />
           <folding>
-            <marker date="1464940082951" expanded="true" signature="990:1010" placeholder="..." />
-            <marker date="1464940082951" expanded="true" signature="1132:1153" placeholder="..." />
+            <marker date="1464981439141" expanded="true" signature="919:940" placeholder="..." />
+            <marker date="1464981439141" expanded="true" signature="1018:1222" placeholder="..." />
+            <marker date="1464981439141" expanded="true" signature="1163:1200" placeholder="..." />
           </folding>
         </state>
       </provider>

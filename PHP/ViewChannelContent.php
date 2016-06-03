@@ -22,16 +22,18 @@
         $channelMembers = getChannelMembers($channelId);
         foreach($channelMembers as $memberId) {
             // set user's location history
-            echo "<fieldset><legend>" .getUsername($memberId). "</legend>";
-             echo "<ul style=\"list-style-type:none\">";
+            echo "<fieldset style=\"display: inline-block\"><legend>" . getUsername($memberId) . "</legend>";
+             echo "<table>";
 
-            $locationHistory = getLocationHistory($memberId);
+            $locationHistory = getLocationHistory($memberId, $channelId);
             foreach ($locationHistory as $location) {
-                echo "<p>" . $location[2] . "</p>";
-                echo "<p>" . $location[3] . "</p>";
-                echo "<p>" . $location[4] . "</p>";
+                echo "<tr>";
+                echo "<td><p>" . $location['time'] . "</p></td>";
+                echo "<td><p>" . $location['latitude'] . "</p></td>";
+                echo "<td><p>" . $location['longitude'] . "</p></td>";
+                echo "</tr>";
             }
-             echo "</ul>";
+             echo "</table>";
             echo "</fieldset>";
         }
     } else {

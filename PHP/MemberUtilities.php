@@ -24,7 +24,7 @@
         }
     }
 
-    // TODO: delete this method because it already exists as alreadyJoined
+    // TODO: delete this method because it already exists as alreadyJoined()
     // checks if the user is within a channel
     function isAMember($channelId) {
         global $con;
@@ -40,7 +40,7 @@
         global $con;
         mysqli_select_db($con, "bm_members");
         $query = "SELECT username FROM `user_info` WHERE id = " . $userId;
-        return mysqli_query($con, $query);
+        return getFromTable($query)['username'];
     }
 
     function getUserId($userInfo) {
@@ -121,13 +121,12 @@
         }
     }
 
-    function getLocationHistory($userId) {
+    function getLocationHistory($userId, $channelId) {
         global $con;
-        global $channelId;
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT * FROM location_history WHERE broadcaster_id = "
             . $userId . " AND channel_id = " . $channelId;
-        return getFromTable($query);
+        return mysqli_query($con, $query);
     }
 
     // takes connection and query to return an array of something
