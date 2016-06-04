@@ -46,8 +46,6 @@
         echo "lastLocation packet not found";
     }
 
-    // TODO: turn broadcast_member into something like last_known_location
-
     function addLocationPacket($channelId) {
         global $con;
         global $userId;
