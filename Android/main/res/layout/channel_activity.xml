@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
 
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        class="com.google.android.gms.maps.SupportMapFragment" />
 
     <TextView
         android:id="@+id/channel_header"

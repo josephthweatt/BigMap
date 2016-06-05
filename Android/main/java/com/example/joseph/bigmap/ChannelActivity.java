@@ -27,11 +27,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class ChannelActivity extends AppCompatActivity {
+public class ChannelActivity extends FragmentActivity implements OnMapReadyCallback {
     private static String TAG = "ChannelActivity";
     public static final String PREFS_NAME = "StoredUserInfo";
     SharedPreferences sharedPreferences;
-    FragmentManager fragmentManager;
 
     private String header;
     private Button broadcastButton;
@@ -41,6 +40,8 @@ public class ChannelActivity extends AppCompatActivity {
     static Intent serviceIntent;
     LocationService locationService;
 
+    private GoogleMap mMap;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +49,10 @@ public class ChannelActivity extends AppCompatActivity {
 
         // start map fragment
         if (savedInstanceState == null) {
-            Fragment mapFragment = new ChannelMap();
-            fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(mapFragment, mapFragment.getTag());
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            Fragment mapFragment = fragmentManager.findFragmentById(R.id.map);
+            SupportMapFragment supportMapFragment = (SupportMapFragment) mapFragment;
+            supportMapFragment.getMapAsync(this);
         }
 
         // set header title
@@ -137,32 +138,20 @@ public class ChannelActivity extends AppCompatActivity {
         APIHandler.setBroadcastingChannels();
     }
 
-    /***************
-     * Map Fragment
-     ***************/
-    public static class ChannelMap extends Fragment implements OnMapReadyCallback  {
-        private GoogleMap mMap;
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            SupportMapFragment mapFragment = (SupportMapFragment)
-                    getFragmentManager().findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+    /*******************
+     * Maps API Methods
+     *******************/
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
-
-        @Override
-        public void onMapReady(GoogleMap googleMap) {
-            mMap = googleMap;
-            if (ActivityCompat.checkSelfPermission(getContext(),
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(getContext(),
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            mMap.setMyLocationEnabled(true);
-        }
+        mMap.setMyLocationEnabled(true);
     }
 }
