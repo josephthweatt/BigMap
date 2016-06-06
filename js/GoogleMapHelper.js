@@ -13,9 +13,6 @@
 var getLocationURL = "../PHP/GetChannelUsersLocation.php";
 var textHttp = createXMLHttpRequestObject();
 
-var channelId;
-var membersId;
-
 var usersLocations; // will be array of userLocation
 
 function UserLocation(userName, lat, long) {
@@ -46,12 +43,13 @@ function createXMLHttpRequestObject() {
     if (!textHttp) {
         alert("cannot create textHttp object");
     } else {
-        getInfoFromServer();
+        getUsersLocationForMap();
         return textHttp;
     }
 }
 
-function getInfoFromServer() {
+/* delete once we get JS to grab the PHP variables
+    function getInfoFromServer() {
     channelId = "<?php echo $_POST[\"channelId\"]?>";
 
     var membersIdArray = "<?php echo getChannelMembers(" + channelId + ")?>";
@@ -61,7 +59,7 @@ function getInfoFromServer() {
         if (i != membersIdArray.length - 1)
             membersId += "&";
     }
-}
+}*/
 
 function getUsersLocationForMap() {
     if (textHttp.readyState == 0 || textHttp.readyState == 4){
@@ -101,6 +99,7 @@ function getLocationsFromRequest() {
     }
 }
 
+// notes
 /**************** xmlHttpRequest *********************************************
 readyState 	Holds the status of the XMLHttpRequest. Changes from 0 to 4:
             0: request not initialized

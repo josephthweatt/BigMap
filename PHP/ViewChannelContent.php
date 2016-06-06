@@ -17,6 +17,18 @@
         <title>Sign Into BigMap</title>
         <!-- saved from url=(0014)about:internet -->
         <!-- saved from url=(0016)http://localhost -->
+
+        <!-- use PHP vars to help execute GoogleMapHelper.js -->
+        <?php
+            include 'MemberUtilities.php';
+            $con = mysqli_connect("localhost", "root");
+            $channelId = isset($_POST["channelId"]) ? $_POST["channelId"] : die ("no user id specified");
+            $membersArray = getChannelMembers($channelId);
+            $membersJSON = json_encode($membersArray);
+        ?>
+        <script type="text/javascript" src="../js/AJAXUtils.js"></script>
+        <script type="text/javascript">var channelId = "<?= $channelId ?>";</script>
+        <script type="text/javascript">var membersIdArray= addEscapes(<?= $membersJSON ?>);</script>
         <script type="text/javascript" src="../js/GoogleMapHelper.js"></script>
     </head>
     <body onload="getUsersLocationForMap()">
@@ -27,7 +39,7 @@
             // TODO: the map will need to center such that it encompasses all users in the channel, and not much more
             function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: lat, lng: lng},
+                    center: {lat: 0, lng: 0}, // TODO: change out these zeroes once AJAX is working
                     zoom: 8
                 });
             }
@@ -39,8 +51,6 @@
         <!-- show a table of the members and a list of their locations (server side)-->
         <?php
         // error_reporting(E_ALL); // uncomment for debugging
-        include 'MemberUtilities.php';
-
         $con = mysqli_connect("localhost", "root");
 
         isset($_POST["userInfo"]) ? $userInfo = $_POST["userInfo"] : die ("no user id specified");
@@ -51,13 +61,12 @@
             // begin creating the page ($con currently points to bm_channel)
             echo "<h1>You have entered Channel " . $channelId . "</h1>";
 
-            $channelMembers = getChannelMembers($channelId);
-            foreach($channelMembers as $memberId) {
+            foreach($membersArray as $memberId) {
                 // set user's location history
-                echo "<fieldset style=\"display: inline-block\"><legend>" . getUsername($memberId) . "</legend>";
+                echo "<fieldset style=\"display: inline-block\"><legend>" . getUsername($memberId["user_id"]) . "</legend>";
                  echo "<table>";
 
-                $locationHistory = getLocationHistory($memberId, $channelId);
+                $locationHistory = getLocationHistory($memberId["user_id"], $channelId);
                 foreach ($locationHistory as $location) {
                     echo "<tr>";
                     echo "<td><p>" . $location['time'] . "</p></td>";

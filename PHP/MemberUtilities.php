@@ -82,7 +82,13 @@
 
         $query = "SELECT user_id FROM `channels_broadcasting` WHERE channel_id = "
             . $channelId;
-        return getFromTable($query);
+        $object = mysqli_query($con, $query);
+
+        $userArray = [];
+        foreach ($object as $userId) {
+            $userArray[] = $userId;
+        }
+        return $userArray;
     }
 
     // true if a user is already in a channel
