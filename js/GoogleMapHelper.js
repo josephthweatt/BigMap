@@ -24,17 +24,17 @@ function UserLocation(userName, lat, long) {
 function createXMLHttpRequestObject() {
     var textHttp;
 
-    if (window.ActiveXObject) {
-        // this is code that apologizes for Internet Explorer's existence
+    if (window.XMLHttpRequest) {
+        // this is executed when a user isn't trying to ruin the app (they're not using IE)
         try {
-            textHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            textHttp = new XMLHttpRequest();
         } catch (e) {
             textHttp = false;
         }
     } else {
-        // this is executed when a user isn't trying to ruin the app (they're not using IE)
+        // this is code that apologizes for Internet Explorer's existence
         try {
-            textHttp = new XMLHttpRequest();
+            textHttp = new ActiveXObject("Microsoft.XMLHTTP");
         } catch (e) {
             textHttp = false;
         }
@@ -43,42 +43,31 @@ function createXMLHttpRequestObject() {
     if (!textHttp) {
         alert("cannot create textHttp object");
     } else {
-        getUsersLocationForMap();
         return textHttp;
     }
 }
 
-/* delete once we get JS to grab the PHP variables
-    function getInfoFromServer() {
-    channelId = "<?php echo $_POST[\"channelId\"]?>";
-
-    var membersIdArray = "<?php echo getChannelMembers(" + channelId + ")?>";
-    membersId = "";
-    for (var i = 0; i < membersIdArray.length; i++) {
-        membersId += "membersId[]=" + membersIdArray[i];
-        if (i != membersIdArray.length - 1)
-            membersId += "&";
-    }
-}*/
-
+// called in ViewChannelContent.php during 'onload'
 function getUsersLocationForMap() {
-    if (textHttp.readyState == 0 || textHttp.readyState == 4){
+    if (textHttp.readyState == 0 || textHttp.readyState == 4) {
         // TODO: create php code for getLocationURL
         textHttp.open("POST", getLocationURL);
         textHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        console.log("channelId=" + channelId + "&" + membersId);
-        textHttp.send("channelId=" + channelId + "&" + membersId);
+
+        var membersIds = getMembersIds();
+        textHttp.send("channelId=" + channelId + "&" + membersIds);
 
         getLocationsFromRequest();
     }
 
-    setTimeout('getUsersLocationForMap()', 1000);
+    setTimeout(getUsersLocationForMap, 1000);
 }
 
+// receives response from PHP/MySQL
 function getLocationsFromRequest() {
     if (textHttp == 4) {
         if (textHttp == 200) {
-            /* the response ought to return an array of the current user's locations
+            /* The response ought to return an array of the current user's locations
              * with this text structure:
              *      [userId] [current lat] [current long]\n
              *      [userId] [current lat] [current long]\n...
@@ -97,6 +86,18 @@ function getLocationsFromRequest() {
             alert("Something went wrong getting location information");
         }
     }
+}
+
+// returns URL-style list of member ids for this channel
+function getMembersIds(){
+    // the membersIdArray used here comes from the viewchannelcontent declaration
+    var membersId = "";
+    for (var i = 0; i < membersIdArray.length; i++) {
+        membersId += "membersId[]=" + membersIdArray[i].user_id;
+        if (i != membersIdArray.length - 1)
+            membersId += "&";
+    }
+    return membersId;
 }
 
 // notes
