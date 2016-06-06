@@ -6,3 +6,8 @@ To do:
 -make sure that checking you broadcasting channels doesn't reconstruct the locationService (X)
 -learn about mod_rewrite to hide php files from public knowledge (Apparently I don't need to do this)(X)
 -Clear out all the TODO's in the Android code
+-Change pages with signin/user-verification to handle requests via Ajax
+-learn better AJAX security methods and apply them to the JS code
+
+Recurring TODO
+-always run js code through compression before putting it online

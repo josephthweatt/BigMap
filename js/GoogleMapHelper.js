@@ -3,6 +3,12 @@
  * google maps API for the web browser. This was learned in
  * TheNewBoston's AJAX tutorial, the code of which can be found here:
  * http://stackoverflow.com/questions/25598468/ajax-tutorial-not-working
+ * 
+ * TODO: Since the current version of this code requires no verification
+ * TODO: of the existing client, it is VERY EASY to inject this code with
+ * TODO: other channelId's and member Ids, thus probing the system for 
+ * TODO: data that should otherwise be restricted. Fix this before
+ * TODO: the code is made public!
  *************************************************************************/
 var getLocationURL = "../PHP/GetChannelUsersLocation.php";
 var textHttp = createXMLHttpRequestObject();
@@ -45,19 +51,6 @@ function createXMLHttpRequestObject() {
     }
 }
 
-
-function getUsersLocationForMap() {
-    if (textHttp.readyState == 0 || textHttp.readyState == 4){
-        textHttp.open("POST", getLocationURL);
-        textHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        textHttp.send("channelId=" + channelId + "&" + membersId);
-
-        getLocationsFromRequest();
-    }
-
-    setTimeout('getUsersLocationForMap()', 1000);
-}
-
 function getInfoFromServer() {
     channelId = "<?php echo $_POST[\"channelId\"]?>";
 
@@ -70,13 +63,27 @@ function getInfoFromServer() {
     }
 }
 
+function getUsersLocationForMap() {
+    if (textHttp.readyState == 0 || textHttp.readyState == 4){
+        // TODO: create php code for getLocationURL
+        textHttp.open("POST", getLocationURL);
+        textHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        console.log("channelId=" + channelId + "&" + membersId);
+        textHttp.send("channelId=" + channelId + "&" + membersId);
+
+        getLocationsFromRequest();
+    }
+
+    setTimeout('getUsersLocationForMap()', 1000);
+}
+
 function getLocationsFromRequest() {
     if (textHttp == 4) {
         if (textHttp == 200) {
             /* the response ought to return an array of the current user's locations
              * with this text structure:
-             *      [user] [current lat] [current long]\n
-             *      [user] [current lat] [current long]\n...
+             *      [userId] [current lat] [current long]\n
+             *      [userId] [current lat] [current long]\n...
              * Then, it will store the response to usersLocation
              */
             var textResponse = textHttp.responseText;
@@ -88,7 +95,6 @@ function getLocationsFromRequest() {
                 usersLocations.push(
                     new UserLocation(userData[0], userData[1], userData[2]));
             }
-
         } else {
             alert("Something went wrong getting location information");
         }
