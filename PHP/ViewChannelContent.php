@@ -15,15 +15,19 @@
             }
         </style>
         <title>Sign Into BigMap</title>
+        <!-- saved from url=(0014)about:internet -->
+        <!-- saved from url=(0016)http://localhost -->
+        <script type="text/javascript" src="../js/GoogleMapHelper.js"></script>
     </head>
-    <body>
+    <body onload="getUsersLocationForMap()">
         <!-- Deploy Google map -->
         <div id="map"></div>
         <script>
             var map;
+            // TODO: the map will need to center such that it encompasses all users in the channel, and not much more
             function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: -34.397, lng: 150.644},
+                    center: {lat: lat, lng: lng},
                     zoom: 8
                 });
             }
