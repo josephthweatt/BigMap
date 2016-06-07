@@ -42,21 +42,19 @@ function createXMLHttpRequestObject() {
 // called in ViewChannelContent.php during 'onload'
 function getUsersLocationForMap() {
     if (textHttp.readyState == 0 || textHttp.readyState == 4) {
-        textHttp.open("POST", getLocationURL);
-        textHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
+        textHttp.open("POST", getLocationURL, true);
+        textHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         var membersIds = getMembersIds();
         textHttp.send("channelId=" + channelId + "&" + membersIds);
 
-        console.log("channelId=" + channelId + "&" + membersIds);
-        //!!!!!!!!! Code is not entering here !!!!!!!!
-        if (textHttp.readyState == 4 && textHttp.status == 200) {
-            console.log("got here");
-            getLocationsFromRequest();
-            mapScope = new MapScope();
+        textHttp.onreadystatechange = function () {
+            if (textHttp.readyState == 4 && textHttp.status == 200) {
+                console.log("got here");
+                getLocationsFromRequest();
+                mapScope = new MapScope();
+            }
         }
     }
-
     setTimeout(getUsersLocationForMap, 1000);
 }
 
@@ -69,6 +67,7 @@ function getLocationsFromRequest() {
      * Then, it will store the response to usersLocation
      */
     var textResponse = textHttp.responseText;
+    console.log(textResponse);
 
     usersLocations = []; // resets after every request
     var segments = textResponse.split(" ");
@@ -80,7 +79,7 @@ function getLocationsFromRequest() {
     }
 }
 
-// returns URL-style list of member ids for this channel
+// returns URL-style list of member ids for this channel to send to PHP
 function getMembersIds(){
     // the membersIdArray used here comes from the ViewChannelContent declaration
     var membersId = "";
