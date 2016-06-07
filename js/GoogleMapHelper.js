@@ -49,9 +49,17 @@ function getUsersLocationForMap() {
 
         textHttp.onreadystatechange = function () {
             if (textHttp.readyState == 4 && textHttp.status == 200) {
-                console.log("got here");
                 getLocationsFromRequest();
-                mapScope = new MapScope();
+                if (mapScope) {
+                    mapScope.findScopeDimensions();
+                } else {
+                    mapScope = new MapScope();
+                }
+
+                if (mapScope["reframeMap"]) {
+                    initMap();
+                    mapScope["reframeMap"] = false;
+                }
             }
         }
     }
@@ -67,14 +75,12 @@ function getLocationsFromRequest() {
      * Then, it will store the response to usersLocation
      */
     var textResponse = textHttp.responseText;
-    console.log(textResponse);
-
     usersLocations = []; // resets after every request
     var segments = textResponse.split(" ");
-    for (var i = 0; i < segments; i += 3){
+    for (var i = 0; i < segments.length; i += 3){
         if (segments[i] && segments[i + 1] && segments[i + 2]) {
-            usersLocations.push(
-                new UserLocation(segments[i], segments[i + 1], segments[i + 2]));
+            usersLocations[i] =
+                new UserLocation(segments[i], segments[i + 1], segments[i + 2]);
         }
     }
 }
@@ -101,43 +107,53 @@ function UserLocation(userName, lat, long) {
     this.long = long;
 }
 
-
 // TODO: MapScope class will need to be constructed asynchronously so that the map gets re-centered
 // the default scope of the map
 function MapScope() {
-    var scopeDimensions = this.findScopeDimensions();
-    this.latLength = scopeDimensions[0];
-    this.longLength = scopeDimensions[1];
+    this.reframeMap = true; // set to true when the center of lat/long changes
+    this.center = this.findScopeDimensions();
 
-    this.center = this.findCenter();
+    // default scope (in the event of one user)
+    this.latLength = 5;
+    this.longLength = 5;
 }
 
 MapScope.prototype.findScopeDimensions = function() {
-    var minLat = 0, maxLat = 0;
-    var minLong = 0, maxLong = 0;
-
+    var minLat = 90, maxLat = -90;
+    var minLong = 180, maxLong = -180;
     // get the rectangular boundaries of all user locations
     for (var i = 0; i < usersLocations.length; i++) {
         if (usersLocations[i].lat < minLat) {
             minLat = usersLocations[i].lat;
-        } else if (usersLocations[i].lat > maxLat) {
+        }
+        if (usersLocations[i].lat > maxLat) {
             maxLat = usersLocations[i].lat;
         }
         if (usersLocations[i].long < minLong) {
             minLong = usersLocations[i].long;
-        } else if (usersLocations[i].long > maxLong) {
+        }
+        if (usersLocations[i].long > maxLong) {
             maxLong = usersLocations[i].long;
         }
     }
-
     // get dimensions of the rectangle
     var latLength = maxLat - minLat;
     var longLength = maxLong - minLong;
-    return [latLength, longLength];
-};
+    if (this.latLength != latLength || this.longLength != longLength) {
+        this.reframeMap = true;
+        this.latLength = latLength;
+        this.longLength = longLength;
+    }
 
-MapScope.prototype.findCenter = function() {
-    return [(this.latLength/2), (this.longLength/2)];
+    // TODO: logic error preventing proper centering
+    // center of the scope (not adjusted for the whole map)
+    var center = [parseFloat(this.latLength/2) + parseFloat(minLat),
+                    parseFloat(this.longLength/2) + parseFloat(minLong)];
+    if ( !this.center
+        || (this.center[0] != center[0] || this.center[1] != center[1])) {
+        this.reframeMap = true;
+        return center;
+    }
 };
 
 // notes

@@ -39,12 +39,10 @@
         <script>
             var map;
             function initMap() {
-                if (mapScope["center"]) {
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
-                        zoom: 8 // TODO: create a function to find how far to zoom out (enough to show every user)
-                    });
-                }
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
+                    zoom: 8 // TODO: create a function to find how far to zoom out (enough to show every user)
+                });
             }
         </script>
         <script
