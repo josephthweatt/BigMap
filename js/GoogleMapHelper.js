@@ -48,7 +48,7 @@ function getUsersLocationForMap() {
         var membersIds = getMembersIds();
         textHttp.send("channelId=" + channelId + "&" + membersIds);
 
-        console.log(textHttp.readyState);
+        console.log("channelId=" + channelId + "&" + membersIds);
         //!!!!!!!!! Code is not entering here !!!!!!!!
         if (textHttp.readyState == 4 && textHttp.status == 200) {
             console.log("got here");
@@ -71,11 +71,12 @@ function getLocationsFromRequest() {
     var textResponse = textHttp.responseText;
 
     usersLocations = []; // resets after every request
-    var lines = textResponse.split("\n");
-    for (var i = 0; i < lines; i++){
-        var userData = lines[i].split(" ");
-        usersLocations.push(
-            new UserLocation(userData[0], userData[1], userData[2]));
+    var segments = textResponse.split(" ");
+    for (var i = 0; i < segments; i += 3){
+        if (segments[i] && segments[i + 1] && segments[i + 2]) {
+            usersLocations.push(
+                new UserLocation(segments[i], segments[i + 1], segments[i + 2]));
+        }
     }
 }
 

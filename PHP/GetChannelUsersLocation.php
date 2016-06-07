@@ -14,7 +14,7 @@
     foreach ($membersId as $id) {
         // 'if' checks against JS injection
         if (alreadyJoined($id, $channelId)) {
-            echo $id . " " . getCurrentLat($id) . " " . getCurrentLong($id) . PHP_EOL;
+            echo $id . " " . getCurrentLat($id) . " " . getCurrentLong($id) . " ";
         }
     } // end of script
 
