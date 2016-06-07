@@ -13,12 +13,6 @@
 var getLocationURL = "../PHP/GetChannelUsersLocation.php";
 var textHttp = createXMLHttpRequestObject();
 
-function UserLocation(userName, lat, long) {
-    this.userName = userName;
-    this.lat = lat;
-    this.long = long;
-}
-
 function createXMLHttpRequestObject() {
     var textHttp;
 
@@ -48,14 +42,19 @@ function createXMLHttpRequestObject() {
 // called in ViewChannelContent.php during 'onload'
 function getUsersLocationForMap() {
     if (textHttp.readyState == 0 || textHttp.readyState == 4) {
-        // TODO: create php code for getLocationURL
         textHttp.open("POST", getLocationURL);
         textHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         var membersIds = getMembersIds();
         textHttp.send("channelId=" + channelId + "&" + membersIds);
 
-        getLocationsFromRequest();
+        console.log(textHttp.readyState);
+        //!!!!!!!!! Code is not entering here !!!!!!!!
+        if (textHttp.readyState == 4 && textHttp.status == 200) {
+            console.log("got here");
+            getLocationsFromRequest();
+            mapScope = new MapScope();
+        }
     }
 
     setTimeout(getUsersLocationForMap, 1000);
@@ -63,35 +62,29 @@ function getUsersLocationForMap() {
 
 // receives response from PHP/MySQL
 function getLocationsFromRequest() {
-    if (textHttp == 4) {
-        if (textHttp == 200) {
-            /* The response ought to return an array of the current user's locations
-             * with this text structure:
-             *      [userId] [current lat] [current long]\n
-             *      [userId] [current lat] [current long]\n...
-             * Then, it will store the response to usersLocation
-             */
-            var textResponse = textHttp.responseText;
+    /* The response ought to return an array of the current user's locations
+     * with this text structure:
+     *      [userId] [current lat] [current long]\n
+     *      [userId] [current lat] [current long]\n...
+     * Then, it will store the response to usersLocation
+     */
+    var textResponse = textHttp.responseText;
 
-            usersLocations = new Array(); // resets after every request
-            var lines = textResponse.split("\n");
-            for (var i = 0; i < lines; i++){
-                var userData = lines[i].split(" ");
-                usersLocations.push(
-                    new UserLocation(userData[0], userData[1], userData[2]));
-            }
-        } else {
-            alert("Something went wrong getting location information");
-        }
+    usersLocations = []; // resets after every request
+    var lines = textResponse.split("\n");
+    for (var i = 0; i < lines; i++){
+        var userData = lines[i].split(" ");
+        usersLocations.push(
+            new UserLocation(userData[0], userData[1], userData[2]));
     }
 }
 
 // returns URL-style list of member ids for this channel
 function getMembersIds(){
-    // the membersIdArray used here comes from the viewchannelcontent declaration
+    // the membersIdArray used here comes from the ViewChannelContent declaration
     var membersId = "";
     for (var i = 0; i < membersIdArray.length; i++) {
-        var memberObj = membersIdArray[i]
+        var memberObj = membersIdArray[i];
         membersId += "membersId[]=" + memberObj.user_id;
         if (i != membersIdArray.length - 1)
             membersId += "&";
@@ -100,8 +93,15 @@ function getMembersIds(){
 }
 
 /**********************************
- * Maps API functions
+ * Classes
  **********************************/
+function UserLocation(userName, lat, long) {
+    this.userName = userName;
+    this.lat = lat;
+    this.long = long;
+}
+
+
 // TODO: MapScope class will need to be constructed asynchronously so that the map gets re-centered
 // the default scope of the map
 function MapScope() {
@@ -134,11 +134,11 @@ MapScope.prototype.findScopeDimensions = function() {
     var latLength = maxLat - minLat;
     var longLength = maxLong - minLong;
     return [latLength, longLength];
-}
+};
 
 MapScope.prototype.findCenter = function() {
     return [(this.latLength/2), (this.longLength/2)];
-}
+};
 
 // notes
 /**************** xmlHttpRequest *********************************************
