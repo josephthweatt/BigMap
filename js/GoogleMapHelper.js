@@ -13,8 +13,6 @@
 var getLocationURL = "../PHP/GetChannelUsersLocation.php";
 var textHttp = createXMLHttpRequestObject();
 
-var usersLocations; // will be array of userLocation
-
 function UserLocation(userName, lat, long) {
     this.userName = userName;
     this.lat = lat;
@@ -93,11 +91,53 @@ function getMembersIds(){
     // the membersIdArray used here comes from the viewchannelcontent declaration
     var membersId = "";
     for (var i = 0; i < membersIdArray.length; i++) {
-        membersId += "membersId[]=" + membersIdArray[i].user_id;
+        var memberObj = membersIdArray[i]
+        membersId += "membersId[]=" + memberObj.user_id;
         if (i != membersIdArray.length - 1)
             membersId += "&";
     }
     return membersId;
+}
+
+/**********************************
+ * Maps API functions
+ **********************************/
+// TODO: MapScope class will need to be constructed asynchronously so that the map gets re-centered
+// the default scope of the map
+function MapScope() {
+    var scopeDimensions = this.findScopeDimensions();
+    this.latLength = scopeDimensions[0];
+    this.longLength = scopeDimensions[1];
+
+    this.center = this.findCenter();
+}
+
+MapScope.prototype.findScopeDimensions = function() {
+    var minLat = 0, maxLat = 0;
+    var minLong = 0, maxLong = 0;
+
+    // get the rectangular boundaries of all user locations
+    for (var i = 0; i < usersLocations.length; i++) {
+        if (usersLocations[i].lat < minLat) {
+            minLat = usersLocations[i].lat;
+        } else if (usersLocations[i].lat > maxLat) {
+            maxLat = usersLocations[i].lat;
+        }
+        if (usersLocations[i].long < minLong) {
+            minLong = usersLocations[i].long;
+        } else if (usersLocations[i].long > maxLong) {
+            maxLong = usersLocations[i].long;
+        }
+    }
+
+    // get dimensions of the rectangle
+    var latLength = maxLat - minLat;
+    var longLength = maxLong - minLong;
+    return [latLength, longLength];
+}
+
+MapScope.prototype.findCenter = function() {
+    return [(this.latLength/2), (this.longLength/2)];
 }
 
 // notes

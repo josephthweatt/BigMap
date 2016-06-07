@@ -29,6 +29,7 @@
         <script type="text/javascript" src="../js/AJAXUtils.js"></script>
         <script type="text/javascript">var channelId = "<?= $channelId ?>";</script>
         <script type="text/javascript">var membersIdArray= addEscapes(<?= $membersJSON ?>);</script>
+        <script type="text/javascript">var usersLocations; /* will be array of userLocation class */</script
         <script type="text/javascript" src="../js/GoogleMapHelper.js"></script>
     </head>
     <body onload="getUsersLocationForMap()">
@@ -37,10 +38,11 @@
         <script>
             var map;
             // TODO: the map will need to center such that it encompasses all users in the channel, and not much more
+            var center = findCenter(); // this will be a pair of lat-long
             function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: {lat: 0, lng: 0}, // TODO: change out these zeroes once AJAX is working
-                    zoom: 8
+                    zoom: 8 // TODO: create a function to find how far to zoom out (enough to show every user)
                 });
             }
         </script>
