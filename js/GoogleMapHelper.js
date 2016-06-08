@@ -119,7 +119,6 @@ function UserLocation(id, lat, long) {
     this.long = long;
 }
 
-// TODO: MapScope class will need to be constructed asynchronously so that the map gets re-centered
 // the default scope of the map
 function MapScope() {
     // default scope (in the event of one user)
