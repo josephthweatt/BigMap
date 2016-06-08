@@ -8,6 +8,12 @@ To do:
 -Clear out all the TODO's in the Android code
 -Change pages with signin/user-verification to handle requests via Ajax
 -learn better AJAX security methods and apply them to the JS code
+-Give browser user's the option to resize their map whenever a new user broadcasts the channel
+	*make this non-invasive, not like a browser alert
+-In the PHP files, look for loops which make mySQL queries within in them. MySQL queries ought to be made after the loop, such that there is only 1 query as opposed to 1000 queries (that threatens system performance)
+	*Instances of this happening:
+		-addLocationPacket in ReceiveLocationPacket
+		
 
 Recurring TODO
 -always run js code through compression before putting it online
