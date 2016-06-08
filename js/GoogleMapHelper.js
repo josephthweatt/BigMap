@@ -103,8 +103,8 @@ function getMembersIds(){
  **********************************/
 function UserLocation(userName, lat, long) {
     this.userName = userName;
-    this.lat = lat;
-    this.long = long;
+    this.lat = parseFloat(lat);
+    this.long = parseFloat(long);
 }
 
 // TODO: MapScope class will need to be constructed asynchronously so that the map gets re-centered

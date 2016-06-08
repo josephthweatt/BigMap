@@ -38,11 +38,23 @@
         <div id="map"></div>
         <script>
             var map;
+            var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
             function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
                     zoom: 8 // TODO: create a function to find how far to zoom out (enough to show every user)
                 });
+
+                // get user's location markers
+                var userMarkers = [];
+                for (var user in usersLocations) {
+                    userMarkers = new google.maps.Marker({
+                                        position : {lat : parseFloat(usersLocations[user].lat),
+                                                    lng : parseFloat(usersLocations[user].long)},
+                                        map : map,
+                                        icon : purpleDot
+                                    });
+                }
             }
         </script>
         <script
