@@ -91,16 +91,6 @@
         return $userArray;
     }
 
-    // true if a user is already in a channel
-    function alreadyJoined($userId, $channelId) {
-        global $con;
-        mysqli_select_db($con, "bm_channel");
-        $query = "SELECT COUNT(*) FROM channels_broadcasting WHERE user_id = "
-            . $userId . " AND channel_id = " . $channelId;
-        $result = getFromTable($query);
-        return $result["COUNT(*)"]; // returns 1 or 0
-    }
-
     // return true if the user needs a broadcasting profile
     function newBroadcaster($userId) {
         global $con;
@@ -115,6 +105,35 @@
         }
     }
 
+    // true if a user is already in a channel
+    function alreadyJoined($userId, $channelId) {
+        global $con;
+        mysqli_select_db($con, "bm_channel");
+        $query = "SELECT COUNT(*) FROM channels_broadcasting WHERE user_id = "
+            . $userId . " AND channel_id = " . $channelId;
+        $result = getFromTable($query);
+        return $result["COUNT(*)"]; // returns 1 or 0
+    }
+
+    // read whether the user is broadcasting, then return boolean
+    function isUserBroadcasting($userId, $channelId) {
+        global $con;
+        mysqli_select_db($con, "bm_channel");
+        $query = "SELECT is_broadcasting FROM channels_broadcasting WHERE user_id = "
+            . $userId . " AND channel_id = " . $channelId;
+        $result = getFromTable($query);
+        return $result["is_broadcasting"];
+    }
+
+    // set whether the user is broadcasting
+    function setUserBroadcasting($userId, $channelId, $broadcastBoolean) {
+        global $con;
+        mysqli_select_db($con, "bm_channel");
+        $query = "UPDATE channels_broadcasting SET is_broadcasting = "
+            . $broadcastBoolean . " WHERE user_id = " . $userId . " AND channel_id = " . $channelId;
+        mysqli_query($con, $query);
+    }
+
     function getLocationHistory($userId, $channelId) {
         global $con;
         mysqli_select_db($con, "bm_channel");
@@ -122,6 +141,8 @@
             . $userId . " AND channel_id = " . $channelId;
         return mysqli_query($con, $query);
     }
+
+    // other utils
 
     // takes connection and query to return an array of something
     function getFromTable($query) {

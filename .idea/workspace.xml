@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/To do list.txt" afterPath="$PROJECT_DIR$/To do list.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/MemberUtilities.php" afterPath="$PROJECT_DIR$/PHP/MemberUtilities.php" />
     </list>
     <ignored path="BigMap.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,14 +24,45 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ReceiveLocationPacket.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ReceiveLocationPacket.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/ReceiveLocationPacket.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
+            <state relative-caret-position="497">
               <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding>
                 <marker date="1464983551239" expanded="true" signature="2101:2244" ph="UPDATE broad... " />
                 <marker date="1464983551239" expanded="true" signature="2668:2903" ph="INSERT INTO location_history... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MemberUtilities.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="548">
+              <caret line="133" column="35" selection-start-line="133" selection-start-column="35" selection-end-line="133" selection-end-column="35" />
+              <folding>
+                <marker date="1465426133859" expanded="true" signature="628:693" ph="SELECT * FRO... user_info" />
+                <marker date="1465426133859" expanded="true" signature="1150:1194" ph="SELECT usern... user_info" />
+                <marker date="1465426133859" expanded="true" signature="1384:1502" ph="SELECT id FR... user_info" />
+                <marker date="1465426133859" expanded="true" signature="1710:1733" ph="SELECT * FRO... user_info" />
+                <marker date="1465426133859" expanded="true" signature="2487:2558" ph="SELECT EXIST... " />
+                <marker date="1465426133859" expanded="true" signature="2501:2539" ph="SELECT 1 FRO... channel_info" />
+                <marker date="1465426133859" expanded="true" signature="2858:2921" ph="SELECT user_... channels_broadcasting" />
+                <marker date="1465426133859" expanded="true" signature="3324:3385" ph="SELECT COUNT... broadcast_member" />
+                <marker date="1465426133859" expanded="true" signature="3756:3860" ph="SELECT COUNT... channels_broadcasting" />
+                <marker date="1465426133859" expanded="true" signature="4183:4248" ph="SELECT is_br... channels_broadcasting" />
+                <marker date="1465426133859" expanded="true" signature="4183:4294" ph="SELECT is_br... channels_broadcasting" />
+                <marker date="1465426133859" expanded="true" signature="4604:4654" ph="UPDATE chann... " />
+                <marker date="1465426133859" expanded="true" signature="4604:4655" ph="UPDATE chann... " />
+                <marker date="1465426133859" expanded="true" signature="4604:4692" ph="UPDATE chann... " />
+                <marker date="1465426133859" expanded="true" signature="4604:4708" ph="UPDATE chann... " />
+                <marker date="1465426133859" expanded="true" signature="4604:4709" ph="UPDATE chann... " />
+                <marker date="1465426133859" expanded="true" signature="4604:4741" ph="UPDATE chann... " />
+                <marker date="1465426133859" expanded="true" signature="4604:4742" ph="UPDATE chann... " />
+                <marker date="1465426133859" expanded="true" signature="4604:4871" ph="UPDATE chann... " />
+                <marker date="1465426133859" expanded="true" signature="4941:5040" ph="SELECT * FRO... location_history" />
               </folding>
             </state>
           </provider>
@@ -57,13 +88,13 @@
         <option value="$PROJECT_DIR$/view-channel-content.html" />
         <option value="$PROJECT_DIR$/PHP/ReceiveLocationPacket.php" />
         <option value="$PROJECT_DIR$/view-channel-content-entered.html" />
-        <option value="$PROJECT_DIR$/PHP/MemberUtilities.php" />
         <option value="$PROJECT_DIR$/js/AJAXUtils.js" />
         <option value="$PROJECT_DIR$/get-channel-users-location.html" />
         <option value="$PROJECT_DIR$/js/underscore.js" />
         <option value="$PROJECT_DIR$/PHP/GetChannelUsersLocation.php" />
         <option value="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
         <option value="$PROJECT_DIR$/js/GoogleMapHelper.js" />
+        <option value="$PROJECT_DIR$/PHP/MemberUtilities.php" />
       </list>
     </option>
   </component>
@@ -242,12 +273,12 @@
       <workItem from="1465224867542" duration="23000" />
       <workItem from="1465225116536" duration="36142000" />
       <workItem from="1465368761835" duration="9531000" />
-      <workItem from="1465412620096" duration="6600000" />
+      <workItem from="1465412620096" duration="7916000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76140000" />
+    <option name="totallyTimeSpent" value="77456000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -426,16 +457,26 @@
         <state relative-caret-position="340">
           <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
           <folding>
-            <marker date="1465419836423" expanded="true" signature="628:693" ph="SELECT * FRO... user_info" />
-            <marker date="1465419836423" expanded="true" signature="1150:1194" ph="SELECT usern... user_info" />
-            <marker date="1465419836423" expanded="true" signature="1384:1502" ph="SELECT id FR... user_info" />
-            <marker date="1465419836423" expanded="true" signature="1710:1733" ph="SELECT * FRO... user_info" />
-            <marker date="1465419836423" expanded="true" signature="2487:2558" ph="SELECT EXIST... " />
-            <marker date="1465419836423" expanded="true" signature="2501:2539" ph="SELECT 1 FRO... channel_info" />
-            <marker date="1465419836423" expanded="true" signature="2858:2921" ph="SELECT user_... channels_broadcasting" />
-            <marker date="1465419836423" expanded="true" signature="3321:3425" ph="SELECT COUNT... channels_broadcasting" />
-            <marker date="1465419836423" expanded="true" signature="3726:3787" ph="SELECT COUNT... broadcast_member" />
-            <marker date="1465419836423" expanded="true" signature="4117:4216" ph="SELECT * FRO... location_history" />
+            <marker date="1465426133859" expanded="true" signature="628:693" ph="SELECT * FRO... user_info" />
+            <marker date="1465426133859" expanded="true" signature="1150:1194" ph="SELECT usern... user_info" />
+            <marker date="1465426133859" expanded="true" signature="1384:1502" ph="SELECT id FR... user_info" />
+            <marker date="1465426133859" expanded="true" signature="1710:1733" ph="SELECT * FRO... user_info" />
+            <marker date="1465426133859" expanded="true" signature="2487:2558" ph="SELECT EXIST... " />
+            <marker date="1465426133859" expanded="true" signature="2501:2539" ph="SELECT 1 FRO... channel_info" />
+            <marker date="1465426133859" expanded="true" signature="2858:2921" ph="SELECT user_... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="3324:3385" ph="SELECT COUNT... broadcast_member" />
+            <marker date="1465426133859" expanded="true" signature="3756:3860" ph="SELECT COUNT... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="4183:4248" ph="SELECT is_br... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="4183:4294" ph="SELECT is_br... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="4604:4654" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4655" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4692" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4708" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4709" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4741" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4742" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4871" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4941:5040" ph="SELECT * FRO... location_history" />
           </folding>
         </state>
       </provider>
@@ -470,16 +511,26 @@
         <state relative-caret-position="340">
           <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
           <folding>
-            <marker date="1465419836423" expanded="true" signature="628:693" ph="SELECT * FRO... user_info" />
-            <marker date="1465419836423" expanded="true" signature="1150:1194" ph="SELECT usern... user_info" />
-            <marker date="1465419836423" expanded="true" signature="1384:1502" ph="SELECT id FR... user_info" />
-            <marker date="1465419836423" expanded="true" signature="1710:1733" ph="SELECT * FRO... user_info" />
-            <marker date="1465419836423" expanded="true" signature="2487:2558" ph="SELECT EXIST... " />
-            <marker date="1465419836423" expanded="true" signature="2501:2539" ph="SELECT 1 FRO... channel_info" />
-            <marker date="1465419836423" expanded="true" signature="2858:2921" ph="SELECT user_... channels_broadcasting" />
-            <marker date="1465419836423" expanded="true" signature="3321:3425" ph="SELECT COUNT... channels_broadcasting" />
-            <marker date="1465419836423" expanded="true" signature="3726:3787" ph="SELECT COUNT... broadcast_member" />
-            <marker date="1465419836423" expanded="true" signature="4117:4216" ph="SELECT * FRO... location_history" />
+            <marker date="1465426133859" expanded="true" signature="628:693" ph="SELECT * FRO... user_info" />
+            <marker date="1465426133859" expanded="true" signature="1150:1194" ph="SELECT usern... user_info" />
+            <marker date="1465426133859" expanded="true" signature="1384:1502" ph="SELECT id FR... user_info" />
+            <marker date="1465426133859" expanded="true" signature="1710:1733" ph="SELECT * FRO... user_info" />
+            <marker date="1465426133859" expanded="true" signature="2487:2558" ph="SELECT EXIST... " />
+            <marker date="1465426133859" expanded="true" signature="2501:2539" ph="SELECT 1 FRO... channel_info" />
+            <marker date="1465426133859" expanded="true" signature="2858:2921" ph="SELECT user_... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="3324:3385" ph="SELECT COUNT... broadcast_member" />
+            <marker date="1465426133859" expanded="true" signature="3756:3860" ph="SELECT COUNT... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="4183:4248" ph="SELECT is_br... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="4183:4294" ph="SELECT is_br... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="4604:4654" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4655" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4692" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4708" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4709" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4741" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4742" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4871" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4941:5040" ph="SELECT * FRO... location_history" />
           </folding>
         </state>
       </provider>
@@ -608,25 +659,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1479">
-          <caret line="90" column="26" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
-          <folding>
-            <marker date="1465419836423" expanded="true" signature="628:693" ph="SELECT * FRO... user_info" />
-            <marker date="1465419836423" expanded="true" signature="1150:1194" ph="SELECT usern... user_info" />
-            <marker date="1465419836423" expanded="true" signature="1384:1502" ph="SELECT id FR... user_info" />
-            <marker date="1465419836423" expanded="true" signature="1710:1733" ph="SELECT * FRO... user_info" />
-            <marker date="1465419836423" expanded="true" signature="2487:2558" ph="SELECT EXIST... " />
-            <marker date="1465419836423" expanded="true" signature="2501:2539" ph="SELECT 1 FRO... channel_info" />
-            <marker date="1465419836423" expanded="true" signature="2858:2921" ph="SELECT user_... channels_broadcasting" />
-            <marker date="1465419836423" expanded="true" signature="3321:3425" ph="SELECT COUNT... channels_broadcasting" />
-            <marker date="1465419836423" expanded="true" signature="3726:3787" ph="SELECT COUNT... broadcast_member" />
-            <marker date="1465419836423" expanded="true" signature="4117:4216" ph="SELECT * FRO... location_history" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PHP/GetChannelUsersLocation.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -659,11 +691,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PHP/ReceiveLocationPacket.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
+        <state relative-caret-position="497">
           <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <marker date="1464983551239" expanded="true" signature="2101:2244" ph="UPDATE broad... " />
             <marker date="1464983551239" expanded="true" signature="2668:2903" ph="INSERT INTO location_history... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="548">
+          <caret line="133" column="35" selection-start-line="133" selection-start-column="35" selection-end-line="133" selection-end-column="35" />
+          <folding>
+            <marker date="1465426133859" expanded="true" signature="628:693" ph="SELECT * FRO... user_info" />
+            <marker date="1465426133859" expanded="true" signature="1150:1194" ph="SELECT usern... user_info" />
+            <marker date="1465426133859" expanded="true" signature="1384:1502" ph="SELECT id FR... user_info" />
+            <marker date="1465426133859" expanded="true" signature="1710:1733" ph="SELECT * FRO... user_info" />
+            <marker date="1465426133859" expanded="true" signature="2487:2558" ph="SELECT EXIST... " />
+            <marker date="1465426133859" expanded="true" signature="2501:2539" ph="SELECT 1 FRO... channel_info" />
+            <marker date="1465426133859" expanded="true" signature="2858:2921" ph="SELECT user_... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="3324:3385" ph="SELECT COUNT... broadcast_member" />
+            <marker date="1465426133859" expanded="true" signature="3756:3860" ph="SELECT COUNT... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="4183:4248" ph="SELECT is_br... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="4183:4294" ph="SELECT is_br... channels_broadcasting" />
+            <marker date="1465426133859" expanded="true" signature="4604:4654" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4655" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4692" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4708" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4709" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4741" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4742" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4604:4871" ph="UPDATE chann... " />
+            <marker date="1465426133859" expanded="true" signature="4941:5040" ph="SELECT * FRO... location_history" />
           </folding>
         </state>
       </provider>
