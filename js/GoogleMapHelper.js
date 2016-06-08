@@ -77,9 +77,9 @@ function getLocationsFromRequest() {
     var textResponse = textHttp.responseText;
     usersLocations = []; // resets after every request
     var segments = textResponse.split(" ");
-    for (var i = 0; i < segments.length; i += 3){
+    for (var i = 0, j = 0; i < segments.length; i += 3, j++){
         if (segments[i] && segments[i + 1] && segments[i + 2]) {
-            usersLocations[i] =
+            usersLocations[j] =
                 new UserLocation(segments[i], segments[i + 1], segments[i + 2]);
         }
     }
@@ -98,13 +98,24 @@ function getMembersIds(){
     return membersId;
 }
 
+function getBounds() {
+    // TODO: the 'for' will need to check if a user is broadcasting
+    var bounds = new google.maps.LatLngBounds();
+    for (var user in usersLocations) {
+        var position = new google.maps.LatLng(
+            parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
+        bounds.extend(position);
+    }
+    return bounds;
+}
+
 /**********************************
  * Classes
  **********************************/
-function UserLocation(userName, lat, long) {
-    this.userName = userName;
-    this.lat = parseFloat(lat);
-    this.long = parseFloat(long);
+function UserLocation(id, lat, long) {
+    this.id = id;
+    this.lat = lat;
+    this.long = long;
 }
 
 // TODO: MapScope class will need to be constructed asynchronously so that the map gets re-centered
@@ -145,7 +156,6 @@ MapScope.prototype.findScopeDimensions = function() {
         this.longLength = longLength;
     }
 
-    // TODO: logic error preventing proper centering
     // center of the scope (not adjusted for the whole map)
     var center = [parseFloat(this.latLength/2) + parseFloat(minLat),
                     parseFloat(this.longLength/2) + parseFloat(minLong)];
@@ -155,13 +165,3 @@ MapScope.prototype.findScopeDimensions = function() {
         return center;
     }
 };
-
-// notes
-/**************** xmlHttpRequest *********************************************
-readyState 	Holds the status of the XMLHttpRequest. Changes from 0 to 4:
-            0: request not initialized
-            1: server connection established
-            2: request received
-            3: processing request
-            4: request finished and response is ready
- /****************************************************************************/

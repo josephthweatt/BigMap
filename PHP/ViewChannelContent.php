@@ -36,30 +36,33 @@
     <body onload="getUsersLocationForMap()">
         <!-- Deploy Google map -->
         <div id="map"></div>
-        <script>
-            var map;
-            var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
-            function initMap() {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
-                    zoom: 8 // TODO: create a function to find how far to zoom out (enough to show every user)
-                });
-
-                // get user's location markers
-                var userMarkers = [];
-                for (var user in usersLocations) {
-                    userMarkers = new google.maps.Marker({
-                                        position : {lat : parseFloat(usersLocations[user].lat),
-                                                    lng : parseFloat(usersLocations[user].long)},
-                                        map : map,
-                                        icon : purpleDot
-                                    });
-                }
-            }
-        </script>
         <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9EWuO31iw4rHYdHHs4d5aC_F6UEmoyx0&callback=initMap"
             async defer></script>
+        <script>
+            var map, userMarkers = [];
+            var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
+            function initMap() {
+                var bounds = getBounds(); 
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
+                    zoom: 0
+                });
+                map.fitBounds(bounds);
+
+                // TODO: the 'for' will need to check if a user is broadcasting
+                // get user's location markers
+                for (var user in usersLocations) {
+                    var position = new google.maps.LatLng(
+                        parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
+                    userMarkers = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        icon: purpleDot
+                    });
+                }
+            }
+        </script>
 
         <!-- show a table of the members and a list of their locations (server side)-->
         <?php
