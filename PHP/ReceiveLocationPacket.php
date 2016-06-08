@@ -20,6 +20,8 @@
      * The names of the LocationPackets will simply be formatted as locationPacket#,
      * where '#' is the number (starting from zero. 0 is the earliest packet)
      ***********************************************************************************/
+    // TODO: create a STOP command for the mobile app to send out to tell
+    // TODO: this code to stop broadcasting altogether
 
     $con = mysqli_connect("localhost", "root");
 
@@ -29,9 +31,14 @@
 
     userExists($userInfo) ? $userId = getUserId($userInfo) : die ();
 
-    foreach ($channelIds as $channelId) {
-        if (alreadyJoined($userId, $channelId)) {
-            addLocationPacket($channelId);
+    // update broadcasting status of the user's various channels
+    $usersChannels = getUsersBroadcastingChannels($userId);
+    foreach($usersChannels as $channel) {
+        if (in_array($channel, $channelIds)) {
+            setUserBroadcasting($userId, $channel, true);
+            addLocationPacket($channel);
+        } else {
+            setUserBroadcasting($userId, $channel, false);
         }
     }
 

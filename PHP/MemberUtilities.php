@@ -134,6 +134,23 @@
         mysqli_query($con, $query);
     }
 
+    // returns ALL the channels that the user is affiliated with
+    function getUsersChannels($userId) {
+        global $con;
+        mysqli_select_db($con, "bm_channel");
+        $query = "SELECT channel_id FROM `channels_broadcasting` WHERE user_id = " . $userId;
+        return mysqli_query($con, $query);
+    }
+
+    // returns only the channel id's that the user is broadcasting to
+    function getUsersBroadcastingChannels($userId) {
+        global $con;
+        mysqli_select_db($con, "bm_channel");
+        $query = "SELECT channel_id FROM `channels_broadcasting` WHERE user_id = " 
+            . $userId . " AND is_broadcasting = 1";
+        return mysqli_query($con, $query);
+    }
+
     function getLocationHistory($userId, $channelId) {
         global $con;
         mysqli_select_db($con, "bm_channel");
@@ -141,6 +158,7 @@
             . $userId . " AND channel_id = " . $channelId;
         return mysqli_query($con, $query);
     }
+
 
     // other utils
 
