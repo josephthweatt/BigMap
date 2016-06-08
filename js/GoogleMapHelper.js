@@ -53,10 +53,11 @@ function getUsersLocationForMap() {
                 if (mapScope) {
                     mapScope.findScopeDimensions();
                 } else {
+                    console.log("called once");
                     mapScope = new MapScope();
                 }
-
                 if (mapScope["reframeMap"]) {
+                    console.log("initting map");
                     initMap();
                     mapScope["reframeMap"] = false;
                 }
@@ -121,14 +122,20 @@ function UserLocation(id, lat, long) {
 // TODO: MapScope class will need to be constructed asynchronously so that the map gets re-centered
 // the default scope of the map
 function MapScope() {
-    this.reframeMap = true; // set to true when the center of lat/long changes
-    this.center = this.findScopeDimensions();
-
     // default scope (in the event of one user)
     this.latLength = 5;
     this.longLength = 5;
+
+    this.reframeMap = true; // set to true when the center of lat/long changes
+    this.center = this.findScopeDimensions();
 }
 
+/*
+ * findScopeDimensions does three things:
+ *  1. check that the dimension length is the same (changes lengths if they're not)
+ *  2. check that the center is the same (returns center if it's not)
+ *  3. if either center or dimensions were changed, set reframeMap to true
+ */
 MapScope.prototype.findScopeDimensions = function() {
     var minLat = 90, maxLat = -90;
     var minLong = 180, maxLong = -180;
