@@ -86,6 +86,20 @@ function getLocationsFromRequest() {
     }
 }
 
+// TODO: the 'for' will need to check if a user is broadcasting
+// get user's location markers
+function makeUserMarkers() {
+    for (var user in usersLocations) {
+        var position = new google.maps.LatLng(
+            parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
+        userMarkers = new google.maps.Marker({
+            position: position,
+            map: map,
+            icon: purpleDot
+        });
+    }
+}
+
 // returns URL-style list of member ids for this channel to send to PHP
 function getMembersIds(){
     // the membersIdArray used here comes from the ViewChannelContent declaration

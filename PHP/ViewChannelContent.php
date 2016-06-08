@@ -43,24 +43,14 @@
             var map, userMarkers = [];
             var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
             function initMap() {
-                var bounds = getBounds(); 
+                var bounds = getBounds();
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
                     zoom: 0
                 });
                 map.fitBounds(bounds);
 
-                // TODO: the 'for' will need to check if a user is broadcasting
-                // get user's location markers
-                for (var user in usersLocations) {
-                    var position = new google.maps.LatLng(
-                        parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
-                    userMarkers = new google.maps.Marker({
-                        position: position,
-                        map: map,
-                        icon: purpleDot
-                    });
-                }
+                makeUserMarkers();
             }
         </script>
 
