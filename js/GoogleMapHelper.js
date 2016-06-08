@@ -53,11 +53,9 @@ function getUsersLocationForMap() {
                 if (mapScope) {
                     mapScope.findScopeDimensions();
                 } else {
-                    console.log("called once");
                     mapScope = new MapScope();
                 }
                 if (mapScope["reframeMap"]) {
-                    console.log("initting map");
                     initMap();
                     mapScope["reframeMap"] = false;
                 }
@@ -171,7 +169,6 @@ MapScope.prototype.findScopeDimensions = function() {
     var latLength = maxLat - minLat;
     var longLength = maxLong - minLong;
     if (this.latLength != latLength || this.longLength != longLength) {
-        this.reframeMap = true;
         this.latLength = latLength;
         this.longLength = longLength;
     }
@@ -181,7 +178,6 @@ MapScope.prototype.findScopeDimensions = function() {
                     parseFloat(this.longLength/2) + parseFloat(minLong)];
     if ( !this.center
         || (this.center[0] != center[0] || this.center[1] != center[1])) {
-        this.reframeMap = true;
         return center;
     }
 };
