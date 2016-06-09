@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <!--THIS IS A TEST FORM USED TO DEBUG ReceiveLocationPacket.php. 
+        It should not be used in the actual system, but archived for future testing-->
+    <head>
+        <title>Enter a location for a user</title>
+        <!-- saved from url=(0014)about:internet -->
+        <!-- saved from url=(0016)http://localhost -->
+        <script type="text/javascript" src="js/FormFilledOut.js"></script>
+    </head>
+    <body>
+        <form action="PHP/ReceiveLocationPacket.php" method="post" id="f" onsubmit="return formFilledOut()">
+            <fieldset>
+                <legend>Give location to a user</legend>
+                Username:<br>
+                <input type="text" name="userInfo[]">
+                <br>Password:<br>
+                <input type="password" name="userInfo[]">
+                <br>Channel ID 1<br>
+                <input type="number" name="channelIds[]">
+                <br>Channel ID 2<br>
+                <input type="number" name="channelIds[]">
+                <br>Time<br>
+                <input type="text" name="locationPacket0[]">
+                <br>latitude<br>
+                <input type="text" name="locationPacket0[]">
+                <br>longitude<br>
+                <input type="text" name="locationPacket0[]">
+                <br>Time2<br>
+                <input type="text" name="locationPacket1[]">
+                <br>latitude2<br>
+                <input type="text" name="locationPacket1[]">
+                <br>longitude2<br>
+                <input type="text" name="locationPacket1[]">
+                <br>
+                <input type="hidden" name="packetCount" value="2">
+                <input type="submit">
+            </fieldset>
+        </form>
+    </body>
+</html>

@@ -72,6 +72,8 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         googleApiClient.disconnect();
         locationPacket.clear();
         run = false;
+        apiHandler = new APIHandler(3); // send STOP command to the server
+        apiHandler.execute();
 
         Log.i(TAG, "Service stopped");
         super.onDestroy();

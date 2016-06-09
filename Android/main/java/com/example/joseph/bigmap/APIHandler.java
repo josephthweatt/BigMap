@@ -65,6 +65,8 @@ public class APIHandler extends AsyncTask {
         super.onPreExecute();
     }
 
+
+    // TODO: add Javadoc for the switchcase
     @Override
     protected Object doInBackground(Object[] params) {
         switch (executeCommand) {
@@ -87,6 +89,10 @@ public class APIHandler extends AsyncTask {
                 } else {
                     Log.e(TAG, "error sending locationPacket to server");
                 }
+                break;
+            case 3:
+                sendStop();
+                Log.i(TAG, "no longer sending locationPackets");
                 break;
         }
         return null;
@@ -321,6 +327,59 @@ public class APIHandler extends AsyncTask {
             }
         }
         return false;
+    }
+
+    // call for the server to hide the user's location
+    private void sendStop() {
+        List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
+        parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[0]));
+        parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[1]));
+        parameters.add(new AbstractMap.SimpleEntry("STOP", true));
+
+        HttpURLConnection connection = null;
+        BufferedReader reader = null;
+        URL url;
+        try {
+            // get output stream for the connection and write the parameter query string to it
+            url = new URL(URLHead + receiveLocationPacket);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            OutputStream os = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getQuery(parameters));
+            writer.flush();
+            writer.close();
+            os.close();
+
+            connection.connect();
+
+            String line;
+            String response = "";
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                while ((line = reader.readLine()) != null) {
+                    response += line;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     // method turns query params to a POST String. I found the method on this stackoverflow thread:

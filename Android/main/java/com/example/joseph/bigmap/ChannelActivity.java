@@ -180,7 +180,6 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
                     .zoom(17).build();
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
-
         mMap.setMyLocationEnabled(true);
     }
 }

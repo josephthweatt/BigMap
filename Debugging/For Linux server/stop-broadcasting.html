@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <!--THIS IS A TEST FORM to completely halt the broadcastign of one user-->
+    <head>
+        <title>Stop broadcasting</title>
+    </head>
+    <body>
+    	<form action="PHP/ReceiveLocationPacket.php" method="post">
+            <input type="hidden" name="userInfo[]" value="joseph">
+            <input type="hidden" name="userInfo[]" value="bingo">
+    		<input type="hidden" name="STOP" value="bingo">
+    		<input type="submit" value="stop broadcast">
+    	</form>
+    </body>

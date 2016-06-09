@@ -125,7 +125,8 @@
         return $result["is_broadcasting"];
     }
 
-    // set whether the user is broadcasting
+    // set whether the user is broadcasting 
+    // @param broadcastBoolean: must either put one or zero (false counts as "something")
     function setUserBroadcasting($userId, $channelId, $broadcastBoolean) {
         global $con;
         mysqli_select_db($con, "bm_channel");
@@ -139,7 +140,13 @@
         global $con;
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT channel_id FROM `channels_broadcasting` WHERE user_id = " . $userId;
-        return mysqli_query($con, $query);
+        $object = mysqli_query($con, $query);
+
+        $result = array();
+        while ($row = mysqli_fetch_row($object)) {
+            array_push($result, $row[0]);
+        }
+        return $result;
     }
 
     // returns only the channel id's that the user is broadcasting to
@@ -148,7 +155,13 @@
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT channel_id FROM `channels_broadcasting` WHERE user_id = " 
             . $userId . " AND is_broadcasting = 1";
-        return mysqli_query($con, $query);
+        $object = mysqli_query($con, $query);
+
+        $result = array();
+        while ($row = mysqli_fetch_row($object)) {
+            array_push($result, $row[0]);
+        }
+        return $result;
     }
 
     function getLocationHistory($userId, $channelId) {
