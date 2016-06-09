@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/GetChannelUsersLocation.php" afterPath="$PROJECT_DIR$/PHP/GetChannelUsersLocation.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ViewChannelContent.php" afterPath="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/GoogleMapHelper.js" afterPath="$PROJECT_DIR$/js/GoogleMapHelper.js" />
@@ -30,10 +29,10 @@
       <file leaf-file-name="ViewChannelContent.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="45" column="41" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
+            <state relative-caret-position="459">
+              <caret line="54" column="55" selection-start-line="54" selection-start-column="55" selection-end-line="54" selection-end-column="55" />
               <folding>
-                <marker date="1465455379775" expanded="true" signature="3120:3141" ph="..." />
+                <marker date="1465457280076" expanded="true" signature="3524:3545" ph="..." />
               </folding>
             </state>
           </provider>
@@ -42,8 +41,8 @@
       <file leaf-file-name="GoogleMapHelper.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/GoogleMapHelper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="134" column="42" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
+            <state relative-caret-position="289">
+              <caret line="129" column="6" selection-start-line="129" selection-start-column="6" selection-end-line="129" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -52,12 +51,12 @@
       <file leaf-file-name="GetChannelUsersLocation.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/GetChannelUsersLocation.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+            <state relative-caret-position="374">
+              <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="23" selection-end-column="45" />
               <folding>
-                <marker date="1465453490408" expanded="true" signature="1023:1086" ph="SELECT curre... broadcast_member" />
-                <marker date="1465453490408" expanded="true" signature="1023:1087" ph="SELECT curre... broadcast_member" />
-                <marker date="1465453490408" expanded="true" signature="1309:1374" ph="SELECT curre... broadcast_member" />
+                <marker date="1465456589838" expanded="true" signature="1029:1092" ph="SELECT curre... broadcast_member" />
+                <marker date="1465456589838" expanded="true" signature="1029:1093" ph="SELECT curre... broadcast_member" />
+                <marker date="1465456589838" expanded="true" signature="1315:1380" ph="SELECT curre... broadcast_member" />
               </folding>
             </state>
           </provider>
@@ -303,12 +302,12 @@
       <workItem from="1465224867542" duration="23000" />
       <workItem from="1465225116536" duration="36142000" />
       <workItem from="1465368761835" duration="9531000" />
-      <workItem from="1465412620096" duration="15716000" />
+      <workItem from="1465412620096" duration="17846000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85256000" />
+    <option name="totallyTimeSpent" value="87386000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -377,7 +376,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1465455379775" expanded="true" signature="3120:3141" ph="..." />
+            <marker date="1465457280076" expanded="true" signature="3524:3545" ph="..." />
           </folding>
         </state>
       </provider>
@@ -395,9 +394,9 @@
         <state relative-caret-position="272">
           <caret line="16" column="80" selection-start-line="16" selection-start-column="80" selection-end-line="16" selection-end-column="80" />
           <folding>
-            <marker date="1465453490408" expanded="true" signature="1023:1086" ph="SELECT curre... broadcast_member" />
-            <marker date="1465453490408" expanded="true" signature="1023:1087" ph="SELECT curre... broadcast_member" />
-            <marker date="1465453490408" expanded="true" signature="1309:1374" ph="SELECT curre... broadcast_member" />
+            <marker date="1465456589838" expanded="true" signature="1029:1092" ph="SELECT curre... broadcast_member" />
+            <marker date="1465456589838" expanded="true" signature="1029:1093" ph="SELECT curre... broadcast_member" />
+            <marker date="1465456589838" expanded="true" signature="1315:1380" ph="SELECT curre... broadcast_member" />
           </folding>
         </state>
       </provider>
@@ -423,7 +422,7 @@
         <state relative-caret-position="646">
           <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
           <folding>
-            <marker date="1465455379775" expanded="true" signature="3120:3141" ph="..." />
+            <marker date="1465457280076" expanded="true" signature="3524:3545" ph="..." />
           </folding>
         </state>
       </provider>
@@ -441,9 +440,9 @@
         <state relative-caret-position="272">
           <caret line="16" column="80" selection-start-line="16" selection-start-column="80" selection-end-line="16" selection-end-column="80" />
           <folding>
-            <marker date="1465453490408" expanded="true" signature="1023:1086" ph="SELECT curre... broadcast_member" />
-            <marker date="1465453490408" expanded="true" signature="1023:1087" ph="SELECT curre... broadcast_member" />
-            <marker date="1465453490408" expanded="true" signature="1309:1374" ph="SELECT curre... broadcast_member" />
+            <marker date="1465456589838" expanded="true" signature="1029:1092" ph="SELECT curre... broadcast_member" />
+            <marker date="1465456589838" expanded="true" signature="1029:1093" ph="SELECT curre... broadcast_member" />
+            <marker date="1465456589838" expanded="true" signature="1315:1380" ph="SELECT curre... broadcast_member" />
           </folding>
         </state>
       </provider>
@@ -469,7 +468,7 @@
         <state relative-caret-position="306">
           <caret line="18" column="54" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
           <folding>
-            <marker date="1465455379775" expanded="true" signature="3120:3141" ph="..." />
+            <marker date="1465457280076" expanded="true" signature="3524:3545" ph="..." />
           </folding>
         </state>
       </provider>
@@ -527,7 +526,7 @@
         <state relative-caret-position="306">
           <caret line="18" column="54" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
           <folding>
-            <marker date="1465455379775" expanded="true" signature="3120:3141" ph="..." />
+            <marker date="1465457280076" expanded="true" signature="3524:3545" ph="..." />
           </folding>
         </state>
       </provider>
@@ -743,30 +742,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PHP/GetChannelUsersLocation.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="374">
+          <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="23" selection-end-column="45" />
           <folding>
-            <marker date="1465453490408" expanded="true" signature="1023:1086" ph="SELECT curre... broadcast_member" />
-            <marker date="1465453490408" expanded="true" signature="1023:1087" ph="SELECT curre... broadcast_member" />
-            <marker date="1465453490408" expanded="true" signature="1309:1374" ph="SELECT curre... broadcast_member" />
+            <marker date="1465456589838" expanded="true" signature="1029:1092" ph="SELECT curre... broadcast_member" />
+            <marker date="1465456589838" expanded="true" signature="1029:1093" ph="SELECT curre... broadcast_member" />
+            <marker date="1465456589838" expanded="true" signature="1315:1380" ph="SELECT curre... broadcast_member" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="45" column="41" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
+        <state relative-caret-position="459">
+          <caret line="54" column="55" selection-start-line="54" selection-start-column="55" selection-end-line="54" selection-end-column="55" />
           <folding>
-            <marker date="1465455379775" expanded="true" signature="3120:3141" ph="..." />
+            <marker date="1465457280076" expanded="true" signature="3524:3545" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/GoogleMapHelper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="134" column="42" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
+        <state relative-caret-position="289">
+          <caret line="129" column="6" selection-start-line="129" selection-start-column="6" selection-end-line="129" selection-end-column="6" />
           <folding />
         </state>
       </provider>

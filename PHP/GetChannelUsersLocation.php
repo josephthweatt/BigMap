@@ -15,7 +15,7 @@
         // 'if' checks against JS injection
         if (alreadyJoined($id, $channelId)) {
             echo $id . " " . getCurrentLat($id) . " " . getCurrentLong($id)
-                . " " . isUserBroadcasting($id, $channelId);
+                . " " . isUserBroadcasting($id, $channelId) . " ";
         }
     } // end of script
 

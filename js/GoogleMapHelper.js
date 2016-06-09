@@ -100,7 +100,7 @@ function getLocationsFromRequest() {
 // get user's location markers
 function makeUserMarkers() {
     for (var user in usersLocations) {
-        if(usersLocations[user].isBroadcasting) {
+        if(parseInt(usersLocations[user].isBroadcasting)) {
             var position = new google.maps.LatLng(
                 parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
             userMarkers = new google.maps.Marker({
@@ -118,23 +118,17 @@ function makeUserMarkers() {
  *                                 LatLngBounds if multiple users are broadcasting
  */
 function getBounds() {
-    var broadCastingUsers = 0; // count the broadcasting users
+    broadcastingUsers = 0; // count the broadcasting users
     var bounds = new google.maps.LatLngBounds();
     for (var user in usersLocations) {
-        if(usersLocations[user].isBroadcasting) {
+        if(parseInt(usersLocations[user].isBroadcasting)) {
             var position = new google.maps.LatLng(
                 parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
             bounds.extend(position);
-            broadCastingUsers++;
+            broadcastingUsers++;
         }
-    }
-    /*if (broadCastingUsers == 1) {
-        return 1;
-    } else if (broadCastingUsers == 0) {
-        return 0;
-    } else { WILL WORK ON THIS NEXT COMMIT*/
-        return bounds;
-
+    } 
+    return bounds;
 }
 
 /**********************************
