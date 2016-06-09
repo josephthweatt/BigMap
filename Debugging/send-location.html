@@ -6,10 +6,10 @@
         <title>Enter a location for a user</title>
         <!-- saved from url=(0014)about:internet -->
         <!-- saved from url=(0016)http://localhost -->
-        <script type="text/javascript" src="js/FormFilledOut.js"></script>
+        <script type="text/javascript" src="../js/FormFilledOut.js"></script>
     </head>
     <body>
-        <form action="PHP/ReceiveLocationPacket.php" method="post" id="f" onsubmit="return formFilledOut()">
+        <form action="../PHP/ReceiveLocationPacket.php" method="post" id="f" onsubmit="return formFilledOut()">
             <fieldset>
                 <legend>Give location to a user</legend>
                 Username:<br>
@@ -32,7 +32,8 @@
                 <br>longitude2<br>
                 <input type="text" name="locationPacket1[]">
                 <br>
-                <input type="hidden" name="packetCount" value="2">
+                <!-- this is just to tell the PHP that it needs to enter two packets-->
+                <input type="hidden" name="packetCount" value="2"> 
                 <input type="submit">
             </fieldset>
         </form>
