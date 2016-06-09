@@ -8,13 +8,14 @@
 
     /* the response ought to return an array of the current user's locations
      * with this text structure:
-     *      [userId] [current lat] [current long]\n
-     *      [userId] [current lat] [current long]\n...
+     *      [userId] [current lat] [current long] [is broadcasting]\n
+     *      [userId] [current lat] [current long] [is broadcasting]\n...
      */
     foreach ($membersId as $id) {
         // 'if' checks against JS injection
         if (alreadyJoined($id, $channelId)) {
-            echo $id . " " . getCurrentLat($id) . " " . getCurrentLong($id) . " ";
+            echo $id . " " . getCurrentLat($id) . " " . getCurrentLong($id)
+                . " " . isUserBroadcasting($id, $channelId);
         }
     } // end of script
 

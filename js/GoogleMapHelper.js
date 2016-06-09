@@ -65,39 +65,6 @@ function getUsersLocationForMap() {
     setTimeout(getUsersLocationForMap, 1000);
 }
 
-// receives response from PHP/MySQL
-function getLocationsFromRequest() {
-    /* The response ought to return an array of the current user's locations
-     * with this text structure:
-     *      [userId] [current lat] [current long]\n
-     *      [userId] [current lat] [current long]\n...
-     * Then, it will store the response to usersLocation
-     */
-    var textResponse = textHttp.responseText;
-    usersLocations = []; // resets after every request
-    var segments = textResponse.split(" ");
-    for (var i = 0, j = 0; i < segments.length; i += 3, j++){
-        if (segments[i] && segments[i + 1] && segments[i + 2]) {
-            usersLocations[j] =
-                new UserLocation(segments[i], segments[i + 1], segments[i + 2]);
-        }
-    }
-}
-
-// TODO: the 'for' will need to check if a user is broadcasting
-// get user's location markers
-function makeUserMarkers() {
-    for (var user in usersLocations) {
-        var position = new google.maps.LatLng(
-            parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
-        userMarkers = new google.maps.Marker({
-            position: position,
-            map: map,
-            icon: purpleDot
-        });
-    }
-}
-
 // returns URL-style list of member ids for this channel to send to PHP
 function getMembersIds(){
     // the membersIdArray used here comes from the ViewChannelContent declaration
@@ -111,24 +78,73 @@ function getMembersIds(){
     return membersId;
 }
 
+// receives response from PHP/MySQL
+function getLocationsFromRequest() {
+    /* The response ought to return an array of the current user's locations
+     * with this text structure:
+     *      [userId] [current lat] [current long]\n
+     *      [userId] [current lat] [current long]\n...
+     * Then, it will store the response to usersLocation
+     */
+    var textResponse = textHttp.responseText;
+    usersLocations = []; // resets after every request
+    var segments = textResponse.split(" ");
+    for (var i = 0, j = 0; i < segments.length; i += 4, j++){
+        if (segments[i] && segments[i + 1] && segments[i + 2]) {
+            usersLocations[j] =
+                new UserLocation(segments[i], segments[i + 1], segments[i + 2], segments[i + 3]);
+        }
+    }
+}
+
+// get user's location markers
+function makeUserMarkers() {
+    for (var user in usersLocations) {
+        if(usersLocations[user].isBroadcasting) {
+            var position = new google.maps.LatLng(
+                parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
+            userMarkers = new google.maps.Marker({
+                position: position,
+                map: map,
+                icon: purpleDot
+            });
+        }
+    }
+}
+
+
+/*
+ *  @returns {Number|LatLngBounds} 1 if only one user is broadcasting, 0 if no users broadcasting,
+ *                                 LatLngBounds if multiple users are broadcasting
+ */
 function getBounds() {
-    // TODO: the 'for' will need to check if a user is broadcasting
+    var broadCastingUsers = 0; // count the broadcasting users
     var bounds = new google.maps.LatLngBounds();
     for (var user in usersLocations) {
-        var position = new google.maps.LatLng(
-            parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
-        bounds.extend(position);
+        if(usersLocations[user].isBroadcasting) {
+            var position = new google.maps.LatLng(
+                parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
+            bounds.extend(position);
+            broadCastingUsers++;
+        }
     }
-    return bounds;
+    /*if (broadCastingUsers == 1) {
+        return 1;
+    } else if (broadCastingUsers == 0) {
+        return 0;
+    } else { WILL WORK ON THIS NEXT COMMIT*/
+        return bounds;
+
 }
 
 /**********************************
  * Classes
  **********************************/
-function UserLocation(id, lat, long) {
+function UserLocation(id, lat, long, isBroadcasting) {
     this.id = id;
     this.lat = lat;
     this.long = long;
+    this.isBroadcasting = isBroadcasting;
 }
 
 // the default scope of the map
