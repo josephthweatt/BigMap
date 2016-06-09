@@ -50,6 +50,7 @@ function getUsersLocationForMap() {
         textHttp.onreadystatechange = function () {
             if (textHttp.readyState == 4 && textHttp.status == 200) {
                 getLocationsFromRequest();
+                reloadMarkers();
                 if (mapScope) {
                     mapScope.findScopeDimensions();
                 } else {
@@ -97,21 +98,29 @@ function getLocationsFromRequest() {
     }
 }
 
+function reloadMarkers() {
+    console.log("reloading Markers");
+    for (var i = 0; i < userMarkers.length; i++) {
+        userMarkers[i].setMap(null);
+    }
+    makeUserMarkers();
+}
+
 // get user's location markers
 function makeUserMarkers() {
+    userMarkers = [];
     for (var user in usersLocations) {
         if(parseInt(usersLocations[user].isBroadcasting)) {
             var position = new google.maps.LatLng(
                 parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
-            userMarkers = new google.maps.Marker({
+            userMarkers.push(new google.maps.Marker({
                 position: position,
                 map: map,
                 icon: purpleDot
-            });
+            }));
         }
     }
 }
-
 
 /*
  *  @returns {Number|LatLngBounds} 1 if only one user is broadcasting, 0 if no users broadcasting,
