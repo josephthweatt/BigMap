@@ -14,7 +14,8 @@ var getLocationURL = "../PHP/GetChannelUsersLocation.php";
 var textHttp = createXMLHttpRequestObject();
 
 // map variables
-var map, userMarkers, broadcastingUsers;
+var map, broadcastingUsers;
+var userMarkers = {};
 var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
 
 function createXMLHttpRequestObject() {
@@ -103,25 +104,41 @@ function getLocationsFromRequest() {
 }
 
 function reloadMarkers() {
-    userMarkers = [];
+    var id;
     for (var i = 0, j = 1; i < usersLocations.length; i++, j++) {
+        id = usersLocations[i].id;
         if (usersLocations[i].isBroadcasting) {
-            var position = new google.maps.LatLng(
-                usersLocations[i].lat, usersLocations[i].long);
-
-            userMarkers = new google.maps.Marker({
-                position: position,
-                map: map,
-                icon: purpleDot
-            });
+            if (!(id in userMarkers) || !userMarkers[id].getMap() || locationChanged(i, id)) {
+                addMarker(i, id);
+            }
+        } else {
+            deleteMarker(id);
         }
     }
 }
 
-function deleteMarker(j, i) {
-    console.log("user "+usersLocations[i].id);
-    userMarkers[j].setMap(null);
-    userMarkers[j] = null;
+function addMarker(i, id) {
+    var position = new google.maps.LatLng(
+        usersLocations[i].lat, usersLocations[i].long);
+
+    var marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        icon: purpleDot
+    });
+    userMarkers[id] = marker;
+}
+
+function deleteMarker(id) {
+    userMarkers[id].setMap(null);
+}
+
+// returns true if the user's location has been updated since the last broadcast
+function locationChanged(i, id) {
+    var position = new google.maps.LatLng(
+        usersLocations[i].lat, usersLocations[i].long);
+    return (position.lat() != userMarkers[id].getPosition().lat()
+            || position.lng() != userMarkers[id].getPosition().lng());
 }
 
 /*
