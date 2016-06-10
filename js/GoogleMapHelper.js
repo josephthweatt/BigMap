@@ -108,7 +108,10 @@ function reloadMarkers() {
     for (var i = 0, j = 1; i < usersLocations.length; i++, j++) {
         id = usersLocations[i].id;
         if (usersLocations[i].isBroadcasting) {
-            if (!(id in userMarkers) || !userMarkers[id].getMap() || locationChanged(i, id)) {
+            if (!(id in userMarkers) || !userMarkers[id].getMap()) {
+                addMarker(i, id);
+            } else if (locationChanged(i, id)) {
+                deleteMarker(id);
                 addMarker(i, id);
             }
         } else {

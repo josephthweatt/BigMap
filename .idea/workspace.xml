@@ -37,8 +37,8 @@
       <file leaf-file-name="GoogleMapHelper.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/GoogleMapHelper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="110" column="41" selection-start-line="110" selection-start-column="41" selection-end-line="110" selection-end-column="41" />
+            <state relative-caret-position="422">
+              <caret line="114" column="33" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -317,12 +317,12 @@
       <workItem from="1465497601124" duration="31312000" />
       <workItem from="1465580457681" duration="703000" />
       <workItem from="1465582273214" duration="3319000" />
-      <workItem from="1465593575646" duration="3147000" />
+      <workItem from="1465593575646" duration="3720000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125914000" />
+    <option name="totallyTimeSpent" value="126487000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="834" y="0" width="1086" height="1040" extended-state="0" />
@@ -830,8 +830,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/GoogleMapHelper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="110" column="41" selection-start-line="110" selection-start-column="41" selection-end-line="110" selection-end-column="41" />
+        <state relative-caret-position="422">
+          <caret line="114" column="33" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
           <folding />
         </state>
       </provider>
