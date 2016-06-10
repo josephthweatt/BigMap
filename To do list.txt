@@ -13,6 +13,7 @@ To do:
 -In the PHP files, look for loops which make mySQL queries within in them. MySQL queries ought to be made after the loop, such that there is only 1 query as opposed to 1000 queries (that threatens system performance)
 	*Instances of this happening:
 		-addLocationPacket in ReceiveLocationPacket
+-viewchannelcontent is currently displaying the map, even if the user is not a member
 		
 
 Recurring TODO

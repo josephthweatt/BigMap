@@ -14,7 +14,7 @@
         if (alreadyJoined($id, $channelId) == 0) {
             // Add the connection to the member database
             mysqli_select_db($con, "bm_channel");
-            $query = "INSERT INTO channels_broadcasting VALUES (" . $id . ", " . $channelId . ")";
+            $query = "INSERT INTO channels_broadcasting VALUES (" . $id . ", " . $channelId . ", 0)";
             mysqli_query($con, $query);
 
             /**************************************************************************************

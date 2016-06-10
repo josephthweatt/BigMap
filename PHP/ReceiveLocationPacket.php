@@ -23,7 +23,7 @@
     // TODO: create a STOP command for the mobile app to send out to tell
     // TODO: this code to stop broadcasting altogether
 
-    $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
+    $con = mysqli_connect("localhost", "root");
 
     isset($_POST["userInfo"]) ? $userInfo = $_POST["userInfo"] : die ("no user id specified");
     userExists($userInfo) ? $userId = getUserId($userInfo) : die ();

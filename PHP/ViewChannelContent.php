@@ -40,27 +40,7 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9EWuO31iw4rHYdHHs4d5aC_F6UEmoyx0&callback=initMap"
             async defer></script>
         <script>
-            var map, userMarkers = [], broadcastingUsers;
-            var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
-            function initMap() {
-                var bounds = getBounds();
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
-                    zoom: 0
-                });
-                if (broadcastingUsers == 1) {
-                    map.setCenter(bounds.getCenter());
-                    map.setZoom(16);
-                } else if (broadcastingUsers == 0) {
-                    // just a general view of the globe
-                    map.setCenter({lat: 30 , lng: 0});
-                    map.setZoom(2);
-                } else {
-                    map.fitBounds(bounds);
-                }
-
-                makeUserMarkers();
-            }
+            
         </script>
 
         <!-- show a table of the members and a list of their locations (server side)-->

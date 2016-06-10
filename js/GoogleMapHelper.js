@@ -13,6 +13,10 @@
 var getLocationURL = "../PHP/GetChannelUsersLocation.php";
 var textHttp = createXMLHttpRequestObject();
 
+// map variables
+var map, userMarkers, broadcastingUsers;
+var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
+
 function createXMLHttpRequestObject() {
     var textHttp;
 
@@ -50,7 +54,6 @@ function getUsersLocationForMap() {
         textHttp.onreadystatechange = function () {
             if (textHttp.readyState == 4 && textHttp.status == 200) {
                 getLocationsFromRequest();
-                reloadMarkers();
                 if (mapScope) {
                     mapScope.findScopeDimensions();
                 } else {
@@ -60,6 +63,7 @@ function getUsersLocationForMap() {
                     initMap();
                     mapScope["reframeMap"] = false;
                 }
+                reloadMarkers();
             }
         }
     }
@@ -99,31 +103,46 @@ function getLocationsFromRequest() {
 }
 
 function reloadMarkers() {
-    console.log("reloading Markers");
-    for (var i = 0; i < userMarkers.length; i++) {
-        userMarkers[i].setMap(null);
-    }
-    makeUserMarkers();
-}
-
-// get user's location markers
-function makeUserMarkers() {
-    userMarkers = [];
-    for (var user in usersLocations) {
-        if(parseInt(usersLocations[user].isBroadcasting)) {
+    userMarkers = [null];
+    for (var i = 0, j = 1; i < usersLocations.length; i++, j++) {
+        if (usersLocations[i].isBroadcasting) {
             var position = new google.maps.LatLng(
-                parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
-            userMarkers.push(new google.maps.Marker({
-                position: position,
-                map: map,
-                icon: purpleDot
-            }));
+                usersLocations[i].lat, usersLocations[i].long);
+
+            // indicates there is a new broadcaster
+            if (j >= userMarkers.length) {
+                userMarkers.push(new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    icon: purpleDot,
+                    id: usersLocations[i].id
+                }));
+            } else if (!userMarkers[j].getMap() ||
+                        (userMarkers[j].getPosition().lat() != position.lat()
+                        || userMarkers[j].getPosition().lng() != position.lng())) {
+                deleteMarker(j, i);
+                userMarkers[j] = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    icon: purpleDot
+                });
+            }
+        } else if (userMarkers[j] != null) {
+            // hides location when user is not broadcasting
+            deleteMarker(j, i);
         }
     }
 }
 
+function deleteMarker(j, i) {
+    console.log("user "+usersLocations[i].id);
+    userMarkers[j].setMap(null);
+    userMarkers[j] = null;
+}
+
 /*
- *  @returns {Number|LatLngBounds} 1 if only one user is broadcasting, 0 if no users broadcasting,
+ *  @returns {Number|LatLngBounds} 1 if only one user is broadcasting,
+ *                                 0 if no users broadcasting,
  *                                 LatLngBounds if multiple users are broadcasting
  */
 function getBounds() {
@@ -133,6 +152,7 @@ function getBounds() {
         if(parseInt(usersLocations[user].isBroadcasting)) {
             var position = new google.maps.LatLng(
                 parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
+            console.log(position.lat() +" "+position.lng());
             bounds.extend(position);
             broadcastingUsers++;
         }
@@ -140,14 +160,35 @@ function getBounds() {
     return bounds;
 }
 
+/**************************
+ * Create the map
+ **************************/
+function initMap() {
+    //var bounds = getBounds();
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
+        zoom: 0
+    });
+    /*if (broadcastingUsers == 1) {
+     map.setCenter(bounds.getCenter());
+     map.setZoom(16);
+     } else if (broadcastingUsers == 0) {
+     // just a general view of the globe
+     map.setCenter({lat: 30 , lng: 0});
+     map.setZoom(2);
+     } else {
+     map.fitBounds(bounds);
+     }*/
+}
+
 /**********************************
  * Classes
  **********************************/
 function UserLocation(id, lat, long, isBroadcasting) {
-    this.id = id;
-    this.lat = lat;
-    this.long = long;
-    this.isBroadcasting = isBroadcasting;
+    this.id = parseInt(id);
+    this.lat = parseFloat(lat);
+    this.long = parseFloat(long);
+    this.isBroadcasting = parseInt(isBroadcasting);
 }
 
 // the default scope of the map
@@ -161,10 +202,9 @@ function MapScope() {
 }
 
 /*
- * findScopeDimensions does three things:
+ * findScopeDimensions does two things:
  *  1. check that the dimension length is the same (changes lengths if they're not)
  *  2. check that the center is the same (returns center if it's not)
- *  3. if either center or dimensions were changed, set reframeMap to true
  */
 MapScope.prototype.findScopeDimensions = function() {
     var minLat = 90, maxLat = -90;
