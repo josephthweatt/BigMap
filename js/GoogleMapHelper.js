@@ -103,33 +103,17 @@ function getLocationsFromRequest() {
 }
 
 function reloadMarkers() {
-    userMarkers = [null];
+    userMarkers = [];
     for (var i = 0, j = 1; i < usersLocations.length; i++, j++) {
         if (usersLocations[i].isBroadcasting) {
             var position = new google.maps.LatLng(
                 usersLocations[i].lat, usersLocations[i].long);
 
-            // indicates there is a new broadcaster
-            if (j >= userMarkers.length) {
-                userMarkers.push(new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    icon: purpleDot,
-                    id: usersLocations[i].id
-                }));
-            } else if (!userMarkers[j].getMap() ||
-                        (userMarkers[j].getPosition().lat() != position.lat()
-                        || userMarkers[j].getPosition().lng() != position.lng())) {
-                deleteMarker(j, i);
-                userMarkers[j] = new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    icon: purpleDot
-                });
-            }
-        } else if (userMarkers[j] != null) {
-            // hides location when user is not broadcasting
-            deleteMarker(j, i);
+            userMarkers = new google.maps.Marker({
+                position: position,
+                map: map,
+                icon: purpleDot
+            });
         }
     }
 }
@@ -149,9 +133,9 @@ function getBounds() {
     broadcastingUsers = 0; // count the broadcasting users
     var bounds = new google.maps.LatLngBounds();
     for (var user in usersLocations) {
-        if(parseInt(usersLocations[user].isBroadcasting)) {
+        if(usersLocations[user].isBroadcasting) {
             var position = new google.maps.LatLng(
-                parseFloat(usersLocations[user].lat), parseFloat(usersLocations[user].long));
+                usersLocations[user].lat, usersLocations[user].long);
             console.log(position.lat() +" "+position.lng());
             bounds.extend(position);
             broadcastingUsers++;
@@ -164,12 +148,13 @@ function getBounds() {
  * Create the map
  **************************/
 function initMap() {
-    //var bounds = getBounds();
+    var bounds = getBounds();
+    console.log(bounds);
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
         zoom: 0
     });
-    /*if (broadcastingUsers == 1) {
+    if (broadcastingUsers == 1) {
      map.setCenter(bounds.getCenter());
      map.setZoom(16);
      } else if (broadcastingUsers == 0) {
@@ -178,7 +163,7 @@ function initMap() {
      map.setZoom(2);
      } else {
      map.fitBounds(bounds);
-     }*/
+     }
 }
 
 /**********************************
