@@ -48,7 +48,8 @@ function createXMLHttpRequestObject() {
 function getUsersLocationForMap() {
     if (textHttp.readyState == 0 || textHttp.readyState == 4) {
         textHttp.open("POST", getLocationURL, true);
-        textHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        textHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded, charset=utf-8");
+
         var membersIds = getMembersIds();
         textHttp.send("channelId=" + channelId + "&" + membersIds);
 
@@ -68,7 +69,7 @@ function getUsersLocationForMap() {
             }
         }
     }
-    setTimeout(getUsersLocationForMap, 1000);
+    setTimeout(getUsersLocationForMap, 1500);
 }
 
 // returns URL-style list of member ids for this channel to send to PHP
@@ -114,7 +115,7 @@ function reloadMarkers() {
                 deleteMarker(id);
                 addMarker(i, id);
             }
-        } else {
+        } else if (id in userMarkers) {
             deleteMarker(id);
         }
     }
@@ -156,7 +157,6 @@ function getBounds() {
         if(usersLocations[user].isBroadcasting) {
             var position = new google.maps.LatLng(
                 usersLocations[user].lat, usersLocations[user].long);
-            console.log(position.lat() +" "+position.lng());
             bounds.extend(position);
             broadcastingUsers++;
         }
@@ -169,7 +169,6 @@ function getBounds() {
  **************************/
 function initMap() {
     var bounds = getBounds();
-    console.log(bounds);
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
         zoom: 0
