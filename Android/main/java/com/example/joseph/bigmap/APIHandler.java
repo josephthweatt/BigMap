@@ -127,16 +127,17 @@ public class APIHandler extends AsyncTask {
             connection.connect();
 
             String line;
-            String response = "";
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream stream = connection.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(stream));
 
                 while ((line = reader.readLine()) != null) {
-                    response += line;
+                    if (line.contains("Welcome back, ")) {
+                        signInSuccessful = true;
+                        return;
+                    }
                 }
             }
-            signInSuccessful = response.contains("Welcome back, ");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -297,23 +298,20 @@ public class APIHandler extends AsyncTask {
             connection.connect();
 
             String line;
-            String response = "";
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream stream = connection.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(stream));
 
                 while ((line = reader.readLine()) != null) {
-                    response += line;
+                    if (line.contains("Locations properly stored")) {
+                        LocationService.clearLocationPacket();
+                        return true;
+                    }
                 }
-            }
-            if (response.contains("Locations properly stored")) {
-                LocationService.clearLocationPacket();
-                return true;
-            } else {
-                return false;
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -355,17 +353,6 @@ public class APIHandler extends AsyncTask {
             os.close();
 
             connection.connect();
-
-            String line;
-            String response = "";
-            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                InputStream stream = connection.getInputStream();
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                while ((line = reader.readLine()) != null) {
-                    response += line;
-                }
-            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
