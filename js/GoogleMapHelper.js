@@ -11,66 +11,13 @@
  * TODO: the code is made public!
  *************************************************************************/
 var getLocationURL = "../PHP/GetChannelUsersLocation.php";
-var textHttp = createXMLHttpRequestObject();
 
 // map variables
 var map, broadcastingUsers;
 var userMarkers = {};
 var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
 
-function createXMLHttpRequestObject() {
-    var textHttp;
 
-    if (window.XMLHttpRequest) {
-        // this is executed when a user isn't trying to ruin the app (they're not using IE)
-        try {
-            textHttp = new XMLHttpRequest();
-        } catch (e) {
-            textHttp = false;
-        }
-    } else {
-        // this is code that apologizes for Internet Explorer's existence
-        try {
-            textHttp = new ActiveXObject("Microsoft.XMLHTTP");
-        } catch (e) {
-            textHttp = false;
-        }
-    }
-
-    if (!textHttp) {
-        alert("cannot create textHttp object");
-    } else {
-        return textHttp;
-    }
-}
-
-// called in ViewChannelContent.php during 'onload'
-function getUsersLocationForMap() {
-    if (textHttp.readyState == 0 || textHttp.readyState == 4) {
-        textHttp.open("POST", getLocationURL, true);
-        textHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded, charset=utf-8");
-
-        var membersIds = getMembersIds();
-        textHttp.send("channelId=" + channelId + "&" + membersIds);
-
-        textHttp.onreadystatechange = function () {
-            if (textHttp.readyState == 4 && textHttp.status == 200) {
-                getLocationsFromRequest();
-                if (mapScope) {
-                    mapScope.findScopeDimensions();
-                } else {
-                    mapScope = new MapScope();
-                }
-                if (mapScope["reframeMap"]) {
-                    initMap();
-                    mapScope["reframeMap"] = false;
-                }
-                reloadMarkers();
-            }
-        }
-    }
-    setTimeout(getUsersLocationForMap, 1500);
-}
 
 // returns URL-style list of member ids for this channel to send to PHP
 function getMembersIds(){
