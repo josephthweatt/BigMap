@@ -135,20 +135,24 @@ function getBounds() {
  **************************/
 function initMap() {
     var bounds = getBounds();
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
-        zoom: 0
-    });
-    if (broadcastingUsers == 1) {
-     map.setCenter(bounds.getCenter());
-     map.setZoom(16);
-     } else if (broadcastingUsers == 0) {
-     // just a general view of the globe
-     map.setCenter({lat: 30 , lng: 0});
-     map.setZoom(2);
-     } else {
-     map.fitBounds(bounds);
-     }
+
+    if (broadcastingUsers == 0) {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 30, lng: 0},
+            zoom: 0
+        });
+    } else {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
+            zoom: 0
+        });
+        if (broadcastingUsers == 1) {
+            map.setCenter(bounds.getCenter());
+            map.setZoom(16);
+        } else {
+            map.fitBounds(bounds);
+        }
+    }
 }
 
 /**********************************
