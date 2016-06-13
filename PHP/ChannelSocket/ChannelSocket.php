@@ -1,4 +1,5 @@
 <?php
+
     use Ratchet\MessageComponentInterface;
     use Ratchet\ConnectionInterface;
 
@@ -14,7 +15,7 @@
         protected $androidUsers;
 
         public function __construct() {
-            $this->clients = \SplObjectStorage;
+            $this->clients = new SplObjectStorage();
         }
 
         // TODO: make a check to see if the client is an android user

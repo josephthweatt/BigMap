@@ -10,7 +10,7 @@
  * TODO: data that should otherwise be restricted. Fix this before
  * TODO: the code is made public!
  *************************************************************************/
-var socket = new WebSocket("http://www.jathweatt.com:2000"); // TODO: make sure this is the correct socket
+var socket = new WebSocket("ws://localhost:2000"); // TODO: make sure this is the correct socket
 var open = false;
 
 // map variables
@@ -23,7 +23,7 @@ var purpleDot = '../Images/purple-dot.png'; // default marker for user's locatio
  ********************/
 socket.onopen = function(id, channel) {
     open = true;
-    socket.send("connect-browser" + id +" "+ channel); 
+    socket.send("connect-browser " + id +" "+ channel);
     console.log("Connected to channel socket");
 };
 
