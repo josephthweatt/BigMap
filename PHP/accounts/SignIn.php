@@ -6,7 +6,7 @@
         <body>
             <?php
                 // error_reporting(E_ALL); // uncomment for debugging
-                include 'MemberUtilities.php';
+                include '../MemberUtilities.php';
                 $con = mysqli_connect("localhost", "root") or 
                     die(mysqli_error($con));
 

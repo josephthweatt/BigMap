@@ -6,7 +6,7 @@
 	<body>
 		<?php 
 			// error_reporting(E_ALL); // uncomment for debugging
-			include 'MemberUtilities.php';
+			include '../MemberUtilities.php';
 		
 			$userInfoTable = "user_info";
 			$metaInfoTable = "static_variables";

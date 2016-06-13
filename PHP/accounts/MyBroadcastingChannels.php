@@ -1,6 +1,6 @@
 <?php
     // error_reporting(E_ALL); // uncomment for debugging
-    include 'MemberUtilities.php';
+    include '../MemberUtilities.php';
 
     // this file will return the key of any channel the user is currently in
     // if the user is not in any channels, it displays "-1"

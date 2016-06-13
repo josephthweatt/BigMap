@@ -25,19 +25,19 @@ var purpleDot = '../Images/purple-dot.png'; // default marker for user's locatio
 socket.onopen = function() {
     open = true;
     console.log("Connected to channel socket");
-}
+};
 
 /*
  * @param {string} evt - where PHP returns a string of users & locations
  */
 socket.onmessage = function(evt) {
     // TODO: move old functions from the AJAX requests to here
-}
+};
 
 socket.onclose = function() {
     open = false;
     console.log("Disconnected from channel socket");
-}
+};
 
 /**********************************************
  * Functions to create and update user markers
