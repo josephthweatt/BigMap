@@ -11,6 +11,8 @@
  * TODO: the code is made public!
  *************************************************************************/
 var getLocationURL = "../PHP/GetChannelUsersLocation.php";
+var socket = new WebSocket("ws://127.0.0.1:2000"); // TODO: make sure this is the correct socket
+var open = false;
 
 // map variables
 var map, broadcastingUsers;
