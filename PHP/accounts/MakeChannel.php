@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Sign up</title>
+    <title>Make a channel</title>
 </head>
 <body>
     <?php
         // error_reporting(E_ALL); // uncomment for debugging
-        include 'MemberUtilities.php';
+        include '../MemberUtilities.php';
         $con = mysqli_connect("localhost", "root");
 
         mysqli_select_db($con, "bm_members");

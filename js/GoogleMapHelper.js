@@ -10,7 +10,6 @@
  * TODO: data that should otherwise be restricted. Fix this before
  * TODO: the code is made public!
  *************************************************************************/
-var getLocationURL = "../PHP/GetChannelUsersLocation.php";
 var socket = new WebSocket("http://www.jathweatt.com:2000"); // TODO: make sure this is the correct socket
 var open = false;
 
@@ -22,8 +21,9 @@ var purpleDot = '../Images/purple-dot.png'; // default marker for user's locatio
 /********************
  * Socket functions
  ********************/
-socket.onopen = function() {
+socket.onopen = function(id, channel) {
     open = true;
+    socket.send("connect-browser" + id +" "+ channel); 
     console.log("Connected to channel socket");
 };
 
@@ -32,6 +32,17 @@ socket.onopen = function() {
  */
 socket.onmessage = function(evt) {
     // TODO: move old functions from the AJAX requests to here
+    getLocationsFromRequest(evt.data);
+    if (mapScope) {
+        mapScope.findScopeDimensions();
+    } else {
+        mapScope = new MapScope();
+    }
+    if (mapScope["reframeMap"]) {
+        initMap();
+        mapScope["reframeMap"] = false;
+    }
+    reloadMarkers();
 };
 
 socket.onclose = function() {
@@ -42,30 +53,16 @@ socket.onclose = function() {
 /**********************************************
  * Functions to create and update user markers
  **********************************************/
-// returns URL-style list of member ids for this channel to send to PHP
-function getMembersIds(){
-    // the membersIdArray used here comes from the ViewChannelContent declaration
-    var membersId = "";
-    for (var i = 0; i < membersIdArray.length; i++) {
-        var memberObj = membersIdArray[i];
-        membersId += "membersId[]=" + memberObj.user_id;
-        if (i != membersIdArray.length - 1)
-            membersId += "&";
-    }
-    return membersId;
-}
-
 // receives response from PHP/MySQL
-function getLocationsFromRequest() {
+function getLocationsFromRequest(data) {
     /* The response ought to return an array of the current user's locations
      * with this text structure:
      *      [userId] [current lat] [current long]\n
      *      [userId] [current lat] [current long]\n...
      * Then, it will store the response to usersLocation
      */
-    var textResponse = textHttp.responseText;
     usersLocations = []; // resets after every request
-    var segments = textResponse.split(" ");
+    var segments = data.split(" ");
     for (var i = 0, j = 0; i < segments.length; i += 4, j++){
         if (segments[i] && segments[i + 1] && segments[i + 2]) {
             usersLocations[j] =
@@ -95,12 +92,11 @@ function addMarker(i, id) {
     var position = new google.maps.LatLng(
         usersLocations[i].lat, usersLocations[i].long);
 
-    var marker = new google.maps.Marker({
+    userMarkers[id] = new google.maps.Marker({
         position: position,
         map: map,
         icon: purpleDot
     });
-    userMarkers[id] = marker;
 }
 
 function deleteMarker(id) {

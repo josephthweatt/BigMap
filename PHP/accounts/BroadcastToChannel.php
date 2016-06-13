@@ -1,6 +1,6 @@
 <?php
     // error_reporting(E_ALL); // uncomment for debugging
-    include 'MemberUtilities.php';
+    include '../MemberUtilities.php';
 
     // this will receive user credentials and a channel id to
     // give the user permission to broadcast

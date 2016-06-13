@@ -1,6 +1,6 @@
 <?php
     error_reporting(E_ALL); // uncomment for debugging
-    include 'MemberUtilities.php';
+    include '../MemberUtilities.php';
     $con = mysqli_connect("localhost", "root");
 
     isset($_POST["channelId"]) ? $channelId = $_POST["channelId"] : die ("channel id not set");
