@@ -11,7 +11,7 @@
  * TODO: the code is made public!
  *************************************************************************/
 var getLocationURL = "../PHP/GetChannelUsersLocation.php";
-var socket = new WebSocket("ws://127.0.0.1:2000"); // TODO: make sure this is the correct socket
+var socket = new WebSocket("http://www.jathweatt.com:2000"); // TODO: make sure this is the correct socket
 var open = false;
 
 // map variables
@@ -19,8 +19,29 @@ var map, broadcastingUsers;
 var userMarkers = {};
 var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
 
+/********************
+ * Socket functions
+ ********************/
+socket.onopen = function() {
+    open = true;
+    console.log("Connected to channel socket");
+}
 
+/*
+ * @param {string} evt - where PHP returns a string of users & locations
+ */
+socket.onmessage = function(evt) {
+    // TODO: move old functions from the AJAX requests to here
+}
 
+socket.onclose = function() {
+    open = false;
+    console.log("Disconnected from channel socket");
+}
+
+/**********************************************
+ * Functions to create and update user markers
+ **********************************************/
 // returns URL-style list of member ids for this channel to send to PHP
 function getMembersIds(){
     // the membersIdArray used here comes from the ViewChannelContent declaration
