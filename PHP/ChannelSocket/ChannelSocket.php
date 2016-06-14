@@ -17,16 +17,11 @@
         public function __construct(\React\EventLoop\LoopInterface $loop) {
             $this->clients = new SplObjectStorage();
             $this->loop = $loop;
-
-            $this->loop->addPeriodicTimer(1, function() {
-                    $this->sendLocationUpdates();
-                });
         }
 
         // attaches connections as clients of the socket
         public function onOpen(ConnectionInterface $conn) {
             $this->clients->attach($conn);
-            //$conn->send("1 50 50 1");
         }
 
         /*
@@ -42,9 +37,7 @@
             $data = explode(" ", trim($msg));
             switch ($data[0]) {
                 case "connect-browser":
-                    $user = new BrowserUser($data[1], $data[2], $conn);
-                    $user->sendChannelData();
-                    $this->browserUsers[] = $user;
+                    $this->browserUsers[] = new BrowserUser($data[1], $data[2], $conn);
                     break;
                 case "connect-android":
                     array_push($this->androidUsers, new AndroidUser($data[1], $data[2], $conn));
