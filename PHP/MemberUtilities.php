@@ -69,6 +69,7 @@
     /**************************************** CHANNELS *******************************/
     function channelExists($channelId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
 
         $query = "SELECT EXISTS(SELECT 1 FROM channel_info WHERE id = " . $channelId . ")";
@@ -99,6 +100,7 @@
     // return true if the user needs a broadcasting profile
     function newBroadcaster($userId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT COUNT(*) FROM broadcast_member WHERE broadcaster_id = "
             . $userId;
@@ -113,6 +115,7 @@
     // true if a user is already in a channel
     function alreadyJoined($userId, $channelId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT COUNT(*) FROM channels_broadcasting WHERE user_id = "
             . $userId . " AND channel_id = " . $channelId;
@@ -123,6 +126,7 @@
     // read whether the user is broadcasting, then return boolean
     function isUserBroadcasting($userId, $channelId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT is_broadcasting FROM channels_broadcasting WHERE user_id = "
             . $userId . " AND channel_id = " . $channelId;
@@ -134,6 +138,7 @@
     // @param broadcastBoolean: must either put one or zero (false counts as "something")
     function setUserBroadcasting($userId, $channelId, $broadcastBoolean) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "UPDATE channels_broadcasting SET is_broadcasting = "
             . $broadcastBoolean . " WHERE user_id = " . $userId
@@ -144,6 +149,7 @@
     // returns ALL the channels that the user is affiliated with
     function getUsersChannels($userId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT channel_id FROM `channels_broadcasting` WHERE user_id = " . $userId;
         $object = mysqli_query($con, $query);
@@ -158,6 +164,7 @@
     // returns only the channel id's that the user is broadcasting to
     function getUsersBroadcastingChannels($userId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT channel_id FROM `channels_broadcasting` WHERE user_id = " 
             . $userId . " AND is_broadcasting = 1";
@@ -172,6 +179,7 @@
 
     function getLocationHistory($userId, $channelId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT * FROM location_history WHERE broadcaster_id = "
             . $userId . " AND channel_id = " . $channelId;
