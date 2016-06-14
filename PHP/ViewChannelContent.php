@@ -55,10 +55,10 @@
         foreach($membersArray as $memberId) {
             // set user's location history
             echo "<fieldset style=\"display: inline-block\">"
-                . "<legend>" . getUsername($memberId["user_id"]) . "</legend>";
+                . "<legend>" . getUsername($memberId) . "</legend>";
              echo "<table>";
 
-            $locationHistory = getLocationHistory($memberId["user_id"], $channelId);
+            $locationHistory = getLocationHistory($memberId, $channelId);
             foreach ($locationHistory as $location) {
                 echo "<tr>";
                 echo "<td><p>" . $location['time'] . "</p></td>";

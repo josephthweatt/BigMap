@@ -82,6 +82,7 @@
 
     function getChannelMembers($channelId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
 
         $query = "SELECT user_id FROM `channels_broadcasting` WHERE channel_id = "
@@ -90,7 +91,7 @@
 
         $userArray = [];
         foreach ($object as $userId) {
-            $userArray[] = $userId;
+            $userArray[] = $userId["user_id"];
         }
         return $userArray;
     }
@@ -135,7 +136,8 @@
         global $con;
         mysqli_select_db($con, "bm_channel");
         $query = "UPDATE channels_broadcasting SET is_broadcasting = "
-            . $broadcastBoolean . " WHERE user_id = " . $userId . " AND channel_id = " . $channelId;
+            . $broadcastBoolean . " WHERE user_id = " . $userId
+            . " AND channel_id = " . $channelId;
         mysqli_query($con, $query);
     }
 
@@ -185,4 +187,9 @@
         $object = mysqli_query($con, $query)
             or die ("Error submitting query message: " . $query);
         return mysqli_fetch_assoc($object);
+    }
+
+    function checkConnection() {
+        global $con;
+        return !isset($con) ? $con = mysqli_connect("localhost", "root") : true;
     }

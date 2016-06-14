@@ -2,20 +2,18 @@
     include '../MemberUtilities.php';
     use Ratchet\ConnectionInterface;
 
+if (!isset($con)) {
+    $con = mysqli_connect("localhost", "root");
+}
+
     // required for all user classes
     abstract class User {
-        public static $con;
-
         public $id;
         public $channelId;
         public $conn;
         static public $connArray = array(); // array of ALL connections
 
         public function __construct($id, $channelId, ConnectionInterface $conn) {
-            if (!isset(User::$con)) {
-                User::$con = mysqli_connect("localhost", "root");
-            }
-
             $this->id = $id;
             $this->channelId = $channelId;
             $this->conn = $conn;
@@ -52,7 +50,7 @@
                                  . $this->getCurrentLong($id) . " " 
                                  . isUserBroadcasting($id, $this->channelId) . " ";
             }
-            $this->conn->send("1 3 45 1");
+            $this->conn->send($locationInfo);
         }
     }
 
