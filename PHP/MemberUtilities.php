@@ -5,6 +5,10 @@
      *********************************************************************************/
     // error_reporting(E_ALL); // uncomment for debugging
     /********************************* USER CREDENTIALS ******************************/
+    if(!isset($con)) {
+        $con = mysqli_connect("localhost", "root");
+    }
+
     // returns user id
     function userExists($userInfo) {
         global $con;

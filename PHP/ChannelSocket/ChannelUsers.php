@@ -12,7 +12,7 @@
         static public $connArray = array(); // array of ALL connections
 
         public function __construct($id, $channelId, ConnectionInterface $conn) {
-            if (!User::$con) {
+            if (!isset(User::$con)) {
                 User::$con = mysqli_connect("localhost", "root");
             }
 
@@ -52,7 +52,7 @@
                                  . $this->getCurrentLong($id) . " " 
                                  . isUserBroadcasting($id, $this->channelId) . " ";
             }
-            $this->conn->send($locationInfo);
+            $this->conn->send("1 3 45 1");
         }
     }
 

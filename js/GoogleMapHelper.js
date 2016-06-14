@@ -24,6 +24,7 @@ var purpleDot = '../Images/purple-dot.png'; // default marker for user's locatio
  ********************/
 socket.onopen = function() {
     open = true;
+    initMap();
     socket.send("connect-browser " + userId +" "+ channelId);
     console.log("Connected");
 };
@@ -119,7 +120,7 @@ function initMap() {
     bounds = getBounds();
     if (broadcastingUsers == 0) {
         map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 0, lng: 0},
+            center: {lat: 30, lng: 0},
             zoom: 2
         });
     } else {
@@ -143,16 +144,18 @@ function initMap() {
  */
 function getBounds() {
     broadcastingUsers = 0; // count the broadcasting users
-    var bounds = new google.maps.LatLngBounds();
-    for (var i = 0; i < usersLocations.length; i++) {
-        if(usersLocations[i].isBroadcasting) {
-            var position = new google.maps.LatLng(
-                usersLocations[i].lat, usersLocations[i].long);
-            bounds.extend(position);
-            broadcastingUsers++;
+    if (usersLocations) {
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < usersLocations.length; i++) {
+            if (usersLocations[i].isBroadcasting) {
+                var position = new google.maps.LatLng(
+                    usersLocations[i].lat, usersLocations[i].long);
+                bounds.extend(position);
+                broadcastingUsers++;
+            }
         }
+        return bounds;
     }
-    return bounds;
 }
 
 /**********************************
