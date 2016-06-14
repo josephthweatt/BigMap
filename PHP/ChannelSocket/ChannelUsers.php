@@ -1,30 +1,58 @@
 <?php
+    include '../MemberUtilities.php';
+    use Ratchet\ConnectionInterface;
+
     // required for all user classes
     abstract class User {
-        public $id;
-        protected $channelIds = array();
-        protected $conn;
+        public static $con;
 
+        public $id;
+        protected $channelId;
+        protected $conn;
         static public $connArray = array(); // array of ALL connections
 
-        public function __construct($id, $channelIds, $conn) {
-            $this->id = $id;
-            if (is_int($channelIds)) {
-                array_push($this->channelIds, $channelIds);
-            } else {
-                $this->channelIds = $channelIds;
+        public function __construct($id, $channelId, ConnectionInterface $conn) {
+            if (!User::$con) {
+                User::$con = mysqli_connect("localhost", "root");
             }
+
+            $this->id = $id;
+            $this->channelId = $channelId;
             $this->conn = $conn;
-            
             $connArray[] = $conn;
+        }
+
+        function getCurrentLat($userId) {
+            global $con;
+            mysqli_select_db($con, "bm_channel");
+            $query = "SELECT current_lat FROM broadcast_member WHERE broadcaster_id = " . $userId;
+            return mysqli_fetch_assoc(mysqli_query($con, $query))["current_lat"];
+        }
+
+        function getCurrentLong($userId) {
+            global $con;
+            mysqli_select_db($con, "bm_channel");
+            $query = "SELECT current_long FROM broadcast_member WHERE broadcaster_id = " . $userId;
+            return mysqli_fetch_assoc(mysqli_query($con, $query))["current_long"];
         }
     }
 
     class BrowserUser extends User {
         public $USER_TYPE = "BROWSER";
 
-        public function __construct($id, $channelIds, $conn) {
-            parent::__construct($id, $channelIds, $conn);
+        public function __construct($id, $channelId, $conn) {
+            parent::__construct($id, $channelId, $conn);
+        }
+        
+        public function sendChannelData() {
+            $locationInfo = "";
+            $memberIds = getChannelMembers($this->channelId);
+            foreach ($memberIds as $id) {
+                 $locationInfo .= $id . " " . $this->getCurrentLat($id) . " " 
+                                 . $this->getCurrentLong($id) . " " 
+                                 . isUserBroadcasting($id, $this->channelId) . " ";
+            }
+            $this->conn->send($locationInfo);
         }
     }
 
@@ -35,9 +63,9 @@
         public $USER_TYPE = "ANDROID";
         protected $current_lat;
         protected $current_long;
-        // TODO: add map for channelIds: [channelId] [isBroadcasting]
+        protected $is_broadcasting;
 
-        public function __construct($id, $channelIds, $conn) {
-            parent::__construct($id, $channelIds, $conn);
+        public function __construct($id, $channelId, $conn) {
+            parent::__construct($id, $channelId, $conn);
         }
     }

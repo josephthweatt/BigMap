@@ -1,5 +1,6 @@
 <?php
     include 'ChannelUsers.php';
+    include 'socket.php';
     use Ratchet\MessageComponentInterface;
     use Ratchet\ConnectionInterface;
 
@@ -15,7 +16,11 @@
         protected $androidUsers = array();
 
         public function __construct() {
+            global $server;
             $this->clients = new SplObjectStorage();
+
+            $loop = $server->loop;
+            $loop->addPeriodicTimer(1, $this->sendLocationUpdates());
         }
 
         // attaches connections as clients of the socket
@@ -63,7 +68,15 @@
          * not have to react to every momentary location change.
          **********************************************************/
         public function sendLocationUpdates() {
-
+            /*
+             * NOTE: This is all temporary code. It will be replaced
+             *       once android users are able to join the socket.
+             *       For now, the locations will be taken out of the
+             *       mySQL database, which is what we've been doing
+             */
+            foreach ($this->browserUsers as $user) {
+                $user->sendChannelData();
+            }
         }
 
         // return true if user was found and deleted

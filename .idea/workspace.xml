@@ -4,6 +4,7 @@
     <list default="true" id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php" afterPath="$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ChannelSocket/ChannelUsers.php" afterPath="$PROJECT_DIR$/PHP/ChannelSocket/ChannelUsers.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ChannelSocket/GetChannelUsersLocation.php" afterPath="$PROJECT_DIR$/PHP/ChannelSocket/GetChannelUsersLocation.php" />
     </list>
     <ignored path="BigMap.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,28 +26,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ViewChannelContent.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="49" column="12" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="22" />
-              <folding>
-                <marker date="1465804432281" expanded="true" signature="2553:2574" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GoogleMapHelper.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/GoogleMapHelper.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="25" column="55" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="socket.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/socket.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -59,24 +38,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChannelSocket.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ChannelSocket.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="21" column="59" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
+            <state relative-caret-position="17">
+              <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
               <folding>
-                <element signature="e#42#80#0#PHP" expanded="true" />
+                <element signature="e#68#106#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChannelUsers.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChannelUsers.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/ChannelUsers.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
-              <folding />
+            <state relative-caret-position="119">
+              <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+              <folding>
+                <marker date="1465868773680" expanded="true" signature="805:869" ph="SELECT curre... broadcast_member" />
+                <marker date="1465868773680" expanded="true" signature="1115:1180" ph="SELECT curre... broadcast_member" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -117,8 +99,9 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/PHP/composer.json" />
         <option value="$PROJECT_DIR$/js/GoogleMapHelper.js" />
-        <option value="$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php" />
+        <option value="$PROJECT_DIR$/PHP/ChannelSocket/GetChannelUsersLocation.php" />
         <option value="$PROJECT_DIR$/PHP/ChannelSocket/ChannelUsers.php" />
+        <option value="$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php" />
       </list>
     </option>
   </component>
@@ -133,10 +116,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="698" />
+    <option name="width" value="1222" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -317,7 +299,7 @@
       <workItem from="1465774932054" duration="2911000" />
       <workItem from="1465779375588" duration="14908000" />
       <workItem from="1465804448368" duration="3976000" />
-      <workItem from="1465859003736" duration="5591000" />
+      <workItem from="1465859003736" duration="10259000" />
     </task>
     <task id="LOCAL-00001" summary="added functions for the socket on the client side (still need to plan out how to implement it with the rest of the browser application)&#10;">
       <created>1465781120755</created>
@@ -337,14 +319,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="153873000" />
+    <option name="totallyTimeSpent" value="158541000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="698" y="0" width="1222" height="1040" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1881663" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23235801" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -353,7 +335,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26486486" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26622662" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -640,14 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/GetChannelUsersLocation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/enter-channel.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -662,18 +636,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2550">
-          <caret line="153" column="20" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/ReceiveLocationPacket.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+          <folding>
+            <marker date="1465802079111" expanded="true" signature="2801:2948" ph="UPDATE broad... " />
+            <marker date="1465802079111" expanded="true" signature="3398:3633" ph="INSERT INTO location_history... " />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -724,6 +694,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/GetChannelUsersLocation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+          <folding>
+            <marker date="1465866662954" expanded="true" signature="1059:1123" ph="SELECT curre... broadcast_member" />
+            <marker date="1465866662954" expanded="true" signature="1345:1410" ph="SELECT curre... broadcast_member" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1166">
+          <caret line="153" column="20" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="20" />
+          <folding>
+            <marker date="1465504786000" expanded="true" signature="628:693" ph="SELECT * FRO... user_info" />
+            <marker date="1465504786000" expanded="true" signature="1150:1194" ph="SELECT usern... user_info" />
+            <marker date="1465504786000" expanded="true" signature="1384:1502" ph="SELECT id FR... user_info" />
+            <marker date="1465504786000" expanded="true" signature="1710:1733" ph="SELECT * FRO... user_info" />
+            <marker date="1465504786000" expanded="true" signature="2487:2558" ph="SELECT EXIST... " />
+            <marker date="1465504786000" expanded="true" signature="2501:2539" ph="SELECT 1 FRO... channel_info" />
+            <marker date="1465504786000" expanded="true" signature="2858:2921" ph="SELECT user_... channels_broadcasting" />
+            <marker date="1465504786000" expanded="true" signature="3324:3385" ph="SELECT COUNT... broadcast_member" />
+            <marker date="1465504786000" expanded="true" signature="3756:3860" ph="SELECT COUNT... channels_broadcasting" />
+            <marker date="1465504786000" expanded="true" signature="4183:4294" ph="SELECT is_br... channels_broadcasting" />
+            <marker date="1465504786000" expanded="true" signature="4695:4833" ph="UPDATE chann... " />
+            <marker date="1465504786000" expanded="true" signature="5083:5146" ph="SELECT chann... channels_broadcasting" />
+            <marker date="1465504786000" expanded="true" signature="5575:5690" ph="SELECT chann... channels_broadcasting" />
+            <marker date="1465504786000" expanded="true" signature="6041:6140" ph="SELECT * FRO... location_history" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/ChannelUsers.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <folding>
+            <marker date="1465868773680" expanded="true" signature="805:869" ph="SELECT curre... broadcast_member" />
+            <marker date="1465868773680" expanded="true" signature="1115:1180" ph="SELECT curre... broadcast_member" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/socket.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -736,19 +751,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="21" column="59" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
+        <state relative-caret-position="17">
+          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
           <folding>
-            <element signature="e#42#80#0#PHP" expanded="true" />
+            <element signature="e#68#106#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/ChannelUsers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
