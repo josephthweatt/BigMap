@@ -36,7 +36,7 @@
             $data = explode(" ", trim($msg));
             switch ($data[0]) {
                 case "connect-browser":
-                    array_push($this->browserUsers, new BrowserUser($data[1], $data[2], $conn));
+                    $this->browserUsers[] = new BrowserUser($data[1], $data[2], $conn);
                     break;
                 case "connect-android":
                     array_push($this->androidUsers, new AndroidUser($data[1], $data[2], $conn));
@@ -82,7 +82,7 @@
                     return true;
                 }
             }
-            // other usertypes will go here...
+            // other user types will go here...
             return false;
         }
     }

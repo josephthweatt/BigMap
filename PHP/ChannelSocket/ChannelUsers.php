@@ -16,7 +16,7 @@
             }
             $this->conn = $conn;
             
-            array_push($this->connArray, $conn);
+            $connArray[] = $conn;
         }
     }
 
