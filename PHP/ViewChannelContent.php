@@ -34,21 +34,18 @@
                 $membersJSON = json_encode($membersArray);
             }
         ?>
-        <script type="text/javascript" src="../js/AJAXUtils.js"></script>
-        <script type="text/javascript">var channelId = "<?= $channelId ?>";</script>
+        <script type="text/javascript">var channelId = "<?= $channelId ?>", userId = "<?= $userId ?>";</script>
         <script type="text/javascript">var usersLocations; /* will be array of userLocation class */</script>
         <script type="text/javascript">var mapScope;</script>
         <script type="text/javascript" src="../js/GoogleMapHelper.js"></script>
     </head>
     <!-- userInfo will be used passed to the socket's open function to ensure they are allowed into the channel -->
-    <body onload="socket.onopen(channelId, <?= $userId ?>)">
+    <body>
         <!-- Deploy Google map -->
         <div id="map"></div>
         <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9EWuO31iw4rHYdHHs4d5aC_F6UEmoyx0&callback=initMap"
-            async defer>
-            initMap();
-        </script>
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9EWuO31iw4rHYdHHs4d5aC_F6UEmoyx0"
+            async defer></script>
 
         <!-- show a table of the members and a list of their locations (server side)-->
         <?php

@@ -7,8 +7,8 @@
         public static $con;
 
         public $id;
-        protected $channelId;
-        protected $conn;
+        public $channelId;
+        public $conn;
         static public $connArray = array(); // array of ALL connections
 
         public function __construct($id, $channelId, ConnectionInterface $conn) {

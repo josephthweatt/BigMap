@@ -21,9 +21,11 @@ var purpleDot = '../Images/purple-dot.png'; // default marker for user's locatio
 /********************
  * Socket functions
  ********************/
-socket.onopen = function(id, channel) {
+socket.onopen = function() {
     open = true;
-    socket.send("connect-browser " + id +" "+ channel);
+    initMap();
+    socket.send("connect-browser " + userId +" "+ channelId);
+    console.log("Connected");
 };
 
 /*
@@ -32,6 +34,7 @@ socket.onopen = function(id, channel) {
 socket.onmessage = function(evt) {
     // TODO: move old functions from the AJAX requests to here
     getLocationsFromRequest(evt.data);
+    reloadMarkers();
     if (mapScope) {
         mapScope.findScopeDimensions();
     } else {
@@ -41,7 +44,6 @@ socket.onmessage = function(evt) {
         initMap();
         mapScope["reframeMap"] = false;
     }
-    reloadMarkers();
 };
 
 socket.onclose = function() {
@@ -110,25 +112,6 @@ function locationChanged(i, id) {
             || position.lng() != userMarkers[id].getPosition().lng());
 }
 
-/*
- *  @returns {Number|LatLngBounds} 1 if only one user is broadcasting,
- *                                 0 if no users broadcasting,
- *                                 LatLngBounds if multiple users are broadcasting
- */
-function getBounds() {
-    broadcastingUsers = 0; // count the broadcasting users
-    var bounds = new google.maps.LatLngBounds();
-    for (var user in usersLocations) {
-        if(usersLocations[user].isBroadcasting) {
-            var position = new google.maps.LatLng(
-                usersLocations[user].lat, usersLocations[user].long);
-            bounds.extend(position);
-            broadcastingUsers++;
-        }
-    } 
-    return bounds;
-}
-
 /**************************
  * Create the map
  **************************/
@@ -152,6 +135,25 @@ function initMap() {
             map.fitBounds(bounds);
         }
     }
+}
+
+/*
+ *  @returns {Number|LatLngBounds} 1 if only one user is broadcasting,
+ *                                 0 if no users broadcasting,
+ *                                 LatLngBounds if multiple users are broadcasting
+ */
+function getBounds() {
+    broadcastingUsers = 0; // count the broadcasting users
+    var bounds = new google.maps.LatLngBounds();
+    for (var user in usersLocations) {
+        if(usersLocations[user].isBroadcasting) {
+            var position = new google.maps.LatLng(
+                usersLocations[user].lat, usersLocations[user].long);
+            bounds.extend(position);
+            broadcastingUsers++;
+        }
+    }
+    return bounds;
 }
 
 /**********************************

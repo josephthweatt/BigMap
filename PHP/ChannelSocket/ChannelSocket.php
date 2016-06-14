@@ -26,6 +26,7 @@
         // attaches connections as clients of the socket
         public function onOpen(ConnectionInterface $conn) {
             $this->clients->attach($conn);
+            $conn->send("1 100 50 1");
         }
 
         /*
@@ -82,16 +83,16 @@
         // return true if user was found and deleted
         public function deleteUser(ConnectionInterface $conn) {
             // try to delete from browserUsers
-            foreach ($this->browserUsers as $user) {
+            foreach ($this->browserUsers as $key => $user) {
                 if ($user->conn === $conn) {
-                    unset($this->browserUsers[$user]);
+                    unset($this->browserUsers[$key]);
                     return true;
                 }
             }
             // try to delete from androidUsers
-            foreach ($this->androidUsers as $user) {
+            foreach ($this->androidUsers as $key =>$user) {
                 if ($user->conn === $conn) {
-                    unset($this->androidUsers[$user]);
+                    unset($this->androidUsers[$key]);
                     return true;
                 }
             }
