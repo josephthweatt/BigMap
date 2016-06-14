@@ -5,5 +5,7 @@
     use Ratchet\http\HttpServer;
     use Ratchet\WebSocket\WsServer;
 
-    $server = IoServer::factory(new HttpServer(new WsServer(new ChannelSocket)), 2000);
+    $loop = \React\EventLoop\Factory::create();    
+
+    $server = IoServer::factory(new HttpServer(new WsServer(new ChannelSocket($loop))), 2000);
     $server->run();

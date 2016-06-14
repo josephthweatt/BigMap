@@ -1,6 +1,5 @@
 <?php
     include 'ChannelUsers.php';
-    include 'socket.php';
     use Ratchet\MessageComponentInterface;
     use Ratchet\ConnectionInterface;
 
@@ -10,17 +9,18 @@
 
     class ChannelSocket implements MessageComponentInterface {
         protected $clients;
-        
+        private $loop;
         // user object arrays
         protected $browserUsers = array();
         protected $androidUsers = array();
 
-        public function __construct() {
-            global $server;
+        public function __construct(\React\EventLoop\LoopInterface $loop) {
             $this->clients = new SplObjectStorage();
+            $this->loop = $loop;
 
-            $loop = $server->loop;
-            $loop->addPeriodicTimer(1, $this->sendLocationUpdates());
+            $this->loop->addPeriodicTimer(1, function() {
+                    $this->sendLocationUpdates();
+                });
         }
 
         // attaches connections as clients of the socket
