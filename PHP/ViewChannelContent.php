@@ -43,6 +43,7 @@
     <body>
         <!-- Deploy Google map -->
         <div id="map"></div>
+        <div id="cant_connect" style="visibility: hidden; color: red">Can't connect to channel</div>
         <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9EWuO31iw4rHYdHHs4d5aC_F6UEmoyx0"
             async defer></script>

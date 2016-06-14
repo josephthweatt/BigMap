@@ -10,8 +10,9 @@
  * TODO: data that should otherwise be restricted. Fix this before
  * TODO: the code is made public!
  *************************************************************************/
-var socket = new WebSocket("ws://localhost:2000"); // TODO: make sure this is the correct socket
 var open = false;
+// TODO: make sure this is the correct socket
+var socket = new WebSocket("ws://localhost:2000");
 
 // map variables
 var bounds;
@@ -25,10 +26,6 @@ var purpleDot = '../Images/purple-dot.png'; // default marker for user's locatio
 socket.onopen = function() {
     open = true;
     socket.send("connect-browser " + userId +" "+ channelId);
-
-    mapScope = new MapScope();
-    initMap();
-    mapScope["reframeMap"] = false;
 
     console.log("Connected");
 };
@@ -54,7 +51,14 @@ socket.onmessage = function(evt) {
 socket.onclose = function() {
     open = false;
     console.log("Disconnected from channel socket");
+
+    if (socket.readyState == 3) {
+        broadcastingUsers = 0;
+        initMap();
+        document.getElementById('cant_connect').style.visibility = "visible";
+    }
 };
+
 
 /**********************************************
  * Functions to create and update user markers
@@ -122,16 +126,12 @@ function locationChanged(i, id) {
  **************************/
 function initMap() {
     bounds = getBounds();
-    if (broadcastingUsers == 0) {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 30, lng: 0},
-            zoom: 2
-        });
-    } else {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
-            zoom: 16
-        });
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 30, lng: 0},
+        zoom: 2
+    });
+
+    if (broadcastingUsers > 0) {
         if (broadcastingUsers == 1) {
             map.setCenter(bounds.getCenter());
             map.setZoom(16);
