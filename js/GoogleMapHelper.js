@@ -24,7 +24,6 @@ var purpleDot = '../Images/purple-dot.png'; // default marker for user's locatio
 socket.onopen = function(id, channel) {
     open = true;
     socket.send("connect-browser " + id +" "+ channel);
-    console.log("Connected to channel socket");
 };
 
 /*
@@ -139,7 +138,7 @@ function initMap() {
     if (broadcastingUsers == 0) {
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 30, lng: 0},
-            zoom: 0
+            zoom: 2
         });
     } else {
         map = new google.maps.Map(document.getElementById('map'), {

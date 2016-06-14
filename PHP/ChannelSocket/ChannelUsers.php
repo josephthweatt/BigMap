@@ -5,14 +5,18 @@
         protected $channelIds = array();
         protected $conn;
 
+        static public $connArray = array(); // array of ALL connections
+
         public function __construct($id, $channelIds, $conn) {
             $this->id = $id;
             if (is_int($channelIds)) {
                 array_push($this->channelIds, $channelIds);
             } else {
-                $this->$channelIds = $channelIds;
+                $this->channelIds = $channelIds;
             }
             $this->conn = $conn;
+            
+            array_push($this->connArray, $conn);
         }
     }
 

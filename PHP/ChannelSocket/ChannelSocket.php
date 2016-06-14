@@ -11,14 +11,13 @@
         protected $clients;
         
         // user object arrays
-        protected $browserUsers;
-        protected $androidUsers;
+        protected $browserUsers = array();
+        protected $androidUsers = array();
 
         public function __construct() {
             $this->clients = new SplObjectStorage();
         }
 
-        // TODO: make a check to see if the client is an android user
         // attaches connections as clients of the socket
         public function onOpen(ConnectionInterface $conn) {
             $this->clients->attach($conn);
@@ -37,10 +36,10 @@
             $data = explode(" ", trim($msg));
             switch ($data[0]) {
                 case "connect-browser":
-                    array_push($browserUsers, new BrowserUser($data[1], $data[2], $conn));
+                    array_push($this->browserUsers, new BrowserUser($data[1], $data[2], $conn));
                     break;
                 case "connect-android":
-                    array_push($androidUsers, new AndroidUser($data[1], $data[2], $conn));
+                    array_push($this->androidUsers, new AndroidUser($data[1], $data[2], $conn));
                     break;
                 case "send-location":
                     // TODO: make this when I work on android integration
@@ -49,6 +48,7 @@
         }
 
         public function onClose(ConnectionInterface $conn) {
+            $this->deleteUser($conn);
             $this->clients->detach($conn);
         }
 
@@ -64,5 +64,25 @@
          **********************************************************/
         public function sendLocationUpdates() {
 
+        }
+
+        // return true if user was found and deleted
+        public function deleteUser(ConnectionInterface $conn) {
+            // try to delete from browserUsers
+            foreach ($this->browserUsers as $user) {
+                if ($user->conn === $conn) {
+                    unset($this->browserUsers[$user]);
+                    return true;
+                }
+            }
+            // try to delete from androidUsers
+            foreach ($this->androidUsers as $user) {
+                if ($user->conn === $conn) {
+                    unset($this->androidUsers[$user]);
+                    return true;
+                }
+            }
+            // other usertypes will go here...
+            return false;
         }
     }
