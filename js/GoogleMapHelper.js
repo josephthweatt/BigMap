@@ -24,8 +24,12 @@ var purpleDot = '../Images/purple-dot.png'; // default marker for user's locatio
  ********************/
 socket.onopen = function() {
     open = true;
-    initMap();
     socket.send("connect-browser " + userId +" "+ channelId);
+
+    mapScope = new MapScope();
+    initMap();
+    mapScope["reframeMap"] = false;
+
     console.log("Connected");
 };
 
@@ -175,7 +179,9 @@ function MapScope() {
     this.longLength = 5;
 
     this.reframeMap = true; // set to true when the center of lat/long changes
-    this.center = this.findScopeDimensions();
+    if (usersLocations) {
+        this.center = this.findScopeDimensions();
+    }
 }
 
 /*
