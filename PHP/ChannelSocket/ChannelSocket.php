@@ -26,7 +26,7 @@
         // attaches connections as clients of the socket
         public function onOpen(ConnectionInterface $conn) {
             $this->clients->attach($conn);
-            $conn->send("1 100 50 1");
+            $conn->send("1 50 50 1");
         }
 
         /*

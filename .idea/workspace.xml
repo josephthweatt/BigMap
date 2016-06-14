@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php" afterPath="$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ChannelSocket/ChannelUsers.php" afterPath="$PROJECT_DIR$/PHP/ChannelSocket/ChannelUsers.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ViewChannelContent.php" afterPath="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/GoogleMapHelper.js" afterPath="$PROJECT_DIR$/js/GoogleMapHelper.js" />
     </list>
     <ignored path="BigMap.iws" />
@@ -27,23 +26,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ViewChannelContent.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ViewChannelContent.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="46" column="100" selection-start-line="46" selection-start-column="100" selection-end-line="46" selection-end-column="100" />
+            <state relative-caret-position="68">
+              <caret line="4" column="43" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="43" />
               <folding>
-                <marker date="1465893207486" expanded="true" signature="2407:2428" ph="..." />
+                <marker date="1465897592226" expanded="true" signature="2407:2428" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GoogleMapHelper.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GoogleMapHelper.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/GoogleMapHelper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1261">
-              <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+            <state relative-caret-position="522">
+              <caret line="118" column="25" selection-start-line="118" selection-start-column="25" selection-end-line="118" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -64,8 +63,8 @@
       <file leaf-file-name="ChannelSocket.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
+            <state relative-caret-position="221">
+              <caret line="28" column="28" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
               <folding>
                 <element signature="e#42#80#0#PHP" expanded="true" />
               </folding>
@@ -122,9 +121,9 @@
         <option value="$PROJECT_DIR$/PHP/ChannelSocket/GetChannelUsersLocation.php" />
         <option value="$PROJECT_DIR$/PHP/ChannelSocket/socket.php" />
         <option value="$PROJECT_DIR$/PHP/ChannelSocket/ChannelUsers.php" />
+        <option value="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
         <option value="$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php" />
         <option value="$PROJECT_DIR$/js/GoogleMapHelper.js" />
-        <option value="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
       </list>
     </option>
   </component>
@@ -304,7 +303,7 @@
       <workItem from="1465774932054" duration="2911000" />
       <workItem from="1465779375588" duration="14908000" />
       <workItem from="1465804448368" duration="3976000" />
-      <workItem from="1465859003736" duration="21687000" />
+      <workItem from="1465859003736" duration="26839000" />
     </task>
     <task id="LOCAL-00001" summary="added functions for the socket on the client side (still need to plan out how to implement it with the rest of the browser application)&#10;">
       <created>1465781120755</created>
@@ -324,7 +323,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169969000" />
+    <option name="totallyTimeSpent" value="175121000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="595" y="0" width="1325" height="1040" extended-state="0" />
@@ -408,7 +407,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1465893207486" expanded="true" signature="2407:2428" ph="..." />
+            <marker date="1465897592226" expanded="true" signature="2407:2428" ph="..." />
           </folding>
         </state>
       </provider>
@@ -436,7 +435,7 @@
         <state relative-caret-position="646">
           <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
           <folding>
-            <marker date="1465893207486" expanded="true" signature="2407:2428" ph="..." />
+            <marker date="1465897592226" expanded="true" signature="2407:2428" ph="..." />
           </folding>
         </state>
       </provider>
@@ -464,7 +463,7 @@
         <state relative-caret-position="306">
           <caret line="18" column="54" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
           <folding>
-            <marker date="1465893207486" expanded="true" signature="2407:2428" ph="..." />
+            <marker date="1465897592226" expanded="true" signature="2407:2428" ph="..." />
           </folding>
         </state>
       </provider>
@@ -497,7 +496,7 @@
         <state relative-caret-position="306">
           <caret line="18" column="54" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
           <folding>
-            <marker date="1465893207486" expanded="true" signature="2407:2428" ph="..." />
+            <marker date="1465897592226" expanded="true" signature="2407:2428" ph="..." />
           </folding>
         </state>
       </provider>
@@ -729,16 +728,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="29" column="9" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
-          <folding>
-            <element signature="e#42#80#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/AJAXUtils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -747,21 +736,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/GoogleMapHelper.js">
+    <entry file="file://$PROJECT_DIR$/PHP/ChannelSocket/ChannelSocket.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1261">
-          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-          <folding />
+        <state relative-caret-position="221">
+          <caret line="28" column="28" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
+          <folding>
+            <element signature="e#42#80#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="46" column="100" selection-start-line="46" selection-start-column="100" selection-end-line="46" selection-end-column="100" />
+        <state relative-caret-position="68">
+          <caret line="4" column="43" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="43" />
           <folding>
-            <marker date="1465893207486" expanded="true" signature="2407:2428" ph="..." />
+            <marker date="1465897592226" expanded="true" signature="2407:2428" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/GoogleMapHelper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="118" column="25" selection-start-line="118" selection-start-column="25" selection-end-line="118" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>

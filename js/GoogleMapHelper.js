@@ -14,6 +14,7 @@ var socket = new WebSocket("ws://localhost:2000"); // TODO: make sure this is th
 var open = false;
 
 // map variables
+var bounds;
 var map, broadcastingUsers;
 var userMarkers = {};
 var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
@@ -23,7 +24,6 @@ var purpleDot = '../Images/purple-dot.png'; // default marker for user's locatio
  ********************/
 socket.onopen = function() {
     open = true;
-    initMap();
     socket.send("connect-browser " + userId +" "+ channelId);
     console.log("Connected");
 };
@@ -34,7 +34,6 @@ socket.onopen = function() {
 socket.onmessage = function(evt) {
     // TODO: move old functions from the AJAX requests to here
     getLocationsFromRequest(evt.data);
-    reloadMarkers();
     if (mapScope) {
         mapScope.findScopeDimensions();
     } else {
@@ -44,6 +43,7 @@ socket.onmessage = function(evt) {
         initMap();
         mapScope["reframeMap"] = false;
     }
+    reloadMarkers();
 };
 
 socket.onclose = function() {
@@ -116,17 +116,16 @@ function locationChanged(i, id) {
  * Create the map
  **************************/
 function initMap() {
-    var bounds = getBounds();
-
+    bounds = getBounds();
     if (broadcastingUsers == 0) {
         map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 30, lng: 0},
+            center: {lat: 0, lng: 0},
             zoom: 2
         });
     } else {
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
-            zoom: 0
+            zoom: 16
         });
         if (broadcastingUsers == 1) {
             map.setCenter(bounds.getCenter());
@@ -145,10 +144,10 @@ function initMap() {
 function getBounds() {
     broadcastingUsers = 0; // count the broadcasting users
     var bounds = new google.maps.LatLngBounds();
-    for (var user in usersLocations) {
-        if(usersLocations[user].isBroadcasting) {
+    for (var i = 0; i < usersLocations.length; i++) {
+        if(usersLocations[i].isBroadcasting) {
             var position = new google.maps.LatLng(
-                usersLocations[user].lat, usersLocations[user].long);
+                usersLocations[i].lat, usersLocations[i].long);
             bounds.extend(position);
             broadcastingUsers++;
         }
