@@ -10,6 +10,8 @@
     class ChannelSocket implements MessageComponentInterface {
         protected $clients;
         private $loop;
+        // channel object array ([channedId] => Channel)
+        protected $channels = array(); // TODO: find a way to instant. channels
         // user object arrays
         protected $browserUsers = array();
         protected $androidUsers = array();
@@ -30,23 +32,45 @@
          *                       describe what the user is trying to do
          *      Examples:
          *          "connect-browser [userId] [channelId]" - adds user as a browser
-         *          "connect-android [userId] [channelId]" - adds user as an android user
-         *          "update-location-android [lat] [long]" - update android users location
+         *          "connect-android [userId] [channelIds[]]" - adds user as an android user
+         *          "update-location-android [lat] [long] [channelId1[]]"
+         *                                                 - update android users location
          */
+        // TODO: convert $msg arrays into actual php arrays
         public function onMessage(ConnectionInterface $conn, $msg) {
             // determines what the message hopes to send
             $data = explode(" ", trim($msg));
             switch ($data[0]) {
                 case "connect-browser":
+                    if (!$this->channelInstantiated($data[2])) {
+                        $this->channels[$data[2]] = new Channel($data[2]);
+                    }
                     $this->browserUsers[] = new BrowserUser($data[1], $data[2], $conn);
                     break;
                 case "connect-android":
-                    $this->androidUsers[] = new AndroidUser($data[1], $data[2], $conn);
+                    $user = new AndroidUser($data[1], $data[2], $conn);
+                    foreach ($data[2] as $channelId) {
+                        if (!$this->channelInstantiated($channelId)) {
+                            $this->channels[$channelId] = new Channel($channelId);
+                        }
+                        $this->channels[$channelId]->addAndroidUser($user);
+                    }
+                    $this->androidUsers[] = $user;
                     break;
                 case "update-location-android":
-                    // TODO: make this when I work on android integration
                     $user = $this->getAndroidUser($conn);
                     $user->updateLocation($data[1], $data[2]);
+                    $user->is_broadcasting = true;
+
+                    // check if a channel id should be receiving an update
+                    foreach ($user->channelIds as $channelId) {
+                        if (in_array($channelId, data[3])) {
+                            // overwrite assoc array of android users with this current user
+                            $this->channels[$channelId]->addAndroidUser($user);
+                        } else {
+                            $this->channels[$channelId]->getAndroidUser($user->id)->is_broadcasting = false;
+                        }
+                    }
                     break;
                 case "STOP_BROADCASTING":
                     // TODO: add STOP function for users
@@ -79,6 +103,11 @@
                 }
             }
             return false;
+        }
+
+        // returns true if the channel object exists
+        private function channelInstantiated($channelId) {
+            return isset($this->channels[$channelId]);
         }
 
         /**********************************************************

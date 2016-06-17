@@ -9,13 +9,11 @@ if (!isset($con)) {
     // required for all user classes
     abstract class User {
         public $id;
-        public $channelId;
         public $conn;
         static public $connArray = array(); // array of ALL connections
 
-        public function __construct($id, $channelId, ConnectionInterface $conn) {
+        public function __construct($id, ConnectionInterface $conn) {
             $this->id = $id;
-            $this->channelId = $channelId;
             $this->conn = $conn;
             $connArray[] = $conn;
         }
@@ -37,9 +35,11 @@ if (!isset($con)) {
 
     class BrowserUser extends User {
         public $USER_TYPE = "BROWSER";
+        public $channelId;
 
         public function __construct($id, $channelId, $conn) {
-            parent::__construct($id, $channelId, $conn);
+            parent::__construct($id, $conn);
+            $this->channelId = $channelId;
         }
 
         // TODO: a channel should only need to extract members from MySQL once. Channel should be made an object
@@ -60,12 +60,20 @@ if (!isset($con)) {
     // TODO: to get android users from databasing their information altogether
     class AndroidUser extends User {
         public $USER_TYPE = "ANDROID";
+        public $channelIds = array();
         protected $current_lat;
         protected $current_long;
-        protected $is_broadcasting;
+        public $is_broadcasting;
 
-        public function __construct($id, $channelId, $conn) {
-            parent::__construct($id, $channelId, $conn);
+        /**
+         * AndroidUser constructor.
+         * @param $id - user id #
+         * @param array $channelIds - an array of the users affiliated channels
+         * @param ConnectionInterface $conn
+         */
+        public function __construct($id, $channelIds, ConnectionInterface $conn) {
+            parent::__construct($id, $conn);
+            $this->channelIds = $channelIds;
         }
 
         public function updateLocation($currentLat, $currentLong) {
