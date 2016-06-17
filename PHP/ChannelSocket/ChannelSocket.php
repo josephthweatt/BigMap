@@ -32,11 +32,10 @@
          *                       describe what the user is trying to do
          *      Examples:
          *          "connect-browser [userId] [channelId]" - adds user as a browser
-         *          "connect-android [userId] [channelIds[]]" - adds user as an android user
-         *          "update-location-android [lat] [long] [channelId1[]]"
+         *          "connect-android [userId] [channelIds..." - adds user as an android user
+         *          "update-location-android [lat] [long] [channelIds..."
          *                                                 - update android users location
          */
-        // TODO: convert $msg arrays into actual php arrays
         public function onMessage(ConnectionInterface $conn, $msg) {
             // determines what the message hopes to send
             $data = explode(" ", trim($msg));
@@ -48,8 +47,9 @@
                     $this->browserUsers[] = new BrowserUser($data[1], $data[2], $conn);
                     break;
                 case "connect-android":
-                    $user = new AndroidUser($data[1], $data[2], $conn);
-                    foreach ($data[2] as $channelId) {
+                    $channelIds = array_slice($data, 2);
+                    $user = new AndroidUser($data[1], $channelIds, $conn);
+                    foreach ($channelIds as $channelId) {
                         if (!$this->channelInstantiated($channelId)) {
                             $this->channels[$channelId] = new Channel($channelId);
                         }
@@ -58,13 +58,14 @@
                     $this->androidUsers[] = $user;
                     break;
                 case "update-location-android":
+                    $channelIds = array_slice($data, 3);
                     $user = $this->getAndroidUser($conn);
-                    $user->updateLocation($data[1], $data[2]);
+                    $user->updateLocation($data[1], $channelIds);
                     $user->is_broadcasting = true;
 
                     // check if a channel id should be receiving an update
                     foreach ($user->channelIds as $channelId) {
-                        if (in_array($channelId, data[3])) {
+                        if (in_array($channelId, $channelIds)) {
                             // overwrite assoc array of android users with this current user
                             $this->channels[$channelId]->addAndroidUser($user);
                         } else {
