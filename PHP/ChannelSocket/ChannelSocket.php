@@ -35,6 +35,7 @@
          *          "connect-android [userId] [channelIds..." - adds user as an android user
          *          "update-location-android [lat] [long] [channelIds..."
          *                                                 - update android users location
+         *          "STOP_BROADCASTING"
          */
         public function onMessage(ConnectionInterface $conn, $msg) {
             // determines what the message hopes to send
@@ -74,7 +75,11 @@
                     }
                     break;
                 case "STOP_BROADCASTING":
-                    // TODO: add STOP function for users
+                    $user = $this->getAndroidUser($conn);
+                    $user->is_broadcasting = false;
+                    foreach ($user->channelIds as $channelId) {
+                        $this->channels[$channelId]->getAndroidUser($user->id)->is_broadcasting = false;
+                    }
                     break;
             }
         }
