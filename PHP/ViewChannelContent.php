@@ -21,7 +21,7 @@
         <!-- use PHP vars to help execute GoogleMapHelper.js -->
         <?php
             include 'MemberUtilities.php';
-            $con = mysqli_connect("localhost", "root");
+            $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
             isset($_POST["userInfo"]) ? $userInfo = $_POST["userInfo"] : die ("no user id specified");
             isset($_POST["channelId"]) ? $channelId = $_POST["channelId"] : die ("channel ids not specified");
 

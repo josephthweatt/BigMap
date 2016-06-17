@@ -7,7 +7,7 @@
     <?php
         // error_reporting(E_ALL); // uncomment for debugging
         include '../MemberUtilities.php';
-        $con = mysqli_connect("localhost", "root");
+        $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
 
         mysqli_select_db($con, "bm_members");
         if (isset($_POST["user-info"])) {
