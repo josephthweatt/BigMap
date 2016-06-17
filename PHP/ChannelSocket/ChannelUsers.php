@@ -1,5 +1,5 @@
 <?php
-    include '../MemberUtilities.php';
+    include ('../MemberUtilities.php');
     use Ratchet\ConnectionInterface;
 
 if (!isset($con)) {

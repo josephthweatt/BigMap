@@ -199,5 +199,5 @@
 
     function checkConnection() {
         global $con;
-        return !isset($con) ? $con = mysqli_connect("localhost", "root") : true;
+        return !isset($con) ? $con = mysqli_connect("localhost", "db_friend", "dolTAP3B") : true;
     }
