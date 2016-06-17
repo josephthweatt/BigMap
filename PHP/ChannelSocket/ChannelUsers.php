@@ -41,7 +41,8 @@ if (!isset($con)) {
         public function __construct($id, $channelId, $conn) {
             parent::__construct($id, $channelId, $conn);
         }
-        
+
+        // TODO: a channel should only need to extract members from MySQL once. Channel should be made an object
         public function sendChannelData() {
             $locationInfo = "";
             $memberIds = getChannelMembers($this->channelId);
