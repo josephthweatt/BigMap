@@ -24,13 +24,14 @@
             $this->clients->attach($conn);
         }
 
-        /*
-         * @param {String} msg - first word of the message is to d
+        /**
+         * @param ConnectionInterface $conn - user who sent the message
+         * @param string $msg - first word of the message is to d
          *                       describe what the user is trying to do
          *      Examples:
          *          "connect-browser [userId] [channelId]" - adds user as a browser
          *          "connect-android [userId] [channelId]" - adds user as an android user
-         *
+         *          "update-location-android [lat] [long]" - update android users location
          */
         public function onMessage(ConnectionInterface $conn, $msg) {
             // determines what the message hopes to send
@@ -40,10 +41,15 @@
                     $this->browserUsers[] = new BrowserUser($data[1], $data[2], $conn);
                     break;
                 case "connect-android":
-                    array_push($this->androidUsers, new AndroidUser($data[1], $data[2], $conn));
+                    $this->androidUsers[] = new AndroidUser($data[1], $data[2], $conn);
                     break;
-                case "send-location":
+                case "update-location-android":
                     // TODO: make this when I work on android integration
+                    $user = $this->getAndroidUser($conn);
+                    $user->updateLocation($data[1], $data[2]);
+                    break;
+                case "STOP_BROADCASTING":
+                    // TODO: add STOP function for users
                     break;
             }
         }
@@ -55,6 +61,24 @@
 
         public function onError(ConnectionInterface $conn, \Exception $e) {
             echo "Error: " . $e->getMessage();
+        }
+
+        /************** NON-ABSTRACT FUNCTIONS *****************/
+        
+        /**
+         * @param ConnectionInterface $conn
+         * @return AndroidUser user - returns user object with 
+         *                            matching connection
+         * @return false- returns false if there are no
+         *                              users with that connection
+         */
+        private function getAndroidUser(ConnectionInterface $conn) {
+            foreach ($this->androidUsers as $user) {
+                if ($user->conn === $conn) {
+                    return $user;
+                }
+            }
+            return false;
         }
 
         /**********************************************************

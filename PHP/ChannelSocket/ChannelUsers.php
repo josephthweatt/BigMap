@@ -66,4 +66,10 @@ if (!isset($con)) {
         public function __construct($id, $channelId, $conn) {
             parent::__construct($id, $channelId, $conn);
         }
+
+        public function updateLocation($currentLat, $currentLong) {
+            $this->current_lat = $currentLat;
+            $this->current_long = $currentLong;
+            $this->is_broadcasting = true;
+        }
     }
