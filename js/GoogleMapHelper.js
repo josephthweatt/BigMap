@@ -10,92 +10,69 @@
  * TODO: data that should otherwise be restricted. Fix this before
  * TODO: the code is made public!
  *************************************************************************/
-var getLocationURL = "../PHP/GetChannelUsersLocation.php";
-var textHttp = createXMLHttpRequestObject();
+var open = false;
+// TODO: make sure this is the correct socket
+var socket = new WebSocket("ws://localhost:2000");
 
 // map variables
+var bounds;
 var map, broadcastingUsers;
 var userMarkers = {};
 var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
 
-function createXMLHttpRequestObject() {
-    var textHttp;
+/********************
+ * Socket functions
+ ********************/
+socket.onopen = function() {
+    open = true;
+    socket.send("connect-browser " + userId +" "+ channelId);
 
-    if (window.XMLHttpRequest) {
-        // this is executed when a user isn't trying to ruin the app (they're not using IE)
-        try {
-            textHttp = new XMLHttpRequest();
-        } catch (e) {
-            textHttp = false;
-        }
+    console.log("Connected");
+};
+
+/*
+ * @param {string} evt - where PHP returns a string of users & locations
+ */
+socket.onmessage = function(evt) {
+    // TODO: move old functions from the AJAX requests to here
+    getLocationsFromRequest(evt.data);
+    if (mapScope) {
+        mapScope.findScopeDimensions();
     } else {
-        // this is code that apologizes for Internet Explorer's existence
-        try {
-            textHttp = new ActiveXObject("Microsoft.XMLHTTP");
-        } catch (e) {
-            textHttp = false;
-        }
+        mapScope = new MapScope();
     }
-
-    if (!textHttp) {
-        alert("cannot create textHttp object");
-    } else {
-        return textHttp;
+    if (mapScope["reframeMap"]) {
+        initMap();
+        mapScope["reframeMap"] = false;
     }
-}
+    reloadMarkers();
+};
 
-// called in ViewChannelContent.php during 'onload'
-function getUsersLocationForMap() {
-    if (textHttp.readyState == 0 || textHttp.readyState == 4) {
-        textHttp.open("POST", getLocationURL, true);
-        textHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded, charset=utf-8");
+socket.onclose = function() {
+    open = false;
+    console.log("Disconnected from channel socket");
 
-        var membersIds = getMembersIds();
-        textHttp.send("channelId=" + channelId + "&" + membersIds);
-
-        textHttp.onreadystatechange = function () {
-            if (textHttp.readyState == 4 && textHttp.status == 200) {
-                getLocationsFromRequest();
-                if (mapScope) {
-                    mapScope.findScopeDimensions();
-                } else {
-                    mapScope = new MapScope();
-                }
-                if (mapScope["reframeMap"]) {
-                    initMap();
-                    mapScope["reframeMap"] = false;
-                }
-                reloadMarkers();
-            }
-        }
+    if (socket.readyState == 3) {
+        broadcastingUsers = 0;
+        initMap();
+        document.getElementById('cant_connect').style.visibility = "visible";
     }
-    setTimeout(getUsersLocationForMap, 1500);
-}
+};
 
-// returns URL-style list of member ids for this channel to send to PHP
-function getMembersIds(){
-    // the membersIdArray used here comes from the ViewChannelContent declaration
-    var membersId = "";
-    for (var i = 0; i < membersIdArray.length; i++) {
-        var memberObj = membersIdArray[i];
-        membersId += "membersId[]=" + memberObj.user_id;
-        if (i != membersIdArray.length - 1)
-            membersId += "&";
-    }
-    return membersId;
-}
 
+/**********************************************
+ * Functions to create and update user markers
+ **********************************************/
 // receives response from PHP/MySQL
-function getLocationsFromRequest() {
+function getLocationsFromRequest(data) {
     /* The response ought to return an array of the current user's locations
      * with this text structure:
      *      [userId] [current lat] [current long]\n
      *      [userId] [current lat] [current long]\n...
      * Then, it will store the response to usersLocation
      */
-    var textResponse = textHttp.responseText;
     usersLocations = []; // resets after every request
-    var segments = textResponse.split(" ");
+    var segments = data.split(" ");
     for (var i = 0, j = 0; i < segments.length; i += 4, j++){
         if (segments[i] && segments[i + 1] && segments[i + 2]) {
             usersLocations[j] =
@@ -125,12 +102,11 @@ function addMarker(i, id) {
     var position = new google.maps.LatLng(
         usersLocations[i].lat, usersLocations[i].long);
 
-    var marker = new google.maps.Marker({
+    userMarkers[id] = new google.maps.Marker({
         position: position,
         map: map,
         icon: purpleDot
     });
-    userMarkers[id] = marker;
 }
 
 function deleteMarker(id) {
@@ -145,6 +121,26 @@ function locationChanged(i, id) {
             || position.lng() != userMarkers[id].getPosition().lng());
 }
 
+/**************************
+ * Create the map
+ **************************/
+function initMap() {
+    bounds = getBounds();
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 30, lng: 0},
+        zoom: 2
+    });
+
+    if (broadcastingUsers > 0) {
+        if (broadcastingUsers == 1) {
+            map.setCenter(bounds.getCenter());
+            map.setZoom(16);
+        } else {
+            map.fitBounds(bounds);
+        }
+    }
+}
+
 /*
  *  @returns {Number|LatLngBounds} 1 if only one user is broadcasting,
  *                                 0 if no users broadcasting,
@@ -152,37 +148,18 @@ function locationChanged(i, id) {
  */
 function getBounds() {
     broadcastingUsers = 0; // count the broadcasting users
-    var bounds = new google.maps.LatLngBounds();
-    for (var user in usersLocations) {
-        if(usersLocations[user].isBroadcasting) {
-            var position = new google.maps.LatLng(
-                usersLocations[user].lat, usersLocations[user].long);
-            bounds.extend(position);
-            broadcastingUsers++;
+    if (usersLocations) {
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < usersLocations.length; i++) {
+            if (usersLocations[i].isBroadcasting) {
+                var position = new google.maps.LatLng(
+                    usersLocations[i].lat, usersLocations[i].long);
+                bounds.extend(position);
+                broadcastingUsers++;
+            }
         }
-    } 
-    return bounds;
-}
-
-/**************************
- * Create the map
- **************************/
-function initMap() {
-    var bounds = getBounds();
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: mapScope["center"][0], lng: mapScope["center"][1]},
-        zoom: 0
-    });
-    if (broadcastingUsers == 1) {
-     map.setCenter(bounds.getCenter());
-     map.setZoom(16);
-     } else if (broadcastingUsers == 0) {
-     // just a general view of the globe
-     map.setCenter({lat: 30 , lng: 0});
-     map.setZoom(2);
-     } else {
-     map.fitBounds(bounds);
-     }
+        return bounds;
+    }
 }
 
 /**********************************
@@ -202,7 +179,9 @@ function MapScope() {
     this.longLength = 5;
 
     this.reframeMap = true; // set to true when the center of lat/long changes
-    this.center = this.findScopeDimensions();
+    if (usersLocations) {
+        this.center = this.findScopeDimensions();
+    }
 }
 
 /*

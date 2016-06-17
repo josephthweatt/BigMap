@@ -6,7 +6,7 @@
     <body>
         <?php
             // error_reporting(E_ALL); // uncomment for debugging
-            $con = mysqli_connect("localhost", "root");
+            $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
 
             function truncateTable($tableName) {
                 global $con;

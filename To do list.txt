@@ -14,6 +14,7 @@ To do:
 	*Instances of this happening:
 		-addLocationPacket in ReceiveLocationPacket
 -viewchannelcontent is currently displaying the map, even if the user is not a member
+-make browser uesrs aware that they cannot connect to the websocket. 
 		
 
 Recurring TODO

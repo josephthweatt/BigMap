@@ -5,6 +5,10 @@
      *********************************************************************************/
     // error_reporting(E_ALL); // uncomment for debugging
     /********************************* USER CREDENTIALS ******************************/
+    if(!isset($con)) {
+        $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
+    }
+
     // returns user id
     function userExists($userInfo) {
         global $con;
@@ -65,6 +69,7 @@
     /**************************************** CHANNELS *******************************/
     function channelExists($channelId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
 
         $query = "SELECT EXISTS(SELECT 1 FROM channel_info WHERE id = " . $channelId . ")";
@@ -78,6 +83,7 @@
 
     function getChannelMembers($channelId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
 
         $query = "SELECT user_id FROM `channels_broadcasting` WHERE channel_id = "
@@ -86,7 +92,7 @@
 
         $userArray = [];
         foreach ($object as $userId) {
-            $userArray[] = $userId;
+            $userArray[] = $userId["user_id"];
         }
         return $userArray;
     }
@@ -94,6 +100,7 @@
     // return true if the user needs a broadcasting profile
     function newBroadcaster($userId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT COUNT(*) FROM broadcast_member WHERE broadcaster_id = "
             . $userId;
@@ -108,6 +115,7 @@
     // true if a user is already in a channel
     function alreadyJoined($userId, $channelId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT COUNT(*) FROM channels_broadcasting WHERE user_id = "
             . $userId . " AND channel_id = " . $channelId;
@@ -118,6 +126,7 @@
     // read whether the user is broadcasting, then return boolean
     function isUserBroadcasting($userId, $channelId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT is_broadcasting FROM channels_broadcasting WHERE user_id = "
             . $userId . " AND channel_id = " . $channelId;
@@ -129,15 +138,18 @@
     // @param broadcastBoolean: must either put one or zero (false counts as "something")
     function setUserBroadcasting($userId, $channelId, $broadcastBoolean) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "UPDATE channels_broadcasting SET is_broadcasting = "
-            . $broadcastBoolean . " WHERE user_id = " . $userId . " AND channel_id = " . $channelId;
+            . $broadcastBoolean . " WHERE user_id = " . $userId
+            . " AND channel_id = " . $channelId;
         mysqli_query($con, $query);
     }
 
     // returns ALL the channels that the user is affiliated with
     function getUsersChannels($userId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT channel_id FROM `channels_broadcasting` WHERE user_id = " . $userId;
         $object = mysqli_query($con, $query);
@@ -152,6 +164,7 @@
     // returns only the channel id's that the user is broadcasting to
     function getUsersBroadcastingChannels($userId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT channel_id FROM `channels_broadcasting` WHERE user_id = " 
             . $userId . " AND is_broadcasting = 1";
@@ -166,6 +179,7 @@
 
     function getLocationHistory($userId, $channelId) {
         global $con;
+        checkConnection();
         mysqli_select_db($con, "bm_channel");
         $query = "SELECT * FROM location_history WHERE broadcaster_id = "
             . $userId . " AND channel_id = " . $channelId;
@@ -181,4 +195,9 @@
         $object = mysqli_query($con, $query)
             or die ("Error submitting query message: " . $query);
         return mysqli_fetch_assoc($object);
+    }
+
+    function checkConnection() {
+        global $con;
+        return !isset($con) ? $con = mysqli_connect("localhost", "root") : true;
     }
