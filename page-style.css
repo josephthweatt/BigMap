@@ -1,0 +1,37 @@
+:root {
+    --primary-color: #442299;
+    --color-primary-light: #6644BB;
+    --color-accent: #6644BB;
+}
+
+body {
+    font-family: "Arial", sans-serif;
+}
+
+.masthead {
+    background-color: var(--primary-color);
+    display: inline-block;
+}
+
+.masthead * {
+    color: white;
+    display: inline-block;
+    margin: 10px 5px;
+}
+
+.masthead .button {
+    display: inline-block;
+}
+
+.options {
+    padding-top: 10px;
+    width: 200px;
+}
+
+.button {
+    background-color: var(--color-primary-light);
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    display: block;
+}
