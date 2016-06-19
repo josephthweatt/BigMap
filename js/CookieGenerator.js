@@ -1,6 +1,17 @@
 var COOKIE_LIFESPAN = 12 * 3600 * 1000; // 12 hours
 var cookieExpiration;
 
+function checkAndStashCookies() {
+	if (formFilledOut()) {
+		eraseAll();
+		cacheUserInformation();
+		setCookieExpire();
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function cacheUserInformation () {
 	var name = document.getElementById('username').value;
 	var password = document.getElementById('password').value;
