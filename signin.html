@@ -13,12 +13,16 @@
                 eraseAll();
                 cacheUserInformation();
                 setCookieExpire();
+                return true;
+            } else {
+                return false;
             }
         }
     </script>
 </head>
 <body>
-    <form action="../../../../xampp/htdocs/BigMap/PHP/accounts/SignIn.php" method="post" id="f" onsubmit="return formFilledOut()">
+    <form action="../../../../xampp/htdocs/BigMap/PHP/accounts/SignIn.php" method="post"
+          id="f" onsubmit="return checkAndStashCookies()">
         <fieldset>
             <legend>Sign In</legend>
             Username:<br>

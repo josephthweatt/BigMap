@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/FormFilledOut.js" afterPath="$PROJECT_DIR$/js/FormFilledOut.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Debugging/Manually Inputting User Info/about.txt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/enter-channel.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/view-channel-content.html" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/create-channel.html" afterPath="$PROJECT_DIR$/Debugging/Manually Inputting User Info/create-channel.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/enter-channel.html" afterPath="$PROJECT_DIR$/Debugging/Manually Inputting User Info/enter-channel.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/view-channel-content.html" afterPath="$PROJECT_DIR$/Debugging/Manually Inputting User Info/view-channel-content.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/signin.html" afterPath="$PROJECT_DIR$/signin.html" />
     </list>
     <ignored path="BigMap.iws" />
@@ -28,8 +33,18 @@
       <file leaf-file-name="signin.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/signin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+            <state relative-caret-position="274">
+              <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="about.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Debugging/Manually Inputting User Info/about.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -45,7 +60,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CookieGenerator.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CookieGenerator.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/CookieGenerator.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -100,8 +115,10 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/homepage.html" />
         <option value="$PROJECT_DIR$/page-style.css" />
-        <option value="$PROJECT_DIR$/signin.html" />
         <option value="$PROJECT_DIR$/js/FormFilledOut.js" />
+        <option value="$PROJECT_DIR$/js/CookieGenerator.js" />
+        <option value="$PROJECT_DIR$/signin.html" />
+        <option value="$PROJECT_DIR$/Debugging/Manually Inputting User Info/about.txt" />
       </list>
     </option>
   </component>
@@ -194,6 +211,24 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BigMap" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BigMap" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Debugging" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Manually Inputting User Info" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -208,6 +243,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Family\PhpstormProjects\BigMap\Debugging\Manually Inputting User Info" />
       <recent name="C:\Users\Family\PhpstormProjects\BigMap" />
       <recent name="C:\Users\Family\PhpstormProjects\BigMap\js" />
       <recent name="C:\Users\Family\PhpstormProjects\BigMap\Debugging" />
@@ -284,12 +320,12 @@
       <workItem from="1466208350744" duration="137000" />
       <workItem from="1466257703729" duration="6509000" />
       <workItem from="1466269145856" duration="1459000" />
-      <workItem from="1466308691251" duration="1432000" />
+      <workItem from="1466308691251" duration="2145000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144887000" />
+    <option name="totallyTimeSpent" value="145600000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -333,13 +369,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/GoogleMapHelper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1734">
-          <caret line="102" column="47" selection-start-line="102" selection-start-column="47" selection-end-line="102" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PHP/GetChannelUsersLocation.php" />
     <entry file="file://$PROJECT_DIR$/get-channel-users-location.html" />
     <entry file="file://$PROJECT_DIR$/send-location.html" />
@@ -381,7 +410,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view-channel-content.html">
+    <entry file="file://$PROJECT_DIR$/Debugging/Manually Inputting User Info/view-channel-content.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="10" selection-end-column="54" />
@@ -409,14 +438,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view-channel-content.html">
+    <entry file="file://$PROJECT_DIR$/Debugging/Manually Inputting User Info/view-channel-content.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="10" selection-end-column="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view-channel-content.html">
+    <entry file="file://$PROJECT_DIR$/Debugging/Manually Inputting User Info/view-channel-content.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
@@ -455,7 +484,7 @@
     <entry file="file://$PROJECT_DIR$/PHP/MakeUser.php" />
     <entry file="file://$PROJECT_DIR$/view-channel-content-entered.html" />
     <entry file="file://$PROJECT_DIR$/PHP/MakeChannel.php" />
-    <entry file="file://$PROJECT_DIR$/view-channel-content.html">
+    <entry file="file://$PROJECT_DIR$/Debugging/Manually Inputting User Info/view-channel-content.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="10" selection-end-column="54" />
@@ -557,14 +586,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/signin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/FormFilledOut.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -577,6 +598,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/signin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Debugging/Manually Inputting User Info/about.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
           <folding />
         </state>
       </provider>

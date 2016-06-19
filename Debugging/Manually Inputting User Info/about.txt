@@ -1,0 +1,7 @@
+This directory holds the old html pages that existed before
+I began implementing cookies on the homepage. They're
+obsolete in terms of users but I figure they will be useful
+for debugging (and for reference). There are other html
+files in the Debugging Directory that should be in here,
+but the files here are specific to displaying account
+information.
