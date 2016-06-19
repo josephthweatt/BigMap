@@ -7,15 +7,16 @@
     <!-- saved from url=(0014)about:internet -->
     <!-- saved from url=(0016)http://localhost -->
     <script type="text/javascript" src="js/FormFilledOut.js"></script>
+    <script type="text/javascript" src="js/CookieGenerator.js"></script>
 </head>
 <body>
-    <form action="PHP/accounts/SignIn.php" method="post" id="f" onsubmit="return formFilledOut()">
+    <form action="../../../../xampp/htdocs/BigMap/PHP/accounts/SignIn.php" method="post" id="f" onsubmit="return formFilledOut()">
         <fieldset>
             <legend>Sign In</legend>
             Username:<br>
-            <input type="text" name="user-info[]">
+            <input type="text" name="user-info[]" id="username">
             <br>Password:<br>
-            <input type="password" name="user-info[]">
+            <input type="password" name="user-info[]" id="password">
             <br>
             <input type="submit">
         </fieldset>
