@@ -10,8 +10,8 @@
         $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
 
         mysqli_select_db($con, "bm_members");
-        if (isset($_POST["user-info"])) {
-            $userInfo = $_POST["user-info"];
+        if (isset($_COOKIE["name"]) && isset($_COOKIE["password"])) {
+            $userInfo = array($_COOKIE["name"], $_COOKIE["password"]);
             if ($memberId = userExists($userInfo)) {
                 // create chanel
                 $channelId = getNewChannelId();
