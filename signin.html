@@ -7,7 +7,15 @@
     <!-- saved from url=(0014)about:internet -->
     <!-- saved from url=(0016)http://localhost -->
     <script type="text/javascript" src="js/FormFilledOut.js"></script>
-    <script type="text/javascript" src="js/CookieGenerator.js"></script>
+    <script type="text/javascript" src="js/CookieGenerator.js">
+        function checkAndStashCookies() {
+            if (formFilledOut()) {
+                eraseAll();
+                cacheUserInformation();
+                setCookieExpire();
+            }
+        }
+    </script>
 </head>
 <body>
     <form action="../../../../xampp/htdocs/BigMap/PHP/accounts/SignIn.php" method="post" id="f" onsubmit="return formFilledOut()">

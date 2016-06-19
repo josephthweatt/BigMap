@@ -14,10 +14,6 @@ function formFilledOut() {
     }
     if (!formFilled) {
         window.alert(missingString);
-    } else {
-    	eraseAll();
-    	cacheUserInformation();
-    	setCookieExpire();
     }
     return formFilled;
 }
