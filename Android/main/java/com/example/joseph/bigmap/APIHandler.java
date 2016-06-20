@@ -82,22 +82,6 @@ public class APIHandler extends AsyncTask {
                     userChannels = getRegisteredChannels();
                 }
                 break;
-            case 2:
-                if (sendLocationPacket()) {
-                    String ids = "";
-                    for (int i : broadcastingChannels) {
-                        ids += i + " ";
-                    }
-                    Log.i(TAG, "locationPacket successfully sent to channel: "
-                            + ids);
-                } else {
-                    Log.e(TAG, "error sending locationPacket to server");
-                }
-                break;
-            case 3:
-                sendStop();
-                Log.i(TAG, "no longer sending locationPackets");
-                break;
         }
         return null;
     }
@@ -138,12 +122,12 @@ public class APIHandler extends AsyncTask {
                 while ((line = reader.readLine()) != null) {
                     if (!line.contains("failed") && !line.equals("")) {
                         signInSuccessful = true;
-                        int id = Integer.parseInt(line);
-
                         // save user id
+                        int id = Integer.parseInt(line);
                         sharedPreferences = context.getSharedPreferences(PREFS_NAME, 0);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("userId", id);
+                        Log.i(TAG, "User stored with id " + id);
                         return;
                     }
                 }
@@ -254,13 +238,15 @@ public class APIHandler extends AsyncTask {
     }
 
     /*****************************************************************************
+     * @deprecated the location updates are now being sent with the web socket
+     *
      *  The server receives location with 4 types of inputs, in the form of POST:
      *      1.) the user's info:        [userInfo]
      *      2.) channels broadcasting:  [channelIds]...
      *      3.) the locationPackets:    [time, latitude, longitude]...
      *      4.) the number of packets   [packetCount]
      *  Returns true if the information was successfully stored.
-     *****************************************************************************/
+     *****************************************************************************
     private Boolean sendLocationPacket() {
         List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
         parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[0]));
@@ -335,8 +321,12 @@ public class APIHandler extends AsyncTask {
             }
         }
         return false;
-    }
+    }*/
 
+    /**
+     * @deprecated the location updates are now being sent with the
+     *              WebSocketService
+     *
     // call for the server to hide the user's location
     private void sendStop() {
         List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
@@ -388,7 +378,7 @@ public class APIHandler extends AsyncTask {
                 }
             }
         }
-    }
+    }*/
 
     // method turns query params to a POST String. I found the method on this stackoverflow thread:
     // stackoverflow.com/questions/9767952/how-to-add-parameters-to-httpurlconnection-using-post

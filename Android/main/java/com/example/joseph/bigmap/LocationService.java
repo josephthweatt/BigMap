@@ -2,6 +2,7 @@ package com.example.joseph.bigmap;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -18,32 +19,34 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.util.AbstractMap;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-// Will receive and submit location data to the database
+// Will receive and submit location data to the database.
+// This class calls WebSocketService to connect to the server
 public class LocationService extends Service implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private static String TAG = "LocationService";
 
-    private static HashMap<String, Coordinates> locationPacket;
+    private static AbstractMap.SimpleEntry<String, Coordinates> locationPacket;
     private static FusedLocationProviderApi fusedLocation = LocationServices.FusedLocationApi;
     private static GoogleApiClient googleApiClient;
     private static LocationRequest locationRequest;
-    static APIHandler apiHandler;
+    private static WebSocket webSocket;
 
     // TODO: ChannelActivity should not directly control the service, it should only
     // TODO: tell the service when a channel has started/stopped broadcasting
-    static Timer timer;
-    static TimerTask submitPacket;
-    private static boolean run;
-
     public LocationService() {
-        locationPacket = new HashMap<>();
         locationRequest = new LocationRequest();
         locationRequest.setInterval(5000); // look at provider every 5 seconds
         locationRequest.setFastestInterval(1000); // or one second if its convenient
@@ -59,10 +62,9 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 .build();
         googleApiClient.connect();
 
-        run = true;
-        timer = new Timer();
-        submitPacket  = new SubmitLocationPacket();
-        timer.schedule(submitPacket, 1000, 1000);
+        // start running WebSocket
+        webSocket = new WebSocket();
+        webSocket.connectWebSocket();
 
         return START_STICKY;
     }
@@ -70,10 +72,8 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     @Override
     public void onDestroy() {
         googleApiClient.disconnect();
-        locationPacket.clear();
-        run = false;
-        apiHandler = new APIHandler(3); // send STOP command to the server
-        apiHandler.execute();
+        locationPacket = null;
+        webSocket.disconnect();
 
         Log.i(TAG, "Service stopped");
         super.onDestroy();
@@ -85,28 +85,12 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         return null;
     }
 
-    // Access APIHandler every 'x' seconds to send the locationPacket to the server
-    private class SubmitLocationPacket extends TimerTask {
-        public void run() {
-            if (run) {
-                if (locationPacket.size() > 0) {
-                    apiHandler = new APIHandler(2);
-                    apiHandler.execute();
-                }
-            } else {
-                submitPacket.cancel();
-                timer.cancel();
-                timer.purge();
-            }
-        }
-    }
-
-    public static HashMap<String, Coordinates> getLocationPacket() {
+    public static AbstractMap.SimpleEntry<String, Coordinates> getLocationPacket() {
         return locationPacket;
     }
 
     public static void clearLocationPacket() {
-        locationPacket.clear();
+        locationPacket = null;
     }
 
     /****************************
@@ -127,10 +111,16 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         Log.e(TAG, connectionResult.getErrorMessage());
     }
 
+    /*
+     * WARNING: immediately sending location to the websocket might cause the
+     * high traffic on the socket. Make sure this isn't the case,
+     * and bring back the timertask if the issue exists
+     */
     @Override
     public void onLocationChanged(Location location) {
-        locationPacket.put(timeAsString(location),
+        locationPacket = new AbstractMap.SimpleEntry<>(timeAsString(location),
                 new Coordinates(location.getLatitude(), location.getLongitude()));
+        webSocket.sendLocation();
     }
 
     public void requestLocationUpdates() {
@@ -161,6 +151,85 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         public Coordinates(double lat, double lon) {
             this.lat = lat;
             this.lon = lon;
+        }
+    }
+
+    /*****************************************************************************************
+     * WebSocket methods to connect, receive, and share user's location.
+     * This replaces the location broadcasting methods in APIHandler.java. Whereas APIHandler
+     * implemented POST requests to communicate with PHP and stored all data to mySQL,
+     * this class will connect with a webSocket and will not store location data to MySQL.
+     *****************************************************************************************/
+    public class WebSocket {
+        SharedPreferences sharedPreferences;
+        public static final String PREFS_NAME = "StoredUserInfo";
+        private WebSocketClient webSocketClient;
+
+        /************ WEBSOCKET METHODS ****************/
+        private void connectWebSocket() {
+            URI uri;
+            try {
+                uri = new URI("ws://192.169.148.214:2000");
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            webSocketClient = new WebSocketClient(uri) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    sharedPreferences = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+
+                    webSocketClient.send("connect-android "
+                            + sharedPreferences.getInt("userId", 0) + " " + getChannelIds());
+                    Log.i("Websocket", "Opened");
+                }
+
+                @Override
+                public void onMessage(String s) {
+
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    Log.i("Websocket", "Closed " + s);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    Log.i("Websocket", "Error " + e.getMessage());
+                }
+            };
+            webSocketClient.connect();
+        }
+
+        public void disconnect() {
+            webSocketClient.close();
+        }
+
+        public void sendLocation() {
+            webSocketClient.send("update-location-android "
+                    + locationPacket.getValue().lat + " "
+                    + locationPacket.getValue().lon + " "
+                    + getBroadcastingChannelIds());
+        }
+
+        //returns a string of the users registered channel ids
+        private String getChannelIds() {
+            String channelIds = "";
+            for (int i = 0; i < APIHandler.userChannels.size(); i++) {
+                channelIds += APIHandler.userChannels.get(i) + " ";
+            }
+            return channelIds;
+        }
+
+        //returns a string of the users broadcasting channel ids
+        private String getBroadcastingChannelIds() {
+            String channelIds = "";
+            for (int i = 0; i < APIHandler.broadcastingChannels.size(); i++) {
+                channelIds += APIHandler.broadcastingChannels.get(i) + " ";
+            }
+            return channelIds;
         }
     }
 }

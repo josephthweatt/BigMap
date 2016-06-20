@@ -35,7 +35,7 @@
          *          "connect-android [userId] [channelIds..." - adds user as an android user
          *          "update-location-android [lat] [long] [channelIds..."
          *                                                 - update android users location
-         *          "STOP_BROADCASTING"
+         *          "STOP_BROADCASTING" - stops location broadcast on all channels
          */
         public function onMessage(ConnectionInterface $conn, $msg) {
             // determines what the message hopes to send
