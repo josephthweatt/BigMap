@@ -28,7 +28,7 @@
 
         /**
          * @param ConnectionInterface $conn - user who sent the message
-         * @param string $msg - first word of the message is to d
+         * @param string $msg - first word of the message is to
          *                       describe what the user is trying to do
          *      Examples:
          *          "connect-browser [userId] [channelId]" - adds user as a browser
@@ -55,7 +55,7 @@
                             $this->channels[$channelId] = new Channel($channelId);
                         }
                         $this->channels[$channelId]->addAndroidUser($user);
-                    }
+                    }	
                     $this->androidUsers[] = $user;
                     break;
                 case "update-location-android":

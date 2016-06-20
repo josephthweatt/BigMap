@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 // send userInfo to the Server, wait 5 secs max for response
                 APIHandler handler = new APIHandler(userInfo, 0);
                 try {
-                    handler.execute(0).get(5000, TimeUnit.MILLISECONDS);
+                    handler.execute().get(5000, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException|TimeoutException|ExecutionException e) {
                     header.setText("Connection Failed");
                     Toast.makeText(getApplicationContext(),
@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // launch the next activity (user's main menu)
-                if (handler.signInSuccessful) {
+                if (APIHandler.signInSuccessful) {
                     // store user info to sharedPreferences
-                    SharedPreferences shared = getSharedPreferences(PREFS_NAME, 2); // 2 = writeable
+                    SharedPreferences shared = getSharedPreferences(PREFS_NAME, 0);
                     SharedPreferences.Editor editor = shared.edit();
                     editor.putString("username", userInfo[0]);
                     editor.putString("password", userInfo[1]);

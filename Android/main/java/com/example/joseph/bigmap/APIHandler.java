@@ -31,10 +31,10 @@ public class APIHandler extends AsyncTask {
     public static Context context;
     static SharedPreferences sharedPreferences;
 
-    public static String URLHead = "http://jathweatt.com/BigMap/PHP/";
-    public static String signIn = "SignIn.php";
-    public static String myBroadcastingChannels = "MyBroadcastingChannels.php";
-    public static String receiveLocationPacket = "ReceiveLocationPacket.php";
+    public static String URLHead = "http://192.169.148.214/BigMap/PHP/";
+    public static String signIn = "android/SignIn.php";
+    public static String myBroadcastingChannels = "accounts/MyBroadcastingChannels.php";
+    public static String receiveLocationPacket = "ChannelSocket/ReceiveLocationPacket.php";
 
     public static Boolean signInSuccessful;
     public static Boolean isBroadcasting;
@@ -57,6 +57,10 @@ public class APIHandler extends AsyncTask {
         signInSuccessful = false;
         isBroadcasting = false;
         userInputs = inputs;
+        executeCommand = command;
+    }
+
+    public void setCommand(int command) {
         executeCommand = command;
     }
 
@@ -132,8 +136,14 @@ public class APIHandler extends AsyncTask {
                 reader = new BufferedReader(new InputStreamReader(stream));
 
                 while ((line = reader.readLine()) != null) {
-                    if (line.contains("Welcome back, ")) {
+                    if (!line.contains("failed") && !line.equals("")) {
                         signInSuccessful = true;
+                        int id = Integer.parseInt(line);
+
+                        // save user id
+                        sharedPreferences = context.getSharedPreferences(PREFS_NAME, 0);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("userId", id);
                         return;
                     }
                 }
@@ -353,6 +363,17 @@ public class APIHandler extends AsyncTask {
             os.close();
 
             connection.connect();
+
+            String line;
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                while ((line = reader.readLine()) != null) {
+                    if (line.contains("Locations properly stored")) {
+                    }
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
