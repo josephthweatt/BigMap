@@ -204,6 +204,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         }
 
         public void disconnect() {
+            webSocketClient.send("STOP_BROADCASTING");
             webSocketClient.close();
         }
 
