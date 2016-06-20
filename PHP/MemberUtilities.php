@@ -3,7 +3,7 @@
      * This class will store all static functions required to handle user information,
      * including login status and preventing duplicate information
      *********************************************************************************/
-    // error_reporting(E_ALL); // uncomment for debugging
+     error_reporting(E_ALL); // uncomment for debugging
     /********************************* USER CREDENTIALS ******************************/
     if(!isset($con)) {
         $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");

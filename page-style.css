@@ -35,3 +35,10 @@ body {
     padding: 5px;
     display: block;
 }
+
+.cell {
+    background-color: white;
+    border-style: groove;
+    color: black;
+    display: block;
+}

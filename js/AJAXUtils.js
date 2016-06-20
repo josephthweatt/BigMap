@@ -1,4 +1,5 @@
 // Functions to help interactions between javascript and PHP
+var textHttp;
 
 function createXMLHttpRequestObject() {
     var textHttp;
@@ -31,15 +32,31 @@ function createXMLHttpRequestObject() {
  * @param locationURL - The PHP file to send the information to.
  *                    - This file must exist in the PHP dir, and
  *                    - the url should start in the same dir
- * ! This function might not be used. I'll consider later whether
- * ! it is useful.
+ *      ex.) "PHP/account/..."
+ * @param funct - function to be executed with the returned text
+ *              - can be left null or blank (""). Pass as string
+ * @return mixed - returns false if php returned no text
+ *               - returns a string of the php text if outputted.
  */
-function sendUserInfo(locationURL) {
+function sendUserInfo(locationURL, funct) {
+    textHttp = createXMLHttpRequestObject();
     if (textHttp.readyState == 0 || textHttp.readyState == 4) {
         textHttp.open("POST", locationURL, true);
-        textHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        textHttp.setRequestHeader("Content-Type",
+            "application/x-www-form-urlencoded");
 
-        textHttp.send("user-info[]=" + getCookie("name") + "&user-info[]" + getCookie("password"));
+        textHttp.send("user-info[]=" + getCookie("name")
+            + "&user-info[]=" + getCookie("password"));
+    }
+
+    textHttp.onreadystatechange = function () {
+        if (funct && funct != "") {
+            if (!textHttp.responseText || textHttp.responseText != "") {
+                window[funct](textHttp.responseText);
+            } else {
+                return false;
+            }
+        }
     }
 }
 
@@ -48,7 +65,8 @@ function addEscapes(jsonString) {
     // 'for' will skip the first and last quotations
     for (var i = 1; i < jsonString.length - 1; i++) {
         if (jsonString[i] == "\"") {
-            jsonString = jsonString.slice(0, i) +"\\"+ jsonString.slice(i, jsonString.length-1);
+            jsonString = jsonString.slice(0, i) +"\\"
+                + jsonString.slice(i, jsonString.length-1);
         }
     }
     return jsonString;
