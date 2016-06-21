@@ -1,5 +1,6 @@
 <?php
     include 'ChannelUsers.php';
+    include 'Channel.php';
     use Ratchet\MessageComponentInterface;
     use Ratchet\ConnectionInterface;
 

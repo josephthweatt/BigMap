@@ -12,7 +12,7 @@
  *************************************************************************/
 var open = false;
 // TODO: make sure this is the correct socket
-var socket = new WebSocket("ws://localhost:2000");
+var socket = new WebSocket("ws://192.169.148.214:2000");
 
 // map variables
 var bounds;
