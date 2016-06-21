@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/enter-channel.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/MemberUtilities.php" afterPath="$PROJECT_DIR$/PHP/MemberUtilities.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/accounts/BroadcastToChannel.php" afterPath="$PROJECT_DIR$/PHP/accounts/BroadcastToChannel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/homepage.html" afterPath="$PROJECT_DIR$/homepage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/AJAXUtils.js" afterPath="$PROJECT_DIR$/js/AJAXUtils.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/WebLayout.js" afterPath="$PROJECT_DIR$/js/WebLayout.js" />
     </list>
     <ignored path="BigMap.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,31 +46,39 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="enter-channel.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/enter-channel.html">
+      <file leaf-file-name="AJAXUtils.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/AJAXUtils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
+            <state relative-caret-position="438">
+              <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BroadcastToChannel.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PHP/accounts/BroadcastToChannel.php">
+      <file leaf-file-name="WebLayout.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/WebLayout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="57" selection-start-line="35" selection-start-column="57" selection-end-line="35" selection-end-column="57" />
+            <state relative-caret-position="119">
+              <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyBroadcastingChannels.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PHP/accounts/MyBroadcastingChannels.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
-                <marker date="1466466909183" expanded="true" signature="825:902" ph="INSERT INTO channels_broadcasting... " />
-                <marker date="1466466909183" expanded="true" signature="1400:1461" ph="INSERT INTO broadcast_member... " />
-                <marker date="1466466909183" expanded="true" signature="1534:1601" ph="INSERT INTO location_history... " />
+                <marker date="1466207857864" expanded="true" signature="657:718" ph="SELECT chann... channels_broadcasting" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MemberUtilities.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MemberUtilities.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="178">
@@ -136,12 +142,12 @@
         <option value="$PROJECT_DIR$/create-channel.html" />
         <option value="$PROJECT_DIR$/PHP/accounts/MakeChannel.php" />
         <option value="$PROJECT_DIR$/page-style.css" />
-        <option value="$PROJECT_DIR$/js/AJAXUtils.js" />
-        <option value="$PROJECT_DIR$/js/WebLayout.js" />
         <option value="$PROJECT_DIR$/enter-channel.html" />
         <option value="$PROJECT_DIR$/homepage.html" />
         <option value="$PROJECT_DIR$/PHP/accounts/BroadcastToChannel.php" />
         <option value="$PROJECT_DIR$/PHP/MemberUtilities.php" />
+        <option value="$PROJECT_DIR$/js/AJAXUtils.js" />
+        <option value="$PROJECT_DIR$/js/WebLayout.js" />
       </list>
     </option>
   </component>
@@ -392,12 +398,12 @@
       <workItem from="1466308691251" duration="2688000" />
       <workItem from="1466314629905" duration="2593000" />
       <workItem from="1466396042960" duration="9923000" />
-      <workItem from="1466466317364" duration="1012000" />
+      <workItem from="1466466317364" duration="3136000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="159671000" />
+    <option name="totallyTimeSpent" value="161795000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -663,40 +669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/accounts/MyBroadcastingChannels.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding>
-            <marker date="1466207857864" expanded="true" signature="657:718" ph="SELECT chann... channels_broadcasting" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/AJAXUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="64" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/WebLayout.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enter-channel.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Debugging/Manually Inputting User Info/enter-channel.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -745,6 +717,40 @@
             <marker date="1466467327428" expanded="true" signature="5957:6072" ph="SELECT chann... channels_broadcasting" />
             <marker date="1466467327428" expanded="true" signature="6450:6549" ph="SELECT * FRO... location_history" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/accounts/MyBroadcastingChannels.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <marker date="1466207857864" expanded="true" signature="657:718" ph="SELECT chann... channels_broadcasting" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enter-channel.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/AJAXUtils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/WebLayout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>

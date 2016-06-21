@@ -50,11 +50,13 @@ function sendUserInfo(locationURL, funct) {
     }
 
     textHttp.onreadystatechange = function () {
-        if (funct && funct != "") {
-            if (!textHttp.responseText || textHttp.responseText != "") {
-                window[funct](textHttp.responseText);
-            } else {
-                return false;
+        if (textHttp.readyState == 4) {
+            if (funct && funct != "") {
+                if (!textHttp.responseText || textHttp.responseText != "") {
+                    window[funct](textHttp.responseText);
+                } else {
+                    return false;
+                }
             }
         }
     }
