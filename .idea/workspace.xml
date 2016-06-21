@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/accounts/MakeChannel.php" afterPath="$PROJECT_DIR$/PHP/accounts/MakeChannel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/ViewChannelContent.php" afterPath="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/WebLayout.js" afterPath="$PROJECT_DIR$/js/WebLayout.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/page-style.css" afterPath="$PROJECT_DIR$/page-style.css" />
     </list>
     <ignored path="BigMap.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,28 +46,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MakeChannel.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/PHP/accounts/MakeChannel.php">
+      <file leaf-file-name="WebLayout.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/WebLayout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
-              <folding>
-                <marker date="1466470421544" expanded="true" signature="664:762" ph="INSERT INTO channel_info... " />
-                <marker date="1466470421544" expanded="true" signature="969:1012" ph="UPDATE stati... " />
-                <marker date="1466470421544" expanded="true" signature="1205:1300" ph="INSERT INTO channels_hosting... " />
-                <marker date="1466470421544" expanded="true" signature="1682:1735" ph="SELECT Chann... static_variables" />
-              </folding>
+            <state relative-caret-position="489">
+              <caret line="48" column="57" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyBroadcastingChannels.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PHP/accounts/MyBroadcastingChannels.php">
+      <file leaf-file-name="ViewChannelContent.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="280">
+              <caret line="26" column="101" selection-start-line="26" selection-start-column="100" selection-end-line="26" selection-end-column="101" />
               <folding>
-                <marker date="1466207857864" expanded="true" signature="657:718" ph="SELECT chann... channels_broadcasting" />
+                <marker date="1466472867366" expanded="true" signature="2633:2654" ph="..." />
               </folding>
             </state>
           </provider>
@@ -74,7 +71,7 @@
       <file leaf-file-name="MemberUtilities.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
+            <state relative-caret-position="-230">
               <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
               <folding>
                 <element signature="e#10#335#0#PHP" expanded="false" />
@@ -121,7 +118,6 @@
         <option value="$PROJECT_DIR$/PHP/GetChannelUsersLocation.php" />
         <option value="$PROJECT_DIR$/PHP/ReceiveLocationPacket.php" />
         <option value="$PROJECT_DIR$/PHP/BroadcastToChannel.php" />
-        <option value="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
         <option value="$PROJECT_DIR$/js/GoogleMapHelper.js" />
         <option value="$PROJECT_DIR$/PHP/ChannelSocket/Channel.php" />
         <option value="$PROJECT_DIR$/PHP/ChannelSocket/ChannelUsers.php" />
@@ -133,14 +129,15 @@
         <option value="$PROJECT_DIR$/signin.html" />
         <option value="$PROJECT_DIR$/signup.html" />
         <option value="$PROJECT_DIR$/create-channel.html" />
-        <option value="$PROJECT_DIR$/page-style.css" />
         <option value="$PROJECT_DIR$/enter-channel.html" />
         <option value="$PROJECT_DIR$/homepage.html" />
         <option value="$PROJECT_DIR$/PHP/accounts/BroadcastToChannel.php" />
         <option value="$PROJECT_DIR$/PHP/MemberUtilities.php" />
         <option value="$PROJECT_DIR$/js/AJAXUtils.js" />
-        <option value="$PROJECT_DIR$/js/WebLayout.js" />
         <option value="$PROJECT_DIR$/PHP/accounts/MakeChannel.php" />
+        <option value="$PROJECT_DIR$/page-style.css" />
+        <option value="$PROJECT_DIR$/PHP/ViewChannelContent.php" />
+        <option value="$PROJECT_DIR$/js/WebLayout.js" />
       </list>
     </option>
   </component>
@@ -391,12 +388,12 @@
       <workItem from="1466308691251" duration="2688000" />
       <workItem from="1466314629905" duration="2593000" />
       <workItem from="1466396042960" duration="9923000" />
-      <workItem from="1466466317364" duration="3439000" />
+      <workItem from="1466466317364" duration="5970000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="162098000" />
+    <option name="totallyTimeSpent" value="164629000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -616,14 +613,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/signin.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="9" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/CookieGenerator.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -636,20 +625,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="685">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/page-style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" column="24" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -674,9 +649,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/enter-channel.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/AJAXUtils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/accounts/MakeChannel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
+          <folding>
+            <marker date="1466470421544" expanded="true" signature="664:762" ph="INSERT INTO channel_info... " />
+            <marker date="1466470421544" expanded="true" signature="969:1012" ph="UPDATE stati... " />
+            <marker date="1466470421544" expanded="true" signature="1205:1300" ph="INSERT INTO channels_hosting... " />
+            <marker date="1466470421544" expanded="true" signature="1682:1735" ph="SELECT Chann... static_variables" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/accounts/MyBroadcastingChannels.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <marker date="1466207857864" expanded="true" signature="657:718" ph="SELECT chann... channels_broadcasting" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/page-style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/signin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="9" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PHP/MemberUtilities.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
+        <state relative-caret-position="-230">
           <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
           <folding>
             <element signature="e#10#335#0#PHP" expanded="false" />
@@ -697,37 +727,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/accounts/MyBroadcastingChannels.php">
+    <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="280">
+          <caret line="26" column="101" selection-start-line="26" selection-start-column="100" selection-end-line="26" selection-end-column="101" />
           <folding>
-            <marker date="1466207857864" expanded="true" signature="657:718" ph="SELECT chann... channels_broadcasting" />
+            <marker date="1466472867366" expanded="true" signature="2633:2654" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enter-channel.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="66" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/AJAXUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/WebLayout.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -739,16 +745,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/accounts/MakeChannel.php">
+    <entry file="file://$PROJECT_DIR$/js/WebLayout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
-          <folding>
-            <marker date="1466470421544" expanded="true" signature="664:762" ph="INSERT INTO channel_info... " />
-            <marker date="1466470421544" expanded="true" signature="969:1012" ph="UPDATE stati... " />
-            <marker date="1466470421544" expanded="true" signature="1205:1300" ph="INSERT INTO channels_hosting... " />
-            <marker date="1466470421544" expanded="true" signature="1682:1735" ph="SELECT Chann... static_variables" />
-          </folding>
+        <state relative-caret-position="489">
+          <caret line="48" column="57" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>

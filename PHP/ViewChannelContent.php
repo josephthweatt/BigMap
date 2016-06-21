@@ -22,8 +22,9 @@
         <?php
             include 'MemberUtilities.php';
             $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
-            isset($_POST["userInfo"]) ? $userInfo = $_POST["userInfo"] : die ("no user id specified");
-            isset($_POST["channelId"]) ? $channelId = $_POST["channelId"] : die ("channel ids not specified");
+            isset($_COOKIE["name"]) ? $userInfo[0] = $_COOKIE["name"] : die ("no user id specified");
+            isset($_COOKIE["password"]) ? $userInfo[1] = $_COOKIE["password"] : die ("no user id specified");
+            isset($_POST["channelId"]) ? $channelId = $_POST["channelId"] : die ("channel id not specified");
 
             userExists($userInfo) ? $userId = getUserId($userInfo) : die ();
             if (!alreadyJoined($userId, $channelId)) {

@@ -40,5 +40,6 @@ body {
     background-color: white;
     border-style: groove;
     color: black;
+    text-decoration: none;
     display: block;
 }
