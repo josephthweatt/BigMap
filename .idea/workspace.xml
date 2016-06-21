@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba914a1d-a280-44a3-8b21-9a2ab7ff475e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/AJAXUtils.js" afterPath="$PROJECT_DIR$/js/AJAXUtils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/WebLayout.js" afterPath="$PROJECT_DIR$/js/WebLayout.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHP/accounts/MakeChannel.php" afterPath="$PROJECT_DIR$/PHP/accounts/MakeChannel.php" />
     </list>
     <ignored path="BigMap.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,22 +44,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AJAXUtils.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/AJAXUtils.js">
+      <file leaf-file-name="MakeChannel.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/PHP/accounts/MakeChannel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WebLayout.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/WebLayout.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
-              <folding />
+            <state relative-caret-position="561">
+              <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
+              <folding>
+                <marker date="1466470421544" expanded="true" signature="664:762" ph="INSERT INTO channel_info... " />
+                <marker date="1466470421544" expanded="true" signature="969:1012" ph="UPDATE stati... " />
+                <marker date="1466470421544" expanded="true" signature="1205:1300" ph="INSERT INTO channels_hosting... " />
+                <marker date="1466470421544" expanded="true" signature="1682:1735" ph="SELECT Chann... static_variables" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -140,7 +133,6 @@
         <option value="$PROJECT_DIR$/signin.html" />
         <option value="$PROJECT_DIR$/signup.html" />
         <option value="$PROJECT_DIR$/create-channel.html" />
-        <option value="$PROJECT_DIR$/PHP/accounts/MakeChannel.php" />
         <option value="$PROJECT_DIR$/page-style.css" />
         <option value="$PROJECT_DIR$/enter-channel.html" />
         <option value="$PROJECT_DIR$/homepage.html" />
@@ -148,6 +140,7 @@
         <option value="$PROJECT_DIR$/PHP/MemberUtilities.php" />
         <option value="$PROJECT_DIR$/js/AJAXUtils.js" />
         <option value="$PROJECT_DIR$/js/WebLayout.js" />
+        <option value="$PROJECT_DIR$/PHP/accounts/MakeChannel.php" />
       </list>
     </option>
   </component>
@@ -398,12 +391,12 @@
       <workItem from="1466308691251" duration="2688000" />
       <workItem from="1466314629905" duration="2593000" />
       <workItem from="1466396042960" duration="9923000" />
-      <workItem from="1466466317364" duration="3136000" />
+      <workItem from="1466466317364" duration="3439000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="161795000" />
+    <option name="totallyTimeSpent" value="162098000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -646,14 +639,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/accounts/MakeChannel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PHP/ViewChannelContent.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="685">
@@ -673,14 +658,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/homepage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="39" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -751,6 +728,27 @@
         <state relative-caret-position="119">
           <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/homepage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="39" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/accounts/MakeChannel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
+          <folding>
+            <marker date="1466470421544" expanded="true" signature="664:762" ph="INSERT INTO channel_info... " />
+            <marker date="1466470421544" expanded="true" signature="969:1012" ph="UPDATE stati... " />
+            <marker date="1466470421544" expanded="true" signature="1205:1300" ph="INSERT INTO channels_hosting... " />
+            <marker date="1466470421544" expanded="true" signature="1682:1735" ph="SELECT Chann... static_variables" />
+          </folding>
         </state>
       </provider>
     </entry>

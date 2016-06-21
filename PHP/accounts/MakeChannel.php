@@ -31,7 +31,7 @@
                     . ", " . $channelId . ")";
                 mysqli_query($con, $query) or die(mysqli_error($con));
     
-                echo "A new channel has been added to your account";
+                echo "A new channel (". $channelId .") has been added to your account";
             }
         } else {
             echo "Invalid input";
