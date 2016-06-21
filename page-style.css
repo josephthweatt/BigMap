@@ -29,17 +29,22 @@ body {
 }
 
 .button {
+    cursor: pointer;
     background-color: var(--color-primary-light);
+    border-style: none;
     color: white;
+    font-size: 16px;
     text-decoration: none;
     padding: 5px;
     display: block;
 }
 
 .cell {
+    cursor: pointer;
     background-color: white;
     border-style: groove;
     color: black;
+    font-size: 16px;
     text-decoration: none;
     display: block;
 }
