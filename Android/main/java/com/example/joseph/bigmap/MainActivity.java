@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
                 // send userInfo to the Server, wait 5 secs max for response
                 APIHandler handler = new APIHandler(userInfo, 0);
+                // pass context to APIHandler so that can access sharedPrefs
+                APIHandler.context = getApplicationContext();
                 try {
                     handler.execute().get(5000, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException|TimeoutException|ExecutionException e) {
@@ -62,9 +64,6 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("username", userInfo[0]);
                     editor.putString("password", userInfo[1]);
                     editor.apply();
-
-                    // pass context to APIHandler so that can access sharedPrefs
-                    APIHandler.context = getApplicationContext();
 
                     Intent goToMainMenu = new Intent(MainActivity.this, MainMenuActivity.class);
                     startActivity(goToMainMenu);

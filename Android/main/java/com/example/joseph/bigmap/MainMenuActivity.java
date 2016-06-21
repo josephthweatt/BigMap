@@ -26,7 +26,7 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.main_menu);
 
         // set welcome header
-        SharedPreferences shared = getSharedPreferences(PREFS_NAME, 2);
+        SharedPreferences shared = getSharedPreferences(PREFS_NAME, 0);
         welcome = (TextView) findViewById(R.id.welcome_back);
         welcome.setText("Welcome back, " + shared.getString("username", "") + "!");
 
@@ -36,7 +36,7 @@ public class MainMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 welcome.setText("Connecting to Channels...");
                 // see if the user has any channels, allow up to 5 seconds
-                APIHandler handler = new APIHandler(2);
+                APIHandler handler = new APIHandler(1);
                 try {
                     handler.execute().get(5000, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException|TimeoutException |ExecutionException e) {

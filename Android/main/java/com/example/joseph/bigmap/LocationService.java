@@ -20,6 +20,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.exceptions.WebsocketNotConnectedException;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
@@ -120,7 +121,9 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     public void onLocationChanged(Location location) {
         locationPacket = new AbstractMap.SimpleEntry<>(timeAsString(location),
                 new Coordinates(location.getLatitude(), location.getLongitude()));
-        webSocket.sendLocation();
+        if (webSocket.connected) {
+            webSocket.sendLocation();
+        }
     }
 
     public void requestLocationUpdates() {
@@ -161,8 +164,10 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
      * this class will connect with a webSocket and will not store location data to MySQL.
      *****************************************************************************************/
     public class WebSocket {
-        SharedPreferences sharedPreferences;
         public static final String PREFS_NAME = "StoredUserInfo";
+        SharedPreferences sharedPreferences;
+
+        public Boolean connected = false;
         private WebSocketClient webSocketClient;
 
         /************ WEBSOCKET METHODS ****************/
@@ -179,7 +184,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
                     sharedPreferences = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
-
                     webSocketClient.send("connect-android "
                             + sharedPreferences.getInt("userId", 0) + " " + getChannelIds());
                     Log.i("Websocket", "Opened");
@@ -187,11 +191,13 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
                 @Override
                 public void onMessage(String s) {
-
+                    // TODO: take messages (which will contain other user's locations)
+                    // TODO: and draw them on the map
                 }
 
                 @Override
                 public void onClose(int i, String s, boolean b) {
+                    connected = false;
                     Log.i("Websocket", "Closed " + s);
                 }
 
@@ -201,18 +207,26 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 }
             };
             webSocketClient.connect();
+            connected = true;
         }
 
         public void disconnect() {
             webSocketClient.send("STOP_BROADCASTING");
             webSocketClient.close();
+            connected = false;
         }
 
         public void sendLocation() {
-            webSocketClient.send("update-location-android "
-                    + locationPacket.getValue().lat + " "
-                    + locationPacket.getValue().lon + " "
-                    + getBroadcastingChannelIds());
+            try {
+                String channelIds = getBroadcastingChannelIds();
+                webSocketClient.send("update-location-android "
+                        + locationPacket.getValue().lat + " "
+                        + locationPacket.getValue().lon + " "
+                        + channelIds);
+                Log.i(TAG, "Sent location to channels: " + channelIds);
+            } catch (WebsocketNotConnectedException e) {
+                Log.w(TAG, "BigMap tried to send a location with the connection closed");
+            }
         }
 
         //returns a string of the users registered channel ids
