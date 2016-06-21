@@ -6,7 +6,8 @@
     // give the user permission to broadcast
     $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
 
-    isset($_POST["user-info"]) ? $userInfo = $_POST["user-info"] : die("user info not set");
+    isset($_COOKIE["name"]) ? $userInfo[0] = $_COOKIE["name"] : die("user info not set");
+    isset($_COOKIE["password"]) ? $userInfo[1] = $_COOKIE["password"] : die("user info not set");
     isset($_POST["channel-id"]) ? $channelId = $_POST["channel-id"] : die("channel id not specified");
 
     $id = userExists($userInfo);
@@ -29,6 +30,8 @@
             }
             echo $userInfo[0] . " has joined channel " . $channelId; // End of script
         } else {
-            echo "User has already joined";
+            echo "You have already joined channel " . $channelId;
         }
+    } else {
+        echo "Channel " . $channelId . " does not exist";
     }

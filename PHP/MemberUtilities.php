@@ -71,10 +71,11 @@
         global $con;
         checkConnection();
         mysqli_select_db($con, "bm_channel");
-
-        $query = "SELECT EXISTS(SELECT 1 FROM channel_info WHERE id = " . $channelId . ")";
+        
+        $value = "EXISTS(SELECT 1 FROM channel_info WHERE id = " . $channelId . ")";
+        $query = "SELECT " . $value;
         $channelExists = getFromTable($query);
-        if ($channelExists !=0) {
+        if ($channelExists[$value] !=0) {
             return true;
         } else {
             return false;
