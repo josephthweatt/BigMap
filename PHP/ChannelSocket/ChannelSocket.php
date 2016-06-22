@@ -12,7 +12,7 @@
         protected $clients;
         private $loop;
         // channel object array ([channedId] => Channel)
-        protected $channels = array(); // TODO: find a way to instant. channels
+        protected $channels = array();
         // user object arrays
         protected $browserUsers = array();
         protected $androidUsers = array();
@@ -62,7 +62,7 @@
                 case "update-location-android":
                     $channelIds = array_slice($data, 3);
                     $user = $this->getAndroidUser($conn);
-                    $user->updateLocation($data[1], $channelIds);
+                    $user->updateLocation($data[1], $data[2]);
                     $user->is_broadcasting = true;
 
                     // check if a channel id should be receiving an update
