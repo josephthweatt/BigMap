@@ -13,7 +13,7 @@
 
         /**
          * @param $userId
-         * @return mixed - Android user if the user exists--null otherwise
+         * @return AndroidUser - Android user if the user exists--null otherwise
          */
         public function getAndroidUser($userId) {
             if (isset($this->androidUsers[$userId])) {
@@ -21,5 +21,10 @@
             } else {
                 return null;
             }
+        }
+
+        // returns android user ids as an array
+        public function getAndroidIds() {
+            return array_keys($this->androidUsers);
         }
     }

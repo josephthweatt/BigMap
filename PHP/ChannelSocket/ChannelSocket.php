@@ -131,7 +131,7 @@
              *       mySQL database, which is what we've been doing
              */
             foreach ($this->browserUsers as $user) {
-                $user->sendChannelData();
+                $user->sendChannelData($this->channels[$user->channelId]);
             }
         }
 
