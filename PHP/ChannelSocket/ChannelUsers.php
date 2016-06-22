@@ -37,6 +37,7 @@ if (!isset($con)) {
                  $locationInfo .= $id . " " . $channel->getAndroidUser($id)->current_lat . " " 
                                  . $channel->getAndroidUser($id)->current_long . " "
                                  . $channel->getAndroidUser($id)->is_broadcasting . " ";
+//		$this->conn->send($id);
             }
             $this->conn->send($locationInfo);
         }

@@ -49,6 +49,7 @@
                     $this->browserUsers[] = new BrowserUser($data[1], $data[2], $conn);
                     break;
                 case "connect-android":
+//		    $this->browserUsers[0]->conn->send($msg);
                     $channelIds = array_slice($data, 2);
                     $user = new AndroidUser($data[1], $channelIds, $conn);
                     foreach ($channelIds as $channelId) {
@@ -60,6 +61,7 @@
                     $this->androidUsers[] = $user;
                     break;
                 case "update-location-android":
+//		   $this->browserUsers[0]->conn->send($msg);
                     $channelIds = array_slice($data, 3);
                     $user = $this->getAndroidUser($conn);
                     $user->updateLocation($data[1], $data[2]);
