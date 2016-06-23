@@ -3,7 +3,6 @@ package com.example.joseph.bigmap;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -19,10 +18,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 // Interacts with the BigMap server, specifically PHP code made to work with Android
 public class APIHandler extends AsyncTask {
@@ -68,7 +64,6 @@ public class APIHandler extends AsyncTask {
     protected void onPreExecute() {
         super.onPreExecute();
     }
-
 
     // TODO: add Javadoc for the switchcase
     @Override
@@ -120,13 +115,14 @@ public class APIHandler extends AsyncTask {
                 reader = new BufferedReader(new InputStreamReader(stream));
 
                 while ((line = reader.readLine()) != null) {
-                    if (!line.contains("failed") && !line.equals("")) {
+                    if (line.matches(".*\\d+.*")) { // check if there's an number in the line
                         signInSuccessful = true;
                         // save user id
-                        int id = Integer.parseInt(line);
+                        int id = Integer.parseInt(line.trim());
                         sharedPreferences = context.getSharedPreferences(PREFS_NAME, 0);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("userId", id);
+                        editor.apply();
                         Log.i(TAG, "User stored with id " + id);
                         return;
                     }
