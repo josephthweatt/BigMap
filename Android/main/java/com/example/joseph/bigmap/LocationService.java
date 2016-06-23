@@ -1,10 +1,14 @@
 package com.example.joseph.bigmap;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -45,8 +49,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     private static LocationRequest locationRequest;
     private static WebSocket webSocket;
 
-    // TODO: ChannelActivity should not directly control the service, it should only
-    // TODO: tell the service when a channel has started/stopped broadcasting
     public LocationService() {
         locationRequest = new LocationRequest();
         locationRequest.setInterval(5000); // look at provider every 5 seconds
@@ -62,11 +64,11 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 .addOnConnectionFailedListener(this)
                 .build();
         googleApiClient.connect();
-
         // start running WebSocket
         webSocket = new WebSocket();
         webSocket.connectWebSocket();
 
+        Log.i(TAG, "Service started");
         return START_STICKY;
     }
 
@@ -184,8 +186,9 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
                     sharedPreferences = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+                    int id = sharedPreferences.getInt("userId", 0);
                     webSocketClient.send("connect-android "
-                            + sharedPreferences.getInt("userId", 0) + " " + getChannelIds());
+                            + id + " " + getChannelIds());
                     Log.i("Websocket", "Opened");
                 }
 
@@ -211,9 +214,13 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         }
 
         public void disconnect() {
-            webSocketClient.send("STOP_BROADCASTING");
-            webSocketClient.close();
-            connected = false;
+            try {
+                webSocketClient.send("STOP_BROADCASTING");
+                webSocketClient.close();
+                connected = false;
+            } catch (WebsocketNotConnectedException e) {
+                Log.w(TAG, "Tried to stop broadcast, but websocket appears disconnected");
+            }
         }
 
         public void sendLocation() {
@@ -246,5 +253,11 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             }
             return channelIds;
         }
+    }
+
+    // this will be called if something has caused the websocket to
+    // disconnect while broadcasting (i.e. connection changes)
+    public static void resetWebsocketConnection () {
+        webSocket.connectWebSocket();
     }
 }

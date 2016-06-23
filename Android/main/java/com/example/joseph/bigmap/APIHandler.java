@@ -122,6 +122,7 @@ public class APIHandler extends AsyncTask {
                         sharedPreferences = context.getSharedPreferences(PREFS_NAME, 0);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("userId", id);
+                        editor.apply();
                         Log.i(TAG, "User stored with id " + id);
                         return;
                     }
