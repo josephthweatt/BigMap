@@ -82,8 +82,13 @@
                 case "STOP_BROADCASTING":
                     $user = $this->getAndroidUser($conn);
                     $user->is_broadcasting = false;
+
+                    // all browser users will get the stop message from this user
                     foreach ($user->channelIds as $channelId) {
-                        $this->channels[$channelId]->getAndroidUser($user->id)->is_broadcasting = false;
+                        $browsers = $this->channels[$channelId]->browserUsers; // array of browserUsers
+                        foreach ($browsers as $browser) {
+                            $browser->conn->send($user->id. " 0");
+                        }
                     }
                     break;
             }
