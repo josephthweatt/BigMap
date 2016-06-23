@@ -17,6 +17,7 @@ var socket = new WebSocket("ws://192.169.148.214:2000");
 // map variables
 var bounds;
 var map, broadcastingUsers;
+var mapScope = new MapScope();
 var userMarkers = {};
 var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
 
@@ -94,7 +95,6 @@ function reloadMarker(id) {
 }
 
 function addMarker(id) {
-    deleteMarker(id);
     var position = new google.maps.LatLng(
         usersLocations[id].lat, usersLocations[id].long);
 
@@ -174,7 +174,7 @@ function MapScope() {
     this.latLength = 5;
     this.longLength = 5;
 
-    this.reframeMap = true; // set to true when the center of lat/long changes
+    this.reframeMap = false; // set to true when the center of lat/long changes
     if (usersLocations) {
         this.center = this.findScopeDimensions();
     }
