@@ -17,9 +17,8 @@
         protected $browserUsers = array();
         protected $androidUsers = array();
 
-        public function __construct(\React\EventLoop\LoopInterface $loop) {
+        public function __construct() {
             $this->clients = new SplObjectStorage();
-            $this->loop = $loop;
         }
 
         // attaches connections as clients of the socket
@@ -43,13 +42,14 @@
             $data = explode(" ", trim($msg));
             switch ($data[0]) {
                 case "connect-browser":
+                    $browser= new BrowserUser($data[1], $data[2], $conn);
                     if (!$this->channelInstantiated($data[2])) {
                         $this->channels[$data[2]] = new Channel($data[2]);
                     }
-                    $this->browserUsers[] = new BrowserUser($data[1], $data[2], $conn);
+                    $this->channels[data[2]]->addBroswerUser($browser);
+                    $this->browserUsers[] = $browser;
                     break;
                 case "connect-android":
-//		    $this->browserUsers[0]->conn->send($msg);
                     $channelIds = array_slice($data, 2);
                     $user = new AndroidUser($data[1], $channelIds, $conn);
                     foreach ($channelIds as $channelId) {
@@ -61,19 +61,22 @@
                     $this->androidUsers[] = $user;
                     break;
                 case "update-location-android":
-//		   $this->browserUsers[0]->conn->send($msg);
                     $channelIds = array_slice($data, 3);
                     $user = $this->getAndroidUser($conn);
                     $user->updateLocation($data[1], $data[2]);
                     $user->is_broadcasting = true;
 
-                    // check if a channel id should be receiving an update
+                    // check if a channel id should be receiving an update--if not, send id and '0'
                     foreach ($user->channelIds as $channelId) {
                         if (in_array($channelId, $channelIds)) {
-                            // overwrite assoc array of android users with this current user
-                            $this->channels[$channelId]->addAndroidUser($user);
+                            // loop through browser users, send out the location
+                            foreach($this->channels[$channelId]->broswerUsers as $browser) {
+                                $browser->conn->send($user->id." ".$user->current_lat." ".$user->current_long);
+                            }
                         } else {
-                            $this->channels[$channelId]->getAndroidUser($user->id)->is_broadcasting = false;
+                            foreach($this->channels[$channelId]->broswerUsers as $browser) {
+                                $browser->conn->send("0"); // 0 == not broadcasting
+                            }
                         }
                     }
                     break;
@@ -117,24 +120,6 @@
         // returns true if the channel object exists
         private function channelInstantiated($channelId) {
             return isset($this->channels[$channelId]);
-        }
-
-        /**********************************************************
-         * Instead of sending out location updates immediately,
-         * this socket will wait a second before sending out
-         * location updates to channels. This way the server will
-         * not have to react to every momentary location change.
-         **********************************************************/
-        public function sendLocationUpdates() {
-            /*
-             * NOTE: This is all temporary code. It will be replaced
-             *       once android users are able to join the socket.
-             *       For now, the locations will be taken out of the
-             *       mySQL database, which is what we've been doing
-             */
-            foreach ($this->browserUsers as $user) {
-                $user->sendChannelData($this->channels[$user->channelId]);
-            }
         }
 
         // return true if user was found and deleted

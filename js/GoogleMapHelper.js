@@ -34,7 +34,6 @@ socket.onopen = function() {
  * @param {string} evt - where PHP returns a string of users & locations
  */
 socket.onmessage = function(evt) {
-    // TODO: move old functions from the AJAX requests to here
     getLocationsFromRequest(evt.data);
     if (mapScope) {
         mapScope.findScopeDimensions();
@@ -65,19 +64,22 @@ socket.onclose = function() {
  **********************************************/
 // receives response from PHP/MySQL
 function getLocationsFromRequest(data) {
-    /* The response ought to return an array of the current user's locations
+    /* The response ought to return an array of the current user's location
      * with this text structure:
-     *      [userId] [current lat] [current long]\n
-     *      [userId] [current lat] [current long]\n...
-     * Then, it will store the response to usersLocation
+     *      [userId] [current lat] [current long]
+     * Then, it will store the response to usersLocation.
+     * Inputs with '0' after the id means that they stopped broadcasting
      */
     usersLocations = []; // resets after every request
     var segments = data.split(" ");
-    for (var i = 0, j = 0; i < segments.length; i += 4, j++){
-        if (segments[i] && segments[i + 1] && segments[i + 2]) {
-            usersLocations[j] =
-                new UserLocation(segments[i], segments[i + 1], segments[i + 2], segments[i + 3]);
+    if (segments.length != 2 && segments[1] != "0") {
+        if (segments[0] && segments[1] && segments[2]) {
+            usersLocations[segments[0]] =
+                new UserLocation(segments[0], segments[1], segments[2], true); // deal with is_broadcasting later
         }
+    } else if (usersLocations[segments[0]] != null) {
+        // if there already is a userId logged in usersLocations, delete it
+        usersLocations[segments[0]] = null;
     }
 }
 
