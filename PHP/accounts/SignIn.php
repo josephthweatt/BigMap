@@ -2,6 +2,7 @@
     <html>
         <head>
             <title>Sign Into BigMap</title>
+            <link rel="stylesheet" type="text/css" href="page-style.css">
         </head>
         <body>
             <?php
@@ -14,6 +15,7 @@
                     $userInfo = $_POST["user-info"];
                     if (userExists($userInfo)) {
                         echo "Welcome back, " . $userInfo[0] . "!";
+                        echo "<a href=\"../../homepage.html\" class=\"button\">Return to Home</a>";
                     }
                 }
             ?>
