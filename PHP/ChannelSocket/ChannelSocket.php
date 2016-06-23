@@ -10,7 +10,6 @@
 
     class ChannelSocket implements MessageComponentInterface {
         protected $clients;
-        private $loop;
         // channel object array ([channedId] => Channel)
         protected $channels = array();
         // user object arrays
@@ -46,7 +45,7 @@
                     if (!$this->channelInstantiated($data[2])) {
                         $this->channels[$data[2]] = new Channel($data[2]);
                     }
-                    $this->channels[data[2]]->addBroswerUser($browser);
+                    $this->channels[$data[2]]->addBrowserUser($browser);
                     $this->browserUsers[] = $browser;
                     break;
                 case "connect-android":
@@ -70,12 +69,12 @@
                     foreach ($user->channelIds as $channelId) {
                         if (in_array($channelId, $channelIds)) {
                             // loop through browser users, send out the location
-                            foreach($this->channels[$channelId]->broswerUsers as $browser) {
+                            foreach($this->channels[$channelId]->browserUsers as $browser) {
                                 $browser->conn->send($user->id." ".$user->current_lat." ".$user->current_long);
                             }
                         } else {
-                            foreach($this->channels[$channelId]->broswerUsers as $browser) {
-                                $browser->conn->send("0"); // 0 == not broadcasting
+                            foreach($this->channels[$channelId]->browserUsers as $browser) {
+                                $browser->conn->send($user->id. " 0"); // 0 == not broadcasting
                             }
                         }
                     }
