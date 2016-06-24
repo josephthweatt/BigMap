@@ -47,7 +47,7 @@
     } else {
         echo "Channel " . $channelId . " does not exist";
     }
-    echo "<a href=\"../../homepage.html\" class=\"button\">Return to Home</a>";
+    echo "<a href=\"../../index.html\" class=\"button\">Return to Home</a>";
 ?>
 </body>
 </html>

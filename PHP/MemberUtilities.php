@@ -193,7 +193,7 @@
     // called when a php script needs to die. This offers the user to return home
     function dieNice($msg) {
         echo $msg;
-        echo "<a href=\"../../homepage.html\" class=\"button\">Return to Home</a>";
+        echo "<a href=\"../index.html\" class=\"button\">Return to Home</a>";
         exit;
     }
 

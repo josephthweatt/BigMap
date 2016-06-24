@@ -17,7 +17,7 @@
                         echo "Welcome back, " . $userInfo[0] . "!";
                     }
                 }
-                echo "<a href=\"../../homepage.html\" class=\"button\" style=\"width=100px\">Return to Home</a>";
+                echo "<a href=\"../../index.html\" class=\"button\" style=\"width=100px\">Return to Home</a>";
             ?>
         </body>
 </html>

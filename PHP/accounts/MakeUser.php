@@ -37,7 +37,7 @@
 				mysqli_query($con, $query) or die(mysqli_error($con));
 				echo "User info has been stored";
 			}
-			echo "<a href=\"../../homepage.html\" class=\"button\">Return to Home</a>";
+			echo "<a href=\"../../index.html\" class=\"button\">Return to Home</a>";
 		?>
 	</body>
 </html>
