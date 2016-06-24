@@ -18,7 +18,7 @@ var socket = new WebSocket("ws://192.169.148.214:2000");
 var bounds;
 var map, broadcastingUsers;
 var mapScope = new MapScope();
-var userMarkers = {};
+var usersLocations = {}, userMarkers = {};
 var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
 
 /********************
@@ -70,7 +70,6 @@ function getLocationsFromRequest(data) {
      * Then, it will store the response to usersLocation.
      * Inputs with '0' after the id means that they stopped broadcasting
      */
-    usersLocations = {}; // resets after every request
     var segments = data.split(" ");
     if (segments.length != 2 && segments[1] != "0") {
         if (segments[0] && segments[1] && segments[2]) {
