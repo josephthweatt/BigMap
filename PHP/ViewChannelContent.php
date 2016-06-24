@@ -21,14 +21,13 @@
         <?php
             include 'MemberUtilities.php';
             $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
-            isset($_COOKIE["name"]) ? $userInfo[0] = $_COOKIE["name"] : die ("no user id specified");
-            isset($_COOKIE["password"]) ? $userInfo[1] = $_COOKIE["password"] : die ("no user id specified");
-            isset($_POST["channelId"]) ? $channelId = $_POST["channelId"] : die ("channel id not specified");
+            isset($_COOKIE["name"]) ? $userInfo[0] = $_COOKIE["name"] : dieNice("no user id specified");
+            isset($_COOKIE["password"])? $userInfo[1]= $_COOKIE["password"] : dieNice("no user id specified");
+            isset($_POST["channelId"])? $channelId= $_POST["channelId"] : dieNice("channel id not specified");
 
-            userExists($userInfo) ? $userId = getUserId($userInfo) : die ();
+            userExists($userInfo) ? $userId = getUserId($userInfo) : dieNice("user does not exist");
             if (!alreadyJoined($userId, $channelId)) {
-                echo "<h1>You are not signed into this channel</h1>";
-                die();
+                dieNice("You are not signed into this channel");
             } else {
                 $membersArray = getChannelMembers($channelId);
                 $membersJSON = json_encode($membersArray);

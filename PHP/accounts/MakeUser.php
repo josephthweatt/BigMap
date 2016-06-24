@@ -25,7 +25,7 @@
 
 			$con->select_db("bm_members") or die(mysqli_error($con));
 
-			isset($_POST["signup"]) ? $userInfo = $_POST["signup"] : die("signup not set");
+			isset($_POST["signup"]) ? $userInfo = $_POST["signup"] : dieNice("signup not set");
 			if (userNotFound()) {
 				$query = "INSERT INTO " . $userInfoTable . " VALUES (" . $newMembers
 					. ", \"" . $userInfo[0] . "\", \"" . $userInfo[1] . "\")";
