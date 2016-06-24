@@ -14,7 +14,6 @@
                 padding: 5%;
             }
         </style>
-        <title>Sign Into BigMap</title>
         <!-- saved from url=(0014)about:internet -->
         <!-- saved from url=(0016)http://localhost -->
 
@@ -35,11 +34,12 @@
                 $membersJSON = json_encode($membersArray);
             }
         ?>
-        <script type="text/javascript">var channelId = "<?= $channelId ?>", userId = "<?= $userId ?>";</script>
+        <script type="text/javascript">var channelId = "<?= $channelId ?>", userId = "<?= $userId ?>";
+					document.title = "Channel " + channelId;</script>
         <script type="text/javascript">var usersLocations; /* will be array of userLocation class */</script>
         <script type="text/javascript">var mapScope;</script>
         <script type="text/javascript" src="../js/GoogleMapHelper.js"></script>
-    </head>
+     </head>
     <!-- userInfo will be used passed to the socket's open function to ensure they are allowed into the channel -->
     <body>
         <!-- Deploy Google map -->

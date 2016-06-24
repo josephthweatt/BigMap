@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0">
+		<title>Enter a Channel</title>
+		<link rel="stylesheet" type="text/css" href="../../page-style.css">
+	</head>
+<body>
 <?php
     // error_reporting(E_ALL); // uncomment for debugging
     include '../MemberUtilities.php';
@@ -35,3 +44,7 @@
     } else {
         echo "Channel " . $channelId . " does not exist";
     }
+    echo "<a href=\"../../homepage.html\" class="button\">Return to Home</a>"
+?>
+</body>
+</html>

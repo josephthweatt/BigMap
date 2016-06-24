@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>User Sign up</title>
+	<link rel="stylesheet" type="text/css" href="../../page-style.css">
 	</head>
 	<body>
 		<?php 
@@ -36,6 +37,7 @@
 				mysqli_query($con, $query) or die(mysqli_error($con));
 				echo "User info has been stored";
 			}
+			echo "<a href=\"../../homepage.html\" class=\"button\">Return to Home</a>";
 		?>
 	</body>
 </html>
