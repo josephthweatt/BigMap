@@ -51,8 +51,8 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
     public LocationService() {
         locationRequest = new LocationRequest();
-        locationRequest.setInterval(5000); // look at provider every 5 seconds
-        locationRequest.setFastestInterval(1000); // or one second if its convenient
+        locationRequest.setInterval(3000); // look at provider every 5 seconds
+        locationRequest.setFastestInterval(500); // or one second if its convenient
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
     }
 
@@ -187,8 +187,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 public void onOpen(ServerHandshake serverHandshake) {
                     sharedPreferences = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
                     int id = sharedPreferences.getInt("userId", 0);
-                    webSocketClient.send("connect-android "
-                            + id + " " + getChannelIds());
+                    webSocketClient.send("connect-android " + id + " " + getChannelIds());
                     Log.i("Websocket", "Opened");
                 }
 
@@ -211,6 +210,10 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             };
             webSocketClient.connect();
             connected = true;
+            // send the last known location quickly to other users
+            if (LocationService.locationPacket != null) {
+                this.sendLocation();
+            }
         }
 
         public void disconnect() {
