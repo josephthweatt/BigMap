@@ -15,9 +15,12 @@
     // give the user permission to broadcast
     $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
 
-    isset($_COOKIE["name"]) ? $userInfo[0] = $_COOKIE["name"] : die("user info not set");
-    isset($_COOKIE["password"]) ? $userInfo[1] = $_COOKIE["password"] : die("user info not set");
-    isset($_POST["channel-id"]) ? $channelId = $_POST["channel-id"] : die("channel id not specified");
+    isset($_COOKIE["name"]) ? $userInfo[0] = $_COOKIE["name"] 
+            : dieNice("user info not set");
+    isset($_COOKIE["password"]) ? $userInfo[1] = $_COOKIE["password"] 
+            : dieNice("user info not set");
+    isset($_POST["channel-id"]) ? $channelId = $_POST["channel-id"] 
+            : dieNice("channel id not specified");
 
     $id = userExists($userInfo);
     if ($id && channelExists($channelId)) {
@@ -44,7 +47,7 @@
     } else {
         echo "Channel " . $channelId . " does not exist";
     }
-    echo "<a href=\"../../homepage.html\" class="button\">Return to Home</a>"
+    echo "<a href=\"../../homepage.html\" class=\"button\">Return to Home</a>";
 ?>
 </body>
 </html>
