@@ -14,7 +14,7 @@
         protected $channels = array();
         // user object arrays
         protected $browserUsers = array();
-        protected $androidUsers = array();
+        protected $androidUsers = array(); // id => AndroidUser 
 
         public function __construct() {
             $this->clients = new SplObjectStorage();
@@ -46,6 +46,7 @@
                         $this->channels[$data[2]] = new Channel($data[2]);
                     }
                     $this->channels[$data[2]]->addBrowserUser($browser);
+                    $this->sendChannelBroadcasterLocations($browser, $data[2]);
                     $this->browserUsers[] = $browser;
                     break;
                 case "connect-android":
@@ -57,7 +58,7 @@
                         }
                         $this->channels[$channelId]->addAndroidUser($user);
                     }	
-                    $this->androidUsers[] = $user;
+                    $this->androidUsers[$user->id] = $user;
                     break;
                 case "update-location-android":
                     $channelIds = array_slice($data, 3);
@@ -119,6 +120,19 @@
                 }
             }
             return false;
+        }
+
+        /**
+         * gives the client the saved location info of users in the channel
+         * @param AndroidUser|BrowserUser $user - can be any type of user
+         * @param int $channelId - channel id number
+         */
+        private function sendChannelBroadcasterLocations($user, $channelId) {
+            foreach(array_keys($this->channels[$channelId]->androidUsers) as $androidId) {
+                $androidUser = $this->androidUsers[$androidId];
+                $user->conn->send($androidId ." ". $androidUser->current_lat
+                    ." ". $androidUser->current_long);
+            }
         }
 
         // returns true if the channel object exists
