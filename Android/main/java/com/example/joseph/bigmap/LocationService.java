@@ -1,14 +1,10 @@
 package com.example.joseph.bigmap;
 
 import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -88,14 +84,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
         return null;
     }
 
-    public static AbstractMap.SimpleEntry<String, Coordinates> getLocationPacket() {
-        return locationPacket;
-    }
-
-    public static void clearLocationPacket() {
-        locationPacket = null;
-    }
-
     /****************************
      * Override Maps API methods
      ****************************/
@@ -121,8 +109,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
      */
     @Override
     public void onLocationChanged(Location location) {
-        locationPacket = new AbstractMap.SimpleEntry<>(timeAsString(location),
-                new Coordinates(location.getLatitude(), location.getLongitude()));
+        setLocationPacket(location);
         if (webSocket.connected) {
             webSocket.sendLocation();
         }
@@ -141,7 +128,23 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 googleApiClient, locationRequest, this);
     }
 
-    private String timeAsString (Location location) {
+    /**************************
+     * LocationPacket functions
+     **************************/
+    public void setLocationPacket(Location location) {
+        locationPacket = new AbstractMap.SimpleEntry<>(timeAsString(location),
+                new Coordinates(location.getLatitude(), location.getLongitude()));
+    }
+
+    public static AbstractMap.SimpleEntry<String, Coordinates> getLocationPacket() {
+        return locationPacket;
+    }
+
+    public static void clearLocationPacket() {
+        locationPacket = null;
+    }
+
+    private String timeAsString(Location location) {
         // code taken from: stackoverflow.com/questions/12747549/android-location-time-into-date
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
         Date date = new Date(location.getTime());
@@ -153,6 +156,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
      *************************************/
     protected class Coordinates {
         public double lat, lon;
+
         public Coordinates(double lat, double lon) {
             this.lat = lat;
             this.lon = lon;
@@ -211,8 +215,20 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             webSocketClient.connect();
             connected = true;
             // send the last known location quickly to other users
-            if (LocationService.locationPacket != null) {
-                this.sendLocation();
+            if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(getApplicationContext(),
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Location lastKnown
+                        = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                if (lastKnown != null) {
+                    setLocationPacket(lastKnown);
+                    if (webSocket.connected) {
+                        webSocket.sendLocation();
+                    }
+                }
             }
         }
 
