@@ -35,6 +35,13 @@
          *          "update-location-android [lat] [long] [channelIds..."
          *                                                 - update android users location
          *          "STOP_BROADCASTING" - stops location broadcast on all channels
+         *
+         * @send string - sends out a locationBroadcast to the user.
+         *      Examples:
+         *          "[userId] [lat] [long]" - send out location to browser
+         *          "[userId] 0" - send stopping request to browser
+         *          "[userId] [lat] [long] [channelId]" - send location to android
+         *          "[userId] 0 [channelId]" - send stopping request to android
          */
         public function onMessage(ConnectionInterface $conn, $msg) {
             // determines what the message hopes to send

@@ -45,6 +45,8 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     private static LocationRequest locationRequest;
     private static WebSocket webSocket;
 
+    public static int activeChannel = 0;
+
     public LocationService() {
         locationRequest = new LocationRequest();
         locationRequest.setInterval(3000); // look at provider every 5 seconds
@@ -197,8 +199,11 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
                 @Override
                 public void onMessage(String s) {
-                    // TODO: take messages (which will contain other user's locations)
-                    // TODO: and draw them on the map
+                    String[] segments = s.split(" ");
+                    if (activeChannel == Integer.parseInt(segments[segments.length - 1])) {
+                        // send data to map in ChannelActivity
+                        // TODO: create intent to send the string[] to channelActivity
+                    }
                 }
 
                 @Override

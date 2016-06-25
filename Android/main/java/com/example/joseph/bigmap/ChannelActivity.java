@@ -71,6 +71,8 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         if (serviceIntent == null) {
             serviceIntent = new Intent(ChannelActivity.this, LocationService.class);
         }
+        // This channel 'x' will be noted in LocationService as the one that needs updates
+        LocationService.activeChannel = channelId;
 
         // set the state of a button, either from shared preferences or "off" by default
         sharedPreferences = getSharedPreferences(PREFS_NAME, 0);
