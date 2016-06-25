@@ -190,6 +190,13 @@
 
     // other utils
 
+    // called when a php script needs to die. This offers the user to return home
+    function dieNice($msg) {
+        echo $msg;
+        echo "<a href=\"../index.html\" class=\"button\">Return to Home</a>";
+        exit;
+    }
+
     // takes connection and query to return an array of something
     function getFromTable($query) {
         global $con;
@@ -200,5 +207,7 @@
 
     function checkConnection() {
         global $con;
-        return !isset($con) ? $con = mysqli_connect("localhost", "root") : true;
+        return !isset($con)
+            ? $con = mysqli_connect("localhost", "db_friend", "dolTAP3B")
+            : true;
     }

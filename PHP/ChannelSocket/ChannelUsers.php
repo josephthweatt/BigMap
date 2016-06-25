@@ -1,5 +1,5 @@
 <?php
-    include '../MemberUtilities.php';
+    include_once 'MemberUtilities.php';
     use Ratchet\ConnectionInterface;
 
 if (!isset($con)) {
@@ -10,26 +10,11 @@ if (!isset($con)) {
     abstract class User {
         public $id;
         public $conn;
-        static public $connArray = array(); // array of ALL connections
+        static public $userArray = array(); // array of ALL users: id => User
 
         public function __construct($id, ConnectionInterface $conn) {
             $this->id = $id;
             $this->conn = $conn;
-            $connArray[] = $conn;
-        }
-
-        function getCurrentLat($userId) {
-            global $con;
-            mysqli_select_db($con, "bm_channel");
-            $query = "SELECT current_lat FROM broadcast_member WHERE broadcaster_id = " . $userId;
-            return mysqli_fetch_assoc(mysqli_query($con, $query))["current_lat"];
-        }
-
-        function getCurrentLong($userId) {
-            global $con;
-            mysqli_select_db($con, "bm_channel");
-            $query = "SELECT current_long FROM broadcast_member WHERE broadcaster_id = " . $userId;
-            return mysqli_fetch_assoc(mysqli_query($con, $query))["current_long"];
         }
     }
 
@@ -42,32 +27,32 @@ if (!isset($con)) {
             $this->channelId = $channelId;
         }
 
-        // TODO: a channel should only need to extract members from MySQL once. Channel should be made an object
-        public function sendChannelData() {
+        /**
+         * @param Channel $channel - passes in the channel object that the user is looking at
+         */
+        public function sendChannelData($channel) {
             $locationInfo = "";
-            $memberIds = getChannelMembers($this->channelId);
+            $memberIds = $channel->getAndroidIds();
             foreach ($memberIds as $id) {
-                 $locationInfo .= $id . " " . $this->getCurrentLat($id) . " " 
-                                 . $this->getCurrentLong($id) . " " 
-                                 . isUserBroadcasting($id, $this->channelId) . " ";
+                 $locationInfo .= $id . " " . $channel->getAndroidUser($id)->current_lat . " " 
+                                 . $channel->getAndroidUser($id)->current_long . " "
+                                 . $channel->getAndroidUser($id)->is_broadcasting . " ";
+//		$this->conn->send($id);
             }
             $this->conn->send($locationInfo);
         }
     }
 
-    // TODO: add functions to this class to assist in the
-    // TODO: retrieval of their locations if possible, I will try
-    // TODO: to get android users from databasing their information altogether
     class AndroidUser extends User {
         public $USER_TYPE = "ANDROID";
         public $channelIds = array();
-        protected $current_lat;
-        protected $current_long;
+        public $current_lat;
+        public $current_long;
         public $is_broadcasting;
 
         /**
          * AndroidUser constructor.
-         * @param $id - user id #
+         * @param int $id - user id #
          * @param array $channelIds - an array of the users affiliated channels
          * @param ConnectionInterface $conn
          */

@@ -32,6 +32,7 @@
                 mysqli_query($con, $query) or die(mysqli_error($con));
     
                 echo "A new channel (". $channelId .") has been added to your account";
+                echo "<a href=\"../../index.html\" class=\"button\">Return to Home</a>";
             }
         } else {
             echo "Invalid input";

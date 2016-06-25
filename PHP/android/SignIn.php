@@ -13,7 +13,7 @@
                 if (isset($_POST["user-info"])) {
                     $userInfo = $_POST["user-info"];
                     if (userExists($userInfo)) {
-                        echo getUserId($userInfo);
+                        echo getUserId($userInfo) . PHP_EOL;
                     } else {
                         echo "failed";
                     }

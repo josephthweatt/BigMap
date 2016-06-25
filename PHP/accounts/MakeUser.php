@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>User Sign up</title>
+	<link rel="stylesheet" type="text/css" href="../../page-style.css">
 	</head>
 	<body>
 		<?php 
@@ -24,7 +25,7 @@
 
 			$con->select_db("bm_members") or die(mysqli_error($con));
 
-			isset($_POST["signup"]) ? $userInfo = $_POST["signup"] : die("signup not set");
+			isset($_POST["signup"]) ? $userInfo = $_POST["signup"] : dieNice("signup not set");
 			if (userNotFound()) {
 				$query = "INSERT INTO " . $userInfoTable . " VALUES (" . $newMembers
 					. ", \"" . $userInfo[0] . "\", \"" . $userInfo[1] . "\")";
@@ -36,6 +37,7 @@
 				mysqli_query($con, $query) or die(mysqli_error($con));
 				echo "User info has been stored";
 			}
+			echo "<a href=\"../../index.html\" class=\"button\">Return to Home</a>";
 		?>
 	</body>
 </html>

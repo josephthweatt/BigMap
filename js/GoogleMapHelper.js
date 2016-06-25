@@ -12,12 +12,13 @@
  *************************************************************************/
 var open = false;
 // TODO: make sure this is the correct socket
-var socket = new WebSocket("ws://localhost:2000");
+var socket = new WebSocket("ws://192.169.148.214:2000");
 
 // map variables
 var bounds;
 var map, broadcastingUsers;
-var userMarkers = {};
+var mapScope = new MapScope();
+var usersLocations = {}, userMarkers = {};
 var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
 
 /********************
@@ -34,7 +35,6 @@ socket.onopen = function() {
  * @param {string} evt - where PHP returns a string of users & locations
  */
 socket.onmessage = function(evt) {
-    // TODO: move old functions from the AJAX requests to here
     getLocationsFromRequest(evt.data);
     if (mapScope) {
         mapScope.findScopeDimensions();
@@ -45,7 +45,6 @@ socket.onmessage = function(evt) {
         initMap();
         mapScope["reframeMap"] = false;
     }
-    reloadMarkers();
 };
 
 socket.onclose = function() {
@@ -65,42 +64,38 @@ socket.onclose = function() {
  **********************************************/
 // receives response from PHP/MySQL
 function getLocationsFromRequest(data) {
-    /* The response ought to return an array of the current user's locations
+    /* The response ought to return an array of the current user's location
      * with this text structure:
-     *      [userId] [current lat] [current long]\n
-     *      [userId] [current lat] [current long]\n...
-     * Then, it will store the response to usersLocation
+     *      [userId] [current lat] [current long]
+     * Then, it will store the response to usersLocation.
+     * Inputs with '0' after the id means that they stopped broadcasting
      */
-    usersLocations = []; // resets after every request
     var segments = data.split(" ");
-    for (var i = 0, j = 0; i < segments.length; i += 4, j++){
-        if (segments[i] && segments[i + 1] && segments[i + 2]) {
-            usersLocations[j] =
-                new UserLocation(segments[i], segments[i + 1], segments[i + 2], segments[i + 3]);
+    if (segments.length != 2 && segments[1] != "0") {
+        if (segments[0] && segments[1] && segments[2]) {
+            usersLocations[segments[0]] =
+                new UserLocation(segments[0], segments[1], segments[2], true); // deal with is_broadcasting later
+            reloadMarker(segments[0]);
         }
+    } else if (usersLocations[segments[0]] != null) {
+        // if there already is a userId logged in usersLocations, delete it
+        usersLocations[segments[0]] = null;
+        deleteMarker(segments[0]);
     }
 }
 
-function reloadMarkers() {
-    var id;
-    for (var i = 0, j = 1; i < usersLocations.length; i++, j++) {
-        id = usersLocations[i].id;
-        if (usersLocations[i].isBroadcasting) {
-            if (!(id in userMarkers) || !userMarkers[id].getMap()) {
-                addMarker(i, id);
-            } else if (locationChanged(i, id)) {
-                deleteMarker(id);
-                addMarker(i, id);
-            }
-        } else if (id in userMarkers) {
-            deleteMarker(id);
-        }
+function reloadMarker(id) {
+    if (!(id in userMarkers) || !userMarkers[id].getMap()) {
+        addMarker(id);
+    } else if (locationChanged(id)) {
+        deleteMarker(id);
+        addMarker(id);
     }
 }
 
-function addMarker(i, id) {
+function addMarker(id) {
     var position = new google.maps.LatLng(
-        usersLocations[i].lat, usersLocations[i].long);
+        usersLocations[id].lat, usersLocations[id].long);
 
     userMarkers[id] = new google.maps.Marker({
         position: position,
@@ -114,9 +109,9 @@ function deleteMarker(id) {
 }
 
 // returns true if the user's location has been updated since the last broadcast
-function locationChanged(i, id) {
+function locationChanged(id) {
     var position = new google.maps.LatLng(
-        usersLocations[i].lat, usersLocations[i].long);
+        usersLocations[id].lat, usersLocations[id].long);
     return (position.lat() != userMarkers[id].getPosition().lat()
             || position.lng() != userMarkers[id].getPosition().lng());
 }
@@ -178,7 +173,7 @@ function MapScope() {
     this.latLength = 5;
     this.longLength = 5;
 
-    this.reframeMap = true; // set to true when the center of lat/long changes
+    this.reframeMap = false; // set to true when the center of lat/long changes
     if (usersLocations) {
         this.center = this.findScopeDimensions();
     }

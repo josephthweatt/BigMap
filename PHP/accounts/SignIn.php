@@ -2,6 +2,7 @@
     <html>
         <head>
             <title>Sign Into BigMap</title>
+            <link rel="stylesheet" type="text/css" href="../../page-style.css">
         </head>
         <body>
             <?php
@@ -16,6 +17,7 @@
                         echo "Welcome back, " . $userInfo[0] . "!";
                     }
                 }
+                echo "<a href=\"../../index.html\" class=\"button\" style=\"width=100px\">Return to Home</a>";
             ?>
         </body>
 </html>
