@@ -82,7 +82,8 @@
                             }
                             foreach($this->channels[$channelId]->androidUsers as $android) {
                                 if ($android->id != $user->id) {
-                                    $android->conn->send($user->id." ".$user->current_lat." ".$user->current_long);
+                                    $android->conn->send($user->id." "
+                                        .$user->current_lat." ".$user->current_long." ".$channelId);
                                 }
                             }
                         } else {
@@ -91,7 +92,7 @@
                             }
                             foreach($this->channels[$channelId]->androidUsers as $android) {
                                 if ($android->id != $user->id) {
-                                    $android->conn->send($user->id. " 0");
+                                    $android->conn->send($user->id. " 0 ".$channelId);
                                 }
                             }
                         }
@@ -109,7 +110,7 @@
                         }
                         foreach($this->channels[$channelId]->androidUsers as $android) {
                             if ($android->id != $user->id) {
-                                $android->conn->send($user->id. " 0");
+                                $android->conn->send($user->id. " 0 ".$channelId);
                             }
                         }
                     }
@@ -149,6 +150,7 @@
          * @param AndroidUser|BrowserUser $user - can be any type of user
          * @param int $channelId - channel id number
          */
+        // TODO: make sure each type of user gets their special message
         private function sendChannelBroadcasterLocations($user, $channelId) {
             foreach(array_keys($this->channels[$channelId]->androidUsers) as $androidId) {
                 $androidUser = $this->androidUsers[$androidId];
