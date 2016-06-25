@@ -69,13 +69,23 @@
                     // check if a channel id should be receiving an update--if not, send id and '0'
                     foreach ($user->channelIds as $channelId) {
                         if (in_array($channelId, $channelIds)) {
-                            // loop through browser users, send out the location
+                            // loop through users, send out the location
                             foreach($this->channels[$channelId]->browserUsers as $browser) {
                                 $browser->conn->send($user->id." ".$user->current_lat." ".$user->current_long);
+                            }
+                            foreach($this->channels[$channelId]->androidUsers as $android) {
+                                if ($android->id != $user->id) {
+                                    $android->conn->send($user->id." ".$user->current_lat." ".$user->current_long);
+                                }
                             }
                         } else {
                             foreach($this->channels[$channelId]->browserUsers as $browser) {
                                 $browser->conn->send($user->id. " 0"); // 0 == not broadcasting
+                            }
+                            foreach($this->channels[$channelId]->androidUsers as $android) {
+                                if ($android->id != $user->id) {
+                                    $android->conn->send($user->id. " 0");
+                                }
                             }
                         }
                     }
@@ -89,6 +99,11 @@
                         $browsers = $this->channels[$channelId]->browserUsers; // array of browserUsers
                         foreach ($browsers as $browser) {
                             $browser->conn->send($user->id. " 0");
+                        }
+                        foreach($this->channels[$channelId]->androidUsers as $android) {
+                            if ($android->id != $user->id) {
+                                $android->conn->send($user->id. " 0");
+                            }
                         }
                     }
                     break;
