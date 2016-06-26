@@ -76,10 +76,12 @@
                     // check if a channel id should be receiving an update--if not, send id and '0'
                     foreach ($user->channelIds as $channelId) {
                         if (in_array($channelId, $channelIds)) {
-                            // loop through users, send out the location
+                            // loop through users, send out the location to browsers
                             foreach($this->channels[$channelId]->browserUsers as $browser) {
-                                $browser->conn->send($user->id." ".$user->current_lat." ".$user->current_long);
+                                $browser->conn->send($user->id." ".$user->current_lat
+                                	." ".$user->current_long);
                             }
+                            // send location to android users
                             foreach($this->channels[$channelId]->androidUsers as $android) {
                                 if ($android->id != $user->id) {
                                     $android->conn->send($user->id." "

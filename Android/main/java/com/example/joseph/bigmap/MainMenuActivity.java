@@ -17,7 +17,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private static String TAG = "MainMenuActivity";
     public static final String PREFS_NAME = "StoredUserInfo";
 
-    LocationService locationService;
+    static LocationService locationService;
     static Intent serviceIntent;
 
     TextView welcome;

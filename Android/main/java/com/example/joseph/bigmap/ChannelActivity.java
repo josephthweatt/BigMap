@@ -1,8 +1,10 @@
 package com.example.joseph.bigmap;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -15,6 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,7 +35,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChannelActivity extends FragmentActivity implements OnMapReadyCallback {
     private static String TAG = "ChannelActivity";
@@ -131,6 +138,22 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
     /*******************
      * Maps API Methods
      *******************/
+    SparseArrayCompat userMarkers; // <userId, userMarker>
+    IntentFilter filter;
+    BroadcastReceiver websocketReceiver = new BroadcastReceiver() {
+        // receives broadcaster's location from websocket
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // determine if there is a batch of users or just one
+            Bundle b = intent.getExtras();
+            if (b.containsKey("broadcaster-batch")) {
+                addBroadcasterMarkers(b.getStringArray("broadcaster-batch"));
+            } else if (b.containsKey("broadcaster-update")) {
+                updateMarker(b.getStringArray("broadcaster-update"));
+            }
+        }
+    };
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -164,10 +187,39 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
         map.setMyLocationEnabled(true);
-        addBroadcasterMarkers();
+
+        // ready the map to receive and draw the broadcaster's markers
+        filter = new IntentFilter("BROADCAST_ACTION");
+        registerReceiver(websocketReceiver, filter);
+        LocationService.webSocket.getAllBroadcastersLocation(channelId);
     }
 
-    public void addBroadcasterMarkers() {
+    /**
+     *   @param broadcasterBatch
+     *                   - will be returned as a batch of user strings with their id,
+     *                      location, and other info appended. "broadcaster-batch"
+     *                      is added to the string when the server returns the result,
+     *                      so that onMessage knows where to send it.
+     *      Example:
+     *          broadcaster-batch
+     *          [userId] [lat] [long] \n
+     *          [userId] [lat] [long] [status update] \n
+     *
+     */
+    public void addBroadcasterMarkers(String[] broadcasterBatch) {
+        userMarkers = new SparseArrayCompat<Marker>();
+        userMarkers.put(1, (Marker) map.addMarker(new MarkerOptions().position(new LatLng(-50, 30)).title("ping!")));
+    }
+
+    /**
+     * @param broadcasterMarker
+     *                  - a single location with a userId. This updates the
+     *                     current map marker with the new location
+     *      Example:
+     *          broadcaster-update
+     *          [userId] [lat] [long] [status update]
+     */
+    public void updateMarker(String[] broadcasterMarker) {
 
     }
 }

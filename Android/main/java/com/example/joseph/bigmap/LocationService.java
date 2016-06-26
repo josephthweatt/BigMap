@@ -40,9 +40,10 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     private static FusedLocationProviderApi fusedLocation = LocationServices.FusedLocationApi;
     private static GoogleApiClient googleApiClient;
     private static LocationRequest locationRequest;
-    private static WebSocket webSocket;
+    protected static WebSocket webSocket;
 
     public static int activeChannel = 0;
+    public static String[] broadcasterBatch;
 
     public LocationService() {
         locationRequest = new LocationRequest();
@@ -197,11 +198,19 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
                 @Override
                 public void onMessage(String s) {
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
                     String[] segments = s.split(" ");
-                    if (activeChannel == Integer.parseInt(segments[segments.length - 1])) {
+                    if (segments[0].equals("broadcaster-batch")) {
+                        // send the broadcaster batch to the receiver in ChannelActivity
+                        bundle.putStringArray("broadcaster-batch", segments);
+                    } else if (activeChannel == Integer.parseInt(segments[segments.length - 1])) {
                         // send data to map in ChannelActivity
-                        // TODO: create intent to send the string[] to channelActivity
+                        bundle.putStringArray("broadcaster-update", segments);
                     }
+                    intent.putExtras(bundle);
+                    intent.setAction("BROADCAST_ACTION");
+                    sendBroadcast(intent);
                 }
 
                 @Override
@@ -240,6 +249,17 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             } catch (WebsocketNotConnectedException e) {
                 Log.w(TAG, "BigMap tried to send a location with the connection closed");
             }
+        }
+
+        /**
+         * This method uses the websocket to send a string[] to addBroadcasterMarkers[]
+         * in ChannelActivity.java
+         */
+        public void getAllBroadcastersLocation(int channelId) {
+            sharedPreferences = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+            int id = sharedPreferences.getInt("userId", 0);
+            webSocketClient.send("get-all-broadcasters " + id + " " + channelId);
+            // TODO: create this get-all-broadcasters instruction in the PHP websocket
         }
 
         //returns a string of the users registered channel ids
