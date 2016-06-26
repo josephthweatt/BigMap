@@ -219,22 +219,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             };
             webSocketClient.connect();
             connected = true;
-            // send the last known location quickly to other users
-            if (ActivityCompat.checkSelfPermission(getApplicationContext(),
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(getApplicationContext(),
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Location lastKnown
-                        = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-                if (lastKnown != null) {
-                    setLocationPacket(lastKnown);
-                    if (webSocket.connected) {
-                        webSocket.sendLocation();
-                    }
-                }
-            }
         }
 
         public void disconnect() {
