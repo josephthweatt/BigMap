@@ -109,7 +109,8 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     @Override
     public void onLocationChanged(Location location) {
         setLocationPacket(location);
-        if (webSocket.connected && APIHandler.broadcastingChannels != null) {
+        if (webSocket.connected && APIHandler.broadcastingChannels != null
+                && APIHandler.broadcastingChannels.size() > 0) {
             webSocket.sendLocation();
         }
     }
