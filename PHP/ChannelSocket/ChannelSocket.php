@@ -114,20 +114,22 @@
                      *          [userId] [lat] [long] [status update]\n
                      *          ...
                      */
-                    $locationBatch = "broadcaster-batch\n";
-                    foreach ($this->channels[$data[2]]->getAndroidUsers() as $androidUser) {
-                        // if this is not the user requesting the batch ...
-                        if ($androidUser->id != $data[1]) {
-                            $locationBatch .= $androidUser->id ." ". $androidUser->current_lat
-                                ." ". $androidUser->current_long;
-                            if ($androidUser->status) { // check if they have a status set
-                                $locationBatch .= " ". $androidUser->status ."\n ";
-                            } else {
-                                $locationBatch .= "\n ";
+                    if ($channel = $this->channels[$data[2]]) {
+                        $locationBatch = "broadcaster-batch\n";
+                        foreach ($channel->getAndroidUsers() as $androidUser) {
+                            // if this is not the user requesting the batch ...
+                            if ($androidUser->id != $data[1]) {
+                                $locationBatch .= $androidUser->id . " " . $androidUser->current_lat
+                                    . " " . $androidUser->current_long;
+                                if ($androidUser->status) { // check if they have a status set
+                                    $locationBatch .= " " . $androidUser->status . "\n ";
+                                } else {
+                                    $locationBatch .= "\n ";
+                                }
                             }
                         }
+                        $conn->send($locationBatch);
                     }
-                    $conn->send($locationBatch);
                     break;
                 case "STOP_BROADCASTING":
                     $user = $this->getAndroidUser($conn);
