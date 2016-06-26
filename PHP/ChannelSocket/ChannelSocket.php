@@ -34,6 +34,9 @@
          *          "connect-android [userId] [channelIds..." - adds user as an android user
          *          "update-location-android [lat] [long] [channelIds..."
          *                                                 - update android users location
+         *          "get-all-broadcasters [userId] [channelId]"
+         *                                                 - send batch of channel
+         *                                                 - broadcasters to the user
          *          "STOP_BROADCASTING" - stops location broadcast on all channels
          *
          * @send string - sends out a locationBroadcast to the user.
@@ -53,6 +56,9 @@
                         $this->channels[$data[2]] = new Channel($data[2]);
                     }
                     $this->channels[$data[2]]->addBrowserUser($browser);
+                    // TODO: sendChannelBroadcasterLocations will be switched out with the
+                    // TODO: 'batch' concept used in get-all-broadcasters. I will need to update
+                    // TODO: GoogleMapHelper before that is done, however
                     $this->sendChannelBroadcasterLocations($browser, $data[2]);
                     $this->browserUsers[] = $browser;
                     break;
@@ -99,6 +105,29 @@
                             }
                         }
                     }
+                    break;
+                case "get-all-broadcasters":
+                    /**
+                     * the batch should be sent in this format:
+                     *          broadcaster-batch\n
+                     *          [userId] [lat] [long]\n
+                     *          [userId] [lat] [long] [status update]\n
+                     *          ...
+                     */
+                    $locationBatch = "broadcaster-batch\n";
+                    foreach ($this->channels[$data[2]]->getAndroidUsers() as $androidUser) {
+                        // if this is not the user requesting the batch ...
+                        if ($androidUser->id != $data[1]) {
+                            $locationBatch .= $androidUser->id ." ". $androidUser->current_lat
+                                ." ". $androidUser->current_long;
+                            if ($androidUser->status) { // check if they have a status set
+                                $locationBatch .= " ". $androidUser->status ."\n";
+                            } else {
+                                $locationBatch .= "\n";
+                            }
+                        }
+                    }
+                    $conn->send($locationBatch);
                     break;
                 case "STOP_BROADCASTING":
                     $user = $this->getAndroidUser($conn);

@@ -48,6 +48,7 @@ if (!isset($con)) {
         public $channelIds = array();
         public $current_lat;
         public $current_long;
+        public $status;
         public $is_broadcasting;
 
         /**
