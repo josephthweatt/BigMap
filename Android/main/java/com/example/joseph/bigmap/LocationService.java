@@ -28,10 +28,7 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.AbstractMap;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 // Will receive and submit location data to the database.
 // This class calls WebSocketService to connect to the server
@@ -112,7 +109,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     @Override
     public void onLocationChanged(Location location) {
         setLocationPacket(location);
-        if (webSocket.connected) {
+        if (webSocket.connected && APIHandler.broadcastingChannels != null) {
             webSocket.sendLocation();
         }
     }

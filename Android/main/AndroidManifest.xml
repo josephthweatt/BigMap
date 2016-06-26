@@ -24,18 +24,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainMenuActivity">
-        </activity>
-        <activity android:name=".ChannelListActivity">
-        </activity>
+        <activity android:name=".MainMenuActivity"/>
+        <activity android:name=".ChannelListActivity"/>
         <activity android:name=".ChannelActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
         </activity>
 
         <service android:name=".LocationService"/>
-        <receiver android:name=".ConnectivityChangeReceiver"
-            android:enabled="true">
+        <receiver   android:name=".ConnectivityChangeReceiver"
+                    android:enabled="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>

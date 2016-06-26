@@ -41,13 +41,10 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
 
     private String header;
     private Button broadcastButton;
-
     protected int channelId;
     protected Boolean broadcasting;
-    static Intent serviceIntent;
-    LocationService locationService;
 
-    private GoogleMap mMap;
+    private GoogleMap map;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,10 +64,6 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         header = "Channel " + channelId;
         ((TextView) findViewById(R.id.channel_header)).setText(header);
 
-        // service intent used to start LocationService
-        if (serviceIntent == null) {
-            serviceIntent = new Intent(ChannelActivity.this, LocationService.class);
-        }
         // This channel 'x' will be noted in LocationService as the one that needs updates
         LocationService.activeChannel = channelId;  
 
@@ -114,27 +107,15 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void startBroadcasting() {
-        if (locationService == null) {
-            locationService = new LocationService();
-        }
         broadcasting = true;
         storeBroadcastState();
         APIHandler.setBroadcastingChannels();
-        // begin locationService if the APIHandler just received its first broadcasting channel
-        if (APIHandler.broadcastingChannels.size() == 1) {
-            startService(serviceIntent);
-        }
     }
 
     private void stopBroadcasting() {
         broadcasting = false;
         storeBroadcastState();
         APIHandler.setBroadcastingChannels();
-        // TODO: make sure the service doesn't stop every time the activity refreshes
-        // stop the locationService if there are no other channels broadcasting
-        if (APIHandler.broadcastingChannels.size() == 0 && locationService != null) {
-            stopService(serviceIntent);
-        }
     }
 
     private void storeBroadcastState() {
@@ -152,7 +133,7 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
      *******************/
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        map = googleMap;
         // check permissions
         if (ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -174,14 +155,19 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         Location location =
                 locationManager.getLastKnownLocation(
                 locationManager.getBestProvider(criteria, false));
-        if (location != null) {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+        if (location != null && channelId == LocationService.activeChannel) {
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
                     new LatLng(location.getLatitude(), location.getLongitude()), 13));
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(new LatLng(location.getLatitude(), location.getLongitude()))
                     .zoom(17).build();
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
-        mMap.setMyLocationEnabled(true);
+        map.setMyLocationEnabled(true);
+        addBroadcasterMarkers();
+    }
+
+    public void addBroadcasterMarkers() {
+
     }
 }

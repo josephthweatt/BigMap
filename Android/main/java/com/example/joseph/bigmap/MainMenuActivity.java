@@ -17,6 +17,8 @@ public class MainMenuActivity extends AppCompatActivity {
     private static String TAG = "MainMenuActivity";
     public static final String PREFS_NAME = "StoredUserInfo";
 
+    static Intent serviceIntent;
+
     TextView welcome;
     Button channels;
 
@@ -55,5 +57,11 @@ public class MainMenuActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // LocationService is started here
+        if (serviceIntent == null) {
+            serviceIntent = new Intent(MainMenuActivity.this, LocationService.class);
+        }
+        startService(serviceIntent);
     }
 }
