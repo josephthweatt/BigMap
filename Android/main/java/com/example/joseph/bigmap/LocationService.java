@@ -210,6 +210,8 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                     }
                     intent.putExtras(bundle);
                     intent.setAction("BROADCAST_ACTION");
+
+                    Log.i(TAG, "Received broadcast updates from user's");
                     sendBroadcast(intent);
                 }
 
@@ -228,16 +230,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             connected = true;
         }
 
-        public void disconnect() {
-            try {
-                webSocketClient.send("STOP_BROADCASTING");
-                webSocketClient.close();
-                connected = false;
-            } catch (WebsocketNotConnectedException e) {
-                Log.w(TAG, "Tried to stop broadcast, but websocket appears disconnected");
-            }
-        }
-
         public void sendLocation() {
             try {
                 String channelIds = getBroadcastingChannelIds();
@@ -248,6 +240,26 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 Log.i(TAG, "Sent location to channels: " + channelIds);
             } catch (WebsocketNotConnectedException e) {
                 Log.w(TAG, "BigMap tried to send a location with the connection closed");
+            }
+        }
+
+        // called when halting the broadcast of the last active channel
+        public void stopBroadcasting() {
+            try {
+                webSocketClient.send("STOP_BROADCASTING");
+                Log.i(TAG, "No longer broadcasting to any channels");
+            } catch (WebsocketNotConnectedException e) {
+                Log.w(TAG, "Tried to stop broadcast, but websocket appears disconnected");
+            }
+        }
+
+        public void disconnect() {
+            try {
+                webSocketClient.send("STOP_BROADCASTING");
+                webSocketClient.close();
+                connected = false;
+            } catch (WebsocketNotConnectedException e) {
+                Log.w(TAG, "Tried to stop broadcast, but websocket appears disconnected");
             }
         }
 

@@ -124,6 +124,9 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         broadcasting = false;
         storeBroadcastState();
         APIHandler.setBroadcastingChannels();
+        if (APIHandler.broadcastingChannels.size() == 0) {
+            MainMenuActivity.locationService.webSocket.stopBroadcasting();
+        }
     }
 
     private void storeBroadcastState() {
