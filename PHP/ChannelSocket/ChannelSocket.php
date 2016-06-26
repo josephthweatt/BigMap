@@ -121,9 +121,9 @@
                             $locationBatch .= $androidUser->id ." ". $androidUser->current_lat
                                 ." ". $androidUser->current_long;
                             if ($androidUser->status) { // check if they have a status set
-                                $locationBatch .= " ". $androidUser->status ."\n";
+                                $locationBatch .= " ". $androidUser->status ."\n ";
                             } else {
-                                $locationBatch .= "\n";
+                                $locationBatch .= "\n ";
                             }
                         }
                     }

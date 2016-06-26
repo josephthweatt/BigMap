@@ -38,6 +38,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,7 +73,7 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         ((TextView) findViewById(R.id.channel_header)).setText(header);
 
         // This channel 'x' will be noted in LocationService as the one that needs updates
-        LocationService.activeChannel = channelId;  
+        LocationService.activeChannel = channelId;
 
         // set the state of a button, either from shared preferences or "off" by default
         sharedPreferences = getSharedPreferences(PREFS_NAME, 0);
@@ -201,14 +202,21 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
      *                      is added to the string when the server returns the result,
      *                      so that onMessage knows where to send it.
      *      Example:
-     *          broadcaster-batch
-     *          [userId] [lat] [long] \n
-     *          [userId] [lat] [long] [status update] \n
-     *
+     *          broadcaster-batch\n
+     *          [userId] [lat] [long]\n
+     *          [userId] [lat] [long] [status update]\n
+     *          ...
      */
     public void addBroadcasterMarkers(String[] broadcasterBatch) {
         userMarkers = new SparseArrayCompat<Marker>();
-        userMarkers.put(1, (Marker) map.addMarker(new MarkerOptions().position(new LatLng(-50, 30)).title("ping!")));
+        ArrayList broadcaster = new ArrayList<String>();
+        for (int i = 1; i < broadcasterBatch.length; i++) {
+            do {
+                broadcaster.add(broadcasterBatch[i]);
+            } while (!broadcasterBatch[i++].contains("\n"));
+            updateMarker((String[]) broadcaster.toArray());
+            broadcaster.clear();
+        }
     }
 
     /**
@@ -220,6 +228,19 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
      *          [userId] [lat] [long] [status update]
      */
     public void updateMarker(String[] broadcasterMarker) {
+        MarkerOptions options = new MarkerOptions();
+        // TODO: show the user's name and not their id
+        int userId = Integer.parseInt(broadcasterMarker[0]);
+        if (broadcasterMarker.length  >= 4) {
+            // TODO: make a new update 'pop up' to people seeing the location
+            options.title(userId + "\n" + broadcasterMarker[3]);
+        } else {
+            options.title(broadcasterMarker[0]);
+        }
+        double lat = Double.parseDouble(broadcasterMarker[1].trim());
+        double lng = Double.parseDouble(broadcasterMarker[2].trim());
+        options.position(new LatLng(lat, lng));
 
+        userMarkers.put(userId, map.addMarker(options));
     }
 }
