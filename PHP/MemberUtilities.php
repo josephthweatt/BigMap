@@ -178,16 +178,6 @@
         return $result;
     }
 
-    function getLocationHistory($userId, $channelId) {
-        global $con;
-        checkConnection();
-        mysqli_select_db($con, "bm_channel");
-        $query = "SELECT * FROM location_history WHERE broadcaster_id = "
-            . $userId . " AND channel_id = " . $channelId;
-        return mysqli_query($con, $query);
-    }
-
-
     // other utils
 
     // called when a php script needs to die. This offers the user to return home

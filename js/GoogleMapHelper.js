@@ -64,6 +64,8 @@ socket.onclose = function() {
  **********************************************/
 // receives response from PHP/MySQL
 function getLocationsFromRequest(data) {
+    var broadcastBox;
+    var boxContent;
     /* The response ought to return an array of the current user's location
      * with this text structure:
      *      [userId] [current lat] [current long]
@@ -76,11 +78,33 @@ function getLocationsFromRequest(data) {
             usersLocations[segments[0]] =
                 new UserLocation(segments[0], segments[1], segments[2], true); // deal with is_broadcasting later
             reloadMarker(segments[0]);
+            // show the user's coordinates
+            broadcastBox = document.getElementById(segments[0]);
+            boxContent = document.createElement("tr");
+            var td_lat = document.createElement("td");
+            var td_lng = document.createElement("td");
+            var p_lat = document.createElement("p");
+            var p_lng = document.createElement("p");
+            p_lat.innerHTML = segments[1];
+            td_lat.appendChild(p_lat);
+            p_lng.innerHTML = segments[2];
+            td_lng.appendChild(p_lng);
+            boxContent.appendChild(td_lat);
+            boxContent.appendChild(td_lng);
+            broadcastBox.innerHTML = "";
+            broadcastBox.appendChild(boxContent);
         }
     } else if (usersLocations[segments[0]] != null) {
         // if there already is a userId logged in usersLocations, delete it
         usersLocations[segments[0]] = null;
         deleteMarker(segments[0]);
+        // show a red "not broadcasting" alert
+        broadcastBox = document.getElementById(segments[0]);
+        broadcastBox.innerHTML = "";
+        boxContent = document.createElement("p");
+        boxContent.setAttribute("color", "red");
+        boxContent.innerHTML = "Not Broadcasting";
+        broadcastBox.appendChild(boxContent);
     }
 }
 

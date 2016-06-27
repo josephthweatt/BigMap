@@ -33,12 +33,14 @@
                 $membersJSON = json_encode($membersArray);
             }
         ?>
-        <script type="text/javascript">var channelId = "<?= $channelId ?>", userId = "<?= $userId ?>";
-					document.title = "Channel " + channelId;</script>
-        <script type="text/javascript">var usersLocations; /* will be array of userLocation class */</script>
-        <script type="text/javascript">var mapScope;</script>
+        <script type="text/javascript">
+            var channelId = "<?= $channelId ?>", userId = "<?= $userId ?>";
+					document.title = "Channel " + channelId;
+            var usersLocations; /* will be array of userLocation class */
+            var mapScope;
+        </script>
         <script type="text/javascript" src="../js/GoogleMapHelper.js"></script>
-     </head>
+    </head>
     <!-- userInfo will be used passed to the socket's open function to ensure they are allowed into the channel -->
     <body>
         <!-- Deploy Google map -->
@@ -46,8 +48,8 @@
         <div id="cant_connect" style="visibility: hidden; color: red">Can't connect to channel</div>
         <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9EWuO31iw4rHYdHHs4d5aC_F6UEmoyx0&callback=initMap">
-	</script>
-        <!-- show a table of the members and a list of their locations (server side)-->
+	    </script>
+        <!-- show a table of the members and their locations (server side)-->
         <?php
         // begin creating the page ($con currently points to bm_channel)
         echo "<h1>You have entered Channel " . $channelId . "</h1>";
@@ -56,16 +58,8 @@
             // set user's location history
             echo "<fieldset style=\"display: inline-block\">"
                 . "<legend>" . getUsername($memberId) . "</legend>";
-             echo "<table>";
+             echo "<table id=\". $memberId .\">";
 
-            $locationHistory = getLocationHistory($memberId, $channelId);
-            foreach ($locationHistory as $location) {
-                echo "<tr>";
-                echo "<td><p>" . $location['time'] . "</p></td>";
-                echo "<td><p>" . $location['latitude'] . "</p></td>";
-                echo "<td><p>" . $location['longitude'] . "</p></td>";
-                echo "</tr>";
-            }
              echo "</table>";
             echo "</fieldset>";
         }
