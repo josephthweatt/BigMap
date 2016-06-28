@@ -75,32 +75,33 @@
                     break;
                 case "update-location-android":
                     $channelIds = array_slice($data, 3);
-                    $user = $this->getAndroidUser($conn);
-                    $user->updateLocation($data[1], $data[2]);
-                    $user->is_broadcasting = true;
+                    if ($user = $this->getAndroidUser($conn)) {
+                        $user->updateLocation($data[1], $data[2]);
+                        $user->is_broadcasting = true;
 
-                    // check if a channel id should be receiving an update--if not, send id and '0'
-                    foreach ($user->channelIds as $channelId) {
-                        if (in_array($channelId, $channelIds)) {
-                            // loop through users, send out the location to browsers
-                            foreach($this->channels[$channelId]->browserUsers as $browser) {
-                                $browser->conn->send($user->id." ".$user->current_lat
-                                	." ".$user->current_long);
-                            }
-                            // send location to android users
-                            foreach($this->channels[$channelId]->androidUsers as $android) {
-                                if ($android->id != $user->id) {
-                                    $android->conn->send($user->id." "
-                                        .$user->current_lat." ".$user->current_long." ".$channelId);
+                        // check if a channel id should be receiving an update--if not, send id and '0'
+                        foreach ($user->channelIds as $channelId) {
+                            if (in_array($channelId, $channelIds)) {
+                                // loop through users, send out the location to browsers
+                                foreach ($this->channels[$channelId]->browserUsers as $browser) {
+                                    $browser->conn->send($user->id . " " . $user->current_lat
+                                        . " " . $user->current_long);
                                 }
-                            }
-                        } else {
-                            foreach($this->channels[$channelId]->browserUsers as $browser) {
-                                $browser->conn->send($user->id. " 0"); // 0 == not broadcasting
-                            }
-                            foreach($this->channels[$channelId]->androidUsers as $android) {
-                                if ($android->id != $user->id) {
-                                    $android->conn->send($user->id. " 0 ".$channelId);
+                                // send location to android users
+                                foreach ($this->channels[$channelId]->androidUsers as $android) {
+                                    if ($android->id != $user->id) {
+                                        $android->conn->send($user->id . " "
+                                            . $user->current_lat . " " . $user->current_long . " " . $channelId);
+                                    }
+                                }
+                            } else {
+                                foreach ($this->channels[$channelId]->browserUsers as $browser) {
+                                    $browser->conn->send($user->id . " 0"); // 0 == not broadcasting
+                                }
+                                foreach ($this->channels[$channelId]->androidUsers as $android) {
+                                    if ($android->id != $user->id) {
+                                        $android->conn->send($user->id . " 0 " . $channelId);
+                                    }
                                 }
                             }
                         }
