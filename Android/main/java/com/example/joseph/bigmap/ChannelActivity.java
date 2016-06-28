@@ -33,6 +33,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -245,6 +247,9 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         double lat = Double.parseDouble(broadcasterMarker[1].trim());
         double lng = Double.parseDouble(broadcasterMarker[2].trim());
         options.position(new LatLng(lat, lng));
+
+        // set default icon
+        options.icon(BitmapDescriptorFactory.fromResource(R.drawable.purple_dot));
 
         Marker marker = (Marker) userMarkers.get(userId);
         if (marker != null) {
