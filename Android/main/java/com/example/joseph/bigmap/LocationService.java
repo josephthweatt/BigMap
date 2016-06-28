@@ -109,10 +109,11 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
      */
     @Override
     public void onLocationChanged(Location location) {
-        setLocationPacket(location);
-        if (webSocket.connected && APIHandler.broadcastingChannels != null
-                && APIHandler.broadcastingChannels.size() > 0) {
-            webSocket.sendLocation();
+        if (setLocationPacket(location)) { // send location if it changed
+            if (webSocket.connected && APIHandler.broadcastingChannels != null
+                    && APIHandler.broadcastingChannels.size() > 0) {
+                webSocket.sendLocation();
+            }
         }
     }
 
@@ -132,9 +133,24 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     /**************************
      * LocationPacket functions
      **************************/
-    public void setLocationPacket(Location location) {
-        locationPacket = new AbstractMap.SimpleEntry<>(timeAsString(location),
-                new Coordinates(location.getLatitude(), location.getLongitude()));
+    /**
+     * @param location - current location grabbed by LocationPacket
+     * @return Boolean - returns true if the locationPacket was updated
+     */
+    public Boolean setLocationPacket(Location location) {
+        try {
+            if (location.getLatitude() != locationPacket.getValue().lat
+                    || location.getLongitude() != locationPacket.getValue().lon) {
+                locationPacket = new AbstractMap.SimpleEntry<>(timeAsString(location),
+                        new Coordinates(location.getLatitude(), location.getLongitude()));
+                return true;
+            }
+        } catch (NullPointerException e) {
+            locationPacket = new AbstractMap.SimpleEntry<>(timeAsString(location),
+                    new Coordinates(location.getLatitude(), location.getLongitude()));
+            return true;
+        }
+        return false;
     }
 
     public static AbstractMap.SimpleEntry<String, Coordinates> getLocationPacket() {
