@@ -58,9 +58,9 @@
             // set user's location history
             echo "<fieldset style=\"display: inline-block\">"
                 . "<legend>" . getUsername($memberId) . "</legend>";
-             echo "<table id=\". $memberId .\">";
-                echo "<p style='color: red'>Not Broadcasting</p>";
-             echo "</table>";
+             echo "<table id=\"$memberId\">";
+                echo "<tr><td><p style='color: red'>Not Broaddcasting</p></td></tr>";
+   	     echo "</table>";
             echo "</fieldset>";
         }
         ?>
