@@ -103,7 +103,7 @@ function getLocationsFromRequest(data) {
         broadcastBox = document.getElementById(segments[0]);
         broadcastBox.innerHTML = "";
         boxContent = document.createElement("p");
-        boxContent.setAttribute("color", "red");
+        boxContent.setAttribute("style", "color: red");
         boxContent.innerHTML = "Not Broadcasting";
         broadcastBox.appendChild(boxContent);
     }
