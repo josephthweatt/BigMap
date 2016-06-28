@@ -59,7 +59,7 @@
             echo "<fieldset style=\"display: inline-block\">"
                 . "<legend>" . getUsername($memberId) . "</legend>";
              echo "<table id=\". $memberId .\">";
-
+                echo "<p style='color: red'>Not Broadcasting</p>";
              echo "</table>";
             echo "</fieldset>";
         }
