@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -125,7 +126,7 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         storeBroadcastState();
         APIHandler.setBroadcastingChannels();
         if (APIHandler.broadcastingChannels.size() == 0) {
-            MainMenuActivity.locationService.webSocket.stopBroadcasting();
+            LocationService.webSocket.stopBroadcasting();
         }
     }
 
@@ -193,6 +194,7 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         map.setMyLocationEnabled(true);
 
         // ready the map to receive and draw the broadcaster's markers
+        userMarkers = new SparseArrayCompat<>();
         filter = new IntentFilter("BROADCAST_ACTION");
         registerReceiver(websocketReceiver, filter);
         LocationService.webSocket.getAllBroadcastersLocation(channelId);
@@ -244,6 +246,10 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         double lng = Double.parseDouble(broadcasterMarker[2].trim());
         options.position(new LatLng(lat, lng));
 
+        Marker marker = (Marker) userMarkers.get(userId);
+        if (marker != null) {
+            marker.remove();
+        }
         userMarkers.put(userId, map.addMarker(options));
     }
 }
