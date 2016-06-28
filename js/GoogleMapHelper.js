@@ -35,6 +35,7 @@ socket.onopen = function() {
  * @param {string} evt - where PHP returns a string of users & locations
  */
 socket.onmessage = function(evt) {
+    console.log(evt.data);
     getLocationsFromRequest(evt.data);
     if (mapScope) {
         mapScope.findScopeDimensions();

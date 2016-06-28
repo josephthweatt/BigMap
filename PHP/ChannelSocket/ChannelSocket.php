@@ -133,18 +133,17 @@
                     }
                     break;
                 case "STOP_BROADCASTING":
-                    $user = $this->getAndroidUser($conn);
-                    $user->is_broadcasting = false;
-
-                    // all browser users will get the stop message from this user
-                    foreach ($user->channelIds as $channelId) {
-                        $browsers = $this->channels[$channelId]->browserUsers; // array of browserUsers
-                        foreach ($browsers as $browser) {
-                            $browser->conn->send($user->id. " 0");
-                        }
-                        foreach($this->channels[$channelId]->androidUsers as $android) {
-                            if ($android->id != $user->id) {
-                                $android->conn->send($user->id. " 0 ".$channelId);
+                    if ($user = $this->getAndroidUser($conn)) {
+                        // all browser users will get the stop message from this user
+                        foreach ($user->channelIds as $channelId) {
+                            $browsers = $this->channels[$channelId]->browserUsers; // array of browserUsers
+                            foreach ($browsers as $browser) {
+                                $browser->conn->send($user->id . " 0");
+                            }
+                            foreach ($this->channels[$channelId]->androidUsers as $android) {
+                                if ($android->id != $user->id) {
+                                    $android->conn->send($user->id . " 0 " . $channelId);
+                                }
                             }
                         }
                     }
