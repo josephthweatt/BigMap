@@ -116,7 +116,7 @@
                      *          ...
                      */
                     if ($channel = $this->channels[$data[2]]) {
-                        $locationBatch = "broadcaster-batch\n";
+                        $locationBatch = "broadcaster-batch\n ";
                         foreach ($channel->androidUsers as $androidUser) {
                             // if this is not the user requesting the batch ...
                             if ($androidUser->id != $data[1]) {
