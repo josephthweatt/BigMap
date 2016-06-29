@@ -74,8 +74,8 @@ public class MainMenuActivity extends AppCompatActivity {
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 new ContextThemeWrapper(this, R.style.SignoutAlertDialog));
-        builder.setMessage("Returning back to the sign in will sign you out " +
-                "and stop broadcasting to channels.\nContinue?");
+        builder.setMessage("Returning back to the sign in will sign you out. " +
+                "You cannot broadcast without an account.\n\nContinue?");
         builder.setCancelable(true);
         builder.setPositiveButton(
                 "Yes",

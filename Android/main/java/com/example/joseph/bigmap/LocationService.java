@@ -228,8 +228,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                     }
                     intent.putExtras(bundle);
                     intent.setAction("BROADCAST_ACTION");
-
-                    Log.i(TAG, "Received broadcast updates from user's");
                     sendBroadcast(intent);
                 }
 

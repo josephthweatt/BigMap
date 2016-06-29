@@ -250,7 +250,14 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         MarkerOptions options = new MarkerOptions();
         // TODO: show the user's name and not their id
         int userId = Integer.parseInt(broadcasterMarker[0]);
-        if (broadcasterMarker.length  >= 4) {
+        Marker marker = (Marker) userMarkers.get(userId);
+        if (marker != null) {
+            marker.remove();
+        }
+
+        if (broadcasterMarker.length == 3 && broadcasterMarker[1].equals("0")) {
+            return; // user isn't broadcasting, don't keep the dot
+        } else if (broadcasterMarker.length >= 5) {
             // TODO: make a new update 'pop up' to people seeing the location
             options.title(userId + "\n" + broadcasterMarker[3]);
         } else {
@@ -259,14 +266,8 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         double lat = Double.parseDouble(broadcasterMarker[1].trim());
         double lng = Double.parseDouble(broadcasterMarker[2].trim());
         options.position(new LatLng(lat, lng));
-
-        // set default icon
         options.icon(BitmapDescriptorFactory.fromResource(R.drawable.purple_dot));
 
-        Marker marker = (Marker) userMarkers.get(userId);
-        if (marker != null) {
-            marker.remove();
-        }
         userMarkers.put(userId, map.addMarker(options));
     }
 }
