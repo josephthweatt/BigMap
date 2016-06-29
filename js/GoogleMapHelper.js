@@ -19,7 +19,7 @@ var bounds;
 var map, broadcastingUsers;
 var mapScope = new MapScope();
 var usersLocations = {}, userMarkers = {};
-var purpleDot = '../Images/purple-dot.png'; // default marker for user's location
+var purpleDot = '../Images/purple_dot.png'; // default marker for user's location
 
 /********************
  * Socket functions
