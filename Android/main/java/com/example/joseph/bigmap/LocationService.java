@@ -217,7 +217,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                     Intent intent = new Intent();
                     Bundle bundle = new Bundle();
                     String[] segments = s.split(" ");
-                    if (segments[0].equals("broadcaster-batch")) {
+                    if (segments[0].contains("broadcaster-batch")) {
                         // send the broadcaster batch to the receiver in ChannelActivity
                         bundle.putStringArray("broadcaster-batch", segments);
                         Log.i(TAG, "Got broadcaster batch");

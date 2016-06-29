@@ -15,35 +15,27 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.SparseArrayCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
 public class ChannelActivity extends FragmentActivity implements OnMapReadyCallback {
     private static String TAG = "ChannelActivity";
@@ -101,10 +93,20 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
     public void onPause() {
         try {
             unregisterReceiver(websocketReceiver);
+            for (int i = 0; i < userMarkers.size(); i++) {
+                Marker marker = (Marker) userMarkers.valueAt(i);
+                marker.remove();
+            }
         } catch (IllegalArgumentException e) {
             Log.v(TAG, "tried to unregister an unregistered receiver");
         }
         super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        setWebsocketReceiver();
+        super.onResume();
     }
 
     public void setBroadcastState(Boolean selectedState) {
@@ -168,7 +170,7 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
             if (b.containsKey("broadcaster-batch")) {
                 addBroadcasterMarkers(b.getStringArray("broadcaster-batch"));
             } else if (b.containsKey("broadcaster-update")) {
-                updateMarker(b.getStringArray("broadcaster-update"));
+                updateMarker(Arrays.asList(b.getStringArray("broadcaster-update")));
             }
         }
     };
@@ -208,6 +210,10 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         map.setMyLocationEnabled(true);
 
         // ready the map to receive and draw the broadcaster's markers
+        setWebsocketReceiver();
+    }
+
+    public void setWebsocketReceiver () {
         userMarkers = new SparseArrayCompat<>();
         filter = new IntentFilter("BROADCAST_ACTION");
         registerReceiver(websocketReceiver, filter);
@@ -228,43 +234,43 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
      */
     public void addBroadcasterMarkers(String[] broadcasterBatch) {
         userMarkers = new SparseArrayCompat<Marker>();
-        ArrayList broadcaster = new ArrayList<String>();
+        List broadcaster = new ArrayList<String>();
         for (int i = 1; i < broadcasterBatch.length; i++) {
             do {
                 broadcaster.add(broadcasterBatch[i]);
             } while (!broadcasterBatch[i++].contains("\n"));
-            updateMarker((String[]) broadcaster.toArray());
+            updateMarker(broadcaster);
             broadcaster.clear();
         }
     }
 
     /**
-     * @param broadcasterMarker
+     * @param broadcaster
      *                  - a single location with a userId. This updates the
      *                     current map marker with the new location
      *      Example:
      *          broadcaster-update
      *          [userId] [lat] [long] [status update]
      */
-    public void updateMarker(String[] broadcasterMarker) {
+    public void updateMarker(List<String> broadcaster) {
         MarkerOptions options = new MarkerOptions();
         // TODO: show the user's name and not their id
-        int userId = Integer.parseInt(broadcasterMarker[0]);
+        int userId = Integer.parseInt(broadcaster.get(0));
         Marker marker = (Marker) userMarkers.get(userId);
         if (marker != null) {
             marker.remove();
         }
 
-        if (broadcasterMarker.length == 3 && broadcasterMarker[1].equals("0")) {
+        if (broadcaster.size() == 3 && broadcaster.get(1).equals("0")) {
             return; // user isn't broadcasting, don't keep the dot
-        } else if (broadcasterMarker.length >= 5) {
+        } else if (broadcaster.size() >= 5) {
             // TODO: make a new update 'pop up' to people seeing the location
-            options.title(userId + "\n" + broadcasterMarker[3]);
+            options.title(userId + "\n" + broadcaster.get(3));
         } else {
-            options.title(broadcasterMarker[0]);
+            options.title(broadcaster.get(0));
         }
-        double lat = Double.parseDouble(broadcasterMarker[1].trim());
-        double lng = Double.parseDouble(broadcasterMarker[2].trim());
+        double lat = Double.parseDouble(broadcaster.get(1).trim());
+        double lng = Double.parseDouble(broadcaster.get(2).trim());
         options.position(new LatLng(lat, lng));
         options.icon(BitmapDescriptorFactory.fromResource(R.drawable.purple_dot));
 
