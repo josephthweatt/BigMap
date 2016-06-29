@@ -220,9 +220,11 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                     if (segments[0].equals("broadcaster-batch")) {
                         // send the broadcaster batch to the receiver in ChannelActivity
                         bundle.putStringArray("broadcaster-batch", segments);
+                        Log.i(TAG, "Got broadcaster batch");
                     } else if (activeChannel == Integer.parseInt(segments[segments.length - 1])) {
                         // send data to map in ChannelActivity
                         bundle.putStringArray("broadcaster-update", segments);
+                        Log.i(TAG, "Got location update");
                     }
                     intent.putExtras(bundle);
                     intent.setAction("BROADCAST_ACTION");
@@ -256,6 +258,8 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
                 Log.i(TAG, "Sent location to channels: " + channelIds);
             } catch (WebsocketNotConnectedException e) {
                 Log.w(TAG, "BigMap tried to send a location with the connection closed");
+            } catch (NullPointerException e) {
+                Log.w(TAG, "User's location has not been found yet");
             }
         }
 
@@ -296,7 +300,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             for (int i = 0; i < APIHandler.userChannels.size(); i++) {
                 channelIds += APIHandler.userChannels.get(i) + " ";
             }
-            return channelIds;
+            return channelIds.trim();
         }
 
         //returns a string of the users broadcasting channel ids
@@ -305,7 +309,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             for (int i = 0; i < APIHandler.broadcastingChannels.size(); i++) {
                 channelIds += APIHandler.broadcastingChannels.get(i) + " ";
             }
-            return channelIds;
+            return channelIds.trim();
         }
     }
 

@@ -97,6 +97,16 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         });
     }
 
+    @Override
+    public void onPause() {
+        try {
+            unregisterReceiver(websocketReceiver);
+        } catch (IllegalArgumentException e) {
+            Log.v(TAG, "tried to unregister an unregistered receiver");
+        }
+        super.onPause();
+    }
+
     public void setBroadcastState(Boolean selectedState) {
         if (selectedState) { // user is broadcasting
             broadcastButton.setBackgroundColor(
@@ -121,6 +131,8 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         broadcasting = true;
         storeBroadcastState();
         APIHandler.setBroadcastingChannels();
+        // Location will be updated after this
+        LocationService.webSocket.sendLocation();
     }
 
     private void stopBroadcasting() {
