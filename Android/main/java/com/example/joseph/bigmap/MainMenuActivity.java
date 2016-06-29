@@ -1,9 +1,12 @@
 package com.example.joseph.bigmap;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,5 +68,37 @@ public class MainMenuActivity extends AppCompatActivity {
             serviceIntent = new Intent(MainMenuActivity.this, LocationService.class);
         }
         startService(serviceIntent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                new ContextThemeWrapper(this, R.style.SignoutAlertDialog));
+        builder.setMessage("Returning back to the sign in will sign you out " +
+                "and stop broadcasting to channels.\nContinue?");
+        builder.setCancelable(true);
+        builder.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        stopService(serviceIntent);
+                        SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, 0);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.clear().apply();
+                        Intent signIn = new Intent(MainMenuActivity.this, MainActivity.class);
+                        startActivity(signIn);
+                    }
+                }
+        );
+        builder.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel(); // stay in menu
+                    }
+                }
+        );
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
