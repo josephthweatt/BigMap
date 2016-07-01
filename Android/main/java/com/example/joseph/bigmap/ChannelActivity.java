@@ -93,20 +93,10 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
     public void onPause() {
         try {
             unregisterReceiver(websocketReceiver);
-            for (int i = 0; i < userMarkers.size(); i++) {
-                Marker marker = (Marker) userMarkers.valueAt(i);
-                marker.remove();
-            }
         } catch (IllegalArgumentException e) {
             Log.v(TAG, "tried to unregister an unregistered receiver");
         }
         super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        setWebsocketReceiver();
-        super.onResume();
     }
 
     public void setBroadcastState(Boolean selectedState) {
@@ -217,6 +207,7 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         userMarkers = new SparseArrayCompat<>();
         filter = new IntentFilter("BROADCAST_ACTION");
         registerReceiver(websocketReceiver, filter);
+        map.clear();
         LocationService.webSocket.getAllBroadcastersLocation(channelId);
     }
 
