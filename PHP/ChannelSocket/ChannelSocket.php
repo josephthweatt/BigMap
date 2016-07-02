@@ -91,7 +91,8 @@
                                 foreach ($this->channels[$channelId]->androidUsers as $android) {
                                     if ($android->id != $user->id) {
                                         $android->conn->send($user->id . " "
-                                            . $user->current_lat . " " . $user->current_long . " " . $channelId);
+                                            . $user->current_lat . " " . $user->current_long . " " 
+                                            . $channelId);
                                     }
                                 }
                             } else {
@@ -136,7 +137,7 @@
                     if ($user = $this->getAndroidUser($conn)) {
                         // all browser users will get the stop message from this user
                         foreach ($user->channelIds as $channelId) {
-                            $browsers = $this->channels[$channelId]->browserUsers; // array of browserUsers
+                            $browsers = $this->channels[$channelId]->browserUsers;
                             foreach ($browsers as $browser) {
                                 $browser->conn->send($user->id . " 0");
                             }

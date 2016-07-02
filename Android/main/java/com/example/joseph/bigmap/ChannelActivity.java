@@ -33,6 +33,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.java_websocket.exceptions.WebsocketNotConnectedException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -208,7 +210,13 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
         filter = new IntentFilter("BROADCAST_ACTION");
         registerReceiver(websocketReceiver, filter);
         map.clear();
-        LocationService.webSocket.getAllBroadcastersLocation(channelId);
+        try {
+            LocationService.webSocket.getAllBroadcastersLocation(channelId);
+        } catch (WebsocketNotConnectedException e) {
+            Toast.makeText(getApplicationContext(),
+                    "Can't connect to server", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Websocket is not connected");
+        }
     }
 
     /**
