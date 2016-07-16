@@ -82,6 +82,7 @@
                         // check if a channel id should be receiving an update--if not, send id and '0'
                         foreach ($user->channelIds as $channelId) {
                             if (in_array($channelId, $channelIds)) {
+                                $this->channels[$channelId]->getAndroidUser($user->id)->is_broadcasting = true;
                                 // loop through users, send out the location to browsers
                                 foreach ($this->channels[$channelId]->browserUsers as $browser) {
                                     $browser->conn->send($user->id . " " . $user->current_lat
@@ -96,6 +97,7 @@
                                     }
                                 }
                             } else {
+                                $this->channels[$channelId]->getAndroidUser($user->id)->is_broadcasting = false;
                                 foreach ($this->channels[$channelId]->browserUsers as $browser) {
                                     $browser->conn->send($user->id . " 0"); // 0 == not broadcasting
                                 }
@@ -137,11 +139,13 @@
                     if ($user = $this->getAndroidUser($conn)) {
                         // all browser users will get the stop message from this user
                         foreach ($user->channelIds as $channelId) {
+                            $this->channels[$channelId]->getAndroidUser($user->id)->is_broadcasting = false;
                             $browsers = $this->channels[$channelId]->browserUsers;
+                            $androids = $this->channels[$channelId]->androidUsers;
                             foreach ($browsers as $browser) {
                                 $browser->conn->send($user->id . " 0");
                             }
-                            foreach ($this->channels[$channelId]->androidUsers as $android) {
+                            foreach ($androids as $android) {
                                 if ($android->id != $user->id) {
                                     $android->conn->send($user->id . " 0 " . $channelId);
                                 }
@@ -186,10 +190,12 @@
          */
         // TODO: make sure each type of user gets their special message
         private function sendChannelBroadcasterLocations($user, $channelId) {
-            foreach(array_keys($this->channels[$channelId]->androidUsers) as $androidId) {
+            foreach (array_keys($this->channels[$channelId]->androidUsers) as $androidId) {
                 $androidUser = $this->androidUsers[$androidId];
-                $user->conn->send($androidId ." ". $androidUser->current_lat
-                    ." ". $androidUser->current_long);
+                if ($androidUser->is_broadcasting == true) {
+                    $user->conn->send($androidId ." ". $androidUser->current_lat
+                        ." ". $androidUser->current_long);
+                }
             }
         }
 
