@@ -66,8 +66,8 @@ public class MainMenuActivity extends AppCompatActivity {
         locationService = new LocationService();
         if (serviceIntent == null) {
             serviceIntent = new Intent(MainMenuActivity.this, LocationService.class);
-            startService(serviceIntent);
         }
+        startService(serviceIntent);
     }
 
     @Override

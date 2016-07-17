@@ -122,11 +122,13 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void startBroadcasting() {
-        broadcasting = true;
-        storeBroadcastState();
-        APIHandler.setBroadcastingChannels();
-        // Location will be updated after this
-        LocationService.webSocket.sendLocation();
+        if (checkPermissionsEnabled()) {
+            broadcasting = true;
+            storeBroadcastState();
+            APIHandler.setBroadcastingChannels();
+            // Location will be updated after this
+            LocationService.webSocket.sendLocation();
+        }
     }
 
     private void stopBroadcasting() {
@@ -146,6 +148,15 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
 
         // update the list in the APIHandler
         APIHandler.setBroadcastingChannels();
+    }
+
+    public Boolean checkPermissionsEnabled() {
+        return ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     /*******************
@@ -170,39 +181,36 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        // check permissions
-        if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
 
         /******************************************************************************************
          * center on user location
          * The code for this was taken and edited from:
          * stackoverflow.com/questions/18425141/android-google-maps-api-v2-zoom-to-current-location
          ******************************************************************************************/
-        LocationManager locationManager =
-                (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        Location location =
-                locationManager.getLastKnownLocation(
-                locationManager.getBestProvider(criteria, false));
-        if (location != null && channelId == LocationService.activeChannel) {
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(location.getLatitude(), location.getLongitude()))
-                    .zoom(17).build();
-            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        }
-        map.setMyLocationEnabled(true);
+        if (checkPermissionsEnabled()) {
+            try {
+                LocationManager locationManager =
+                        (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                Criteria criteria = new Criteria();
+                Location location =
+                        locationManager.getLastKnownLocation(
+                                locationManager.getBestProvider(criteria, false));
+                if (location != null && channelId == LocationService.activeChannel) {
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(location.getLatitude(), location.getLongitude()), 13));
+                    CameraPosition cameraPosition = new CameraPosition.Builder()
+                            .target(new LatLng(location.getLatitude(), location.getLongitude()))
+                            .zoom(17).build();
+                    map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                }
+                map.setMyLocationEnabled(true);
 
-        // ready the map to receive and draw the broadcaster's markers
-        setWebsocketReceiver();
+                // ready the map to receive and draw the broadcaster's markers
+                setWebsocketReceiver();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void setWebsocketReceiver () {

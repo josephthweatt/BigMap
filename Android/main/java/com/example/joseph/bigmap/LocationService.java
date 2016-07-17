@@ -239,6 +239,7 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
 
                 @Override
                 public void onError(Exception e) {
+                    e.printStackTrace();
                     Log.i("Websocket", "Error " + e.getMessage());
                 }
             };
@@ -289,7 +290,6 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
             sharedPreferences = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
             int id = sharedPreferences.getInt("userId", 0);
             webSocketClient.send("get-all-broadcasters " + id + " " + channelId);
-            // TODO: create this get-all-broadcasters instruction in the PHP websocket
         }
 
         //returns a string of the users registered channel ids
