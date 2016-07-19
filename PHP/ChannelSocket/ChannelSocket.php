@@ -91,19 +91,19 @@
                                 // send location to android users
                                 foreach ($this->channels[$channelId]->androidUsers as $android) {
                                     if ($android->id != $user->id) {
-                                        $android->conn->send($user->id . " "
-                                            . $user->current_lat . " " . $user->current_long . " " 
+                                        $android->conn->send($user->id ." "
+                                            . $user->current_lat ." ". $user->current_long ." " 
                                             . $channelId);
                                     }
                                 }
                             } else {
                                 $this->channels[$channelId]->getAndroidUser($user->id)->is_broadcasting = false;
                                 foreach ($this->channels[$channelId]->browserUsers as $browser) {
-                                    $browser->conn->send($user->id . " 0"); // 0 == not broadcasting
+                                    $browser->conn->send($user->id ." 0"); // 0 == not broadcasting
                                 }
                                 foreach ($this->channels[$channelId]->androidUsers as $android) {
                                     if ($android->id != $user->id) {
-                                        $android->conn->send($user->id . " 0 " . $channelId);
+                                        $android->conn->send($user->id ." 0 ". $channelId);
                                     }
                                 }
                             }
@@ -123,8 +123,8 @@
                         foreach ($channel->androidUsers as $androidUser) {
                             // if this is not the user requesting the batch ...
                             if ($androidUser->id != $data[1] && $androidUser->is_broadcasting) {
-                                $locationBatch .= $androidUser->id . " " . $androidUser->current_lat
-                                    . " " . $androidUser->current_long;
+                                $locationBatch .= $androidUser->id ." ". $androidUser->current_lat
+                                    ." ". $androidUser->current_long;
                                 if ($androidUser->status) { // check if they have a status set
                                     $locationBatch .= " " . $androidUser->status . "\n ";
                                 } else {
