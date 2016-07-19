@@ -41,7 +41,7 @@ public class APIHandler extends AsyncTask {
     private int executeCommand;
 
     public APIHandler(int command) {
-        if (userInputs[0] == null) {
+        if (userInputs == null) {
             Log.e(TAG, "No user profile was given");
             return;
         }

@@ -28,16 +28,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // check if user has their name and password already stored
         SharedPreferences shared = getSharedPreferences(PREFS_NAME, 0);
-        if (shared.getString("username", null) != null
-                || shared.getString("password", null) != null) {
+        userInfo = new String[2];
+
+        // check if the user has their name and password already stored
+        if ((userInfo[0] = shared.getString("username", null)) != null
+            && (userInfo[1] = shared.getString("password", null)) != null
+            && signUserIn(userInfo)) {
             Intent goToMainMenu = new Intent(MainActivity.this, MainMenuActivity.class);
             startActivity(goToMainMenu);
         } else {
             setContentView(R.layout.activity_main);
-
-            userInfo = new String[2];
 
             submit = (Button) findViewById(R.id.submit_signin_info);
             submit.setOnClickListener(new View.OnClickListener() {
@@ -50,21 +51,8 @@ public class MainActivity extends AppCompatActivity {
                     userInfo[0] = username.getText().toString().trim();
                     userInfo[1] = password.getText().toString().trim();
 
-                    // send userInfo to the Server, wait 5 secs max for response
-                    APIHandler handler = new APIHandler(userInfo, 0);
-                    // pass context to APIHandler so that can access sharedPrefs
-                    APIHandler.context = getApplicationContext();
-                    try {
-                        handler.execute().get(5000, TimeUnit.MILLISECONDS);
-                    } catch (InterruptedException | TimeoutException | ExecutionException e) {
-                        header.setText("Connection Failed");
-                        Toast.makeText(getApplicationContext(),
-                                "Can't connect to server", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    }
-
                     // launch the next activity (user's main menu)
-                    if (APIHandler.signInSuccessful) {
+                    if (signUserIn(userInfo)) {
                         // store user info to sharedPreferences
                         SharedPreferences shared = getSharedPreferences(PREFS_NAME, 0);
                         SharedPreferences.Editor editor = shared.edit();
@@ -80,5 +68,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public Boolean signUserIn(String[] info) {
+        // send userInfo to the Server, wait 5 secs max for response
+        APIHandler handler = new APIHandler(info, 0);
+        // pass context to APIHandler so that can access sharedPrefs
+        APIHandler.context = getApplicationContext();
+        try {
+            handler.execute().get(5000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | TimeoutException | ExecutionException e) {
+            header.setText("Connection Failed");
+            Toast.makeText(getApplicationContext(),
+                    "Can't connect to server", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        return APIHandler.signInSuccessful;
     }
 }
