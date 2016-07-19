@@ -53,13 +53,17 @@ public class LocationService extends Service implements GoogleApiClient.Connecti
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onCreate() {
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
         googleApiClient.connect();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         // start running WebSocket
         webSocket = new WebSocket();
         webSocket.connectWebSocket();

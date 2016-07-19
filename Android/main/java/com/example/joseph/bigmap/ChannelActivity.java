@@ -92,13 +92,23 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     @Override
-    public void onPause() {
+    public void onRestart() {
+        try {
+            registerReceiver(websocketReceiver, filter);
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "tried to register an already registered receiver");
+        }
+        super.onRestart();
+    }
+
+    @Override
+    public void onStop() {
         try {
             unregisterReceiver(websocketReceiver);
         } catch (IllegalArgumentException e) {
-            Log.v(TAG, "tried to unregister an unregistered receiver");
+            Log.e(TAG, "tried to unregister an unregistered receiver");
         }
-        super.onPause();
+        super.onStop();
     }
 
     public void setBroadcastState(Boolean selectedState) {
