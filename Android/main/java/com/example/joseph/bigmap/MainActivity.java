@@ -28,49 +28,57 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        // check if user has their name and password already stored
+        SharedPreferences shared = getSharedPreferences(PREFS_NAME, 0);
+        if (shared.getString("username", null) != null
+                || shared.getString("password", null) != null) {
+            Intent goToMainMenu = new Intent(MainActivity.this, MainMenuActivity.class);
+            startActivity(goToMainMenu);
+        } else {
+            setContentView(R.layout.activity_main);
 
-        userInfo = new String[2];
+            userInfo = new String[2];
 
-        submit = (Button) findViewById(R.id.submit_signin_info);
-        submit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View args) {
-                header = (TextView) findViewById(R.id.main_header);
-                header.setText("Please Wait...");
+            submit = (Button) findViewById(R.id.submit_signin_info);
+            submit.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View args) {
+                    header = (TextView) findViewById(R.id.main_header);
+                    header.setText("Please Wait...");
 
-                username = (EditText) findViewById(R.id.enter_username);
-                password = (EditText) findViewById(R.id.enter_password);
-                userInfo[0] = username.getText().toString().trim();
-                userInfo[1] = password.getText().toString().trim();
+                    username = (EditText) findViewById(R.id.enter_username);
+                    password = (EditText) findViewById(R.id.enter_password);
+                    userInfo[0] = username.getText().toString().trim();
+                    userInfo[1] = password.getText().toString().trim();
 
-                // send userInfo to the Server, wait 5 secs max for response
-                APIHandler handler = new APIHandler(userInfo, 0);
-                // pass context to APIHandler so that can access sharedPrefs
-                APIHandler.context = getApplicationContext();
-                try {
-                    handler.execute().get(5000, TimeUnit.MILLISECONDS);
-                } catch (InterruptedException|TimeoutException|ExecutionException e) {
-                    header.setText("Connection Failed");
-                    Toast.makeText(getApplicationContext(),
-                            "Can't connect to server", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
+                    // send userInfo to the Server, wait 5 secs max for response
+                    APIHandler handler = new APIHandler(userInfo, 0);
+                    // pass context to APIHandler so that can access sharedPrefs
+                    APIHandler.context = getApplicationContext();
+                    try {
+                        handler.execute().get(5000, TimeUnit.MILLISECONDS);
+                    } catch (InterruptedException | TimeoutException | ExecutionException e) {
+                        header.setText("Connection Failed");
+                        Toast.makeText(getApplicationContext(),
+                                "Can't connect to server", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+
+                    // launch the next activity (user's main menu)
+                    if (APIHandler.signInSuccessful) {
+                        // store user info to sharedPreferences
+                        SharedPreferences shared = getSharedPreferences(PREFS_NAME, 0);
+                        SharedPreferences.Editor editor = shared.edit();
+                        editor.putString("username", userInfo[0]);
+                        editor.putString("password", userInfo[1]);
+                        editor.apply();
+
+                        Intent goToMainMenu = new Intent(MainActivity.this, MainMenuActivity.class);
+                        startActivity(goToMainMenu);
+                    } else {
+                        header.setText("Login Failed, try again");
+                    }
                 }
-
-                // launch the next activity (user's main menu)
-                if (APIHandler.signInSuccessful) {
-                    // store user info to sharedPreferences
-                    SharedPreferences shared = getSharedPreferences(PREFS_NAME, 0);
-                    SharedPreferences.Editor editor = shared.edit();
-                    editor.putString("username", userInfo[0]);
-                    editor.putString("password", userInfo[1]);
-                    editor.apply();
-
-                    Intent goToMainMenu = new Intent(MainActivity.this, MainMenuActivity.class);
-                    startActivity(goToMainMenu);
-                } else {
-                    header.setText("Login Failed, try again");
-                }
-            }
-        });
+            });
+        }
     }
 }
