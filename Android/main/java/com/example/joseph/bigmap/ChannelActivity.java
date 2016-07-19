@@ -93,10 +93,16 @@ public class ChannelActivity extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     public void onRestart() {
+        map.clear();
         try {
             registerReceiver(websocketReceiver, filter);
+            LocationService.webSocket.getAllBroadcastersLocation(channelId);
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "tried to register an already registered receiver");
+        } catch (WebsocketNotConnectedException e) {
+            Toast.makeText(getApplicationContext(),
+                    "Can't connect to server", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Websocket is not connected");
         }
         super.onRestart();
     }
