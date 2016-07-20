@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     Button submit;
+    Button signup;
 
     String[] userInfo;
 
@@ -65,6 +66,15 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         header.setText("Login Failed, try again");
                     }
+                }
+            });
+
+            signup = (Button) findViewById(R.id.signup);
+            signup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View args) {
+                    Intent signup = new Intent (MainActivity.this, SignUp.class);
+                    startActivity(signup);
                 }
             });
         }
