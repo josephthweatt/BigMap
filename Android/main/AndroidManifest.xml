@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainMenuActivity"/>
+        <activity android:name=".SignUp"/>
         <activity android:name=".ChannelListActivity"/>
         <activity android:name=".ChannelActivity"
             android:configChanges="orientation"

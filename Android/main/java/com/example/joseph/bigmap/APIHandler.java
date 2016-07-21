@@ -239,8 +239,8 @@ public class APIHandler extends AsyncTask {
 
     public void signUp() {
         List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
-        parameters.add(new AbstractMap.SimpleEntry("user-info[]", userInputs[0]));
-        parameters.add(new AbstractMap.SimpleEntry("user-info[]", userInputs[1]));
+        parameters.add(new AbstractMap.SimpleEntry("signup[]", userInputs[0]));
+        parameters.add(new AbstractMap.SimpleEntry("signup[]", userInputs[1]));
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;

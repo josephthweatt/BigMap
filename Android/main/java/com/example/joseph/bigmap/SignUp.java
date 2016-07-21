@@ -8,8 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by Joseph on 7/20/2016.
@@ -41,7 +46,16 @@ public class SignUp extends AppCompatActivity{
                 userInfo[1] = password.getText().toString().trim();
 
                 APIHandler handler = new APIHandler(userInfo, 2);
-                handler.execute();
+                APIHandler.context = getApplicationContext();
+
+                try {
+                    handler.execute().get(5000, TimeUnit.MILLISECONDS);
+                } catch (InterruptedException | TimeoutException | ExecutionException e) {
+                    header.setText("Connection Failed");
+                    Toast.makeText(getApplicationContext(),
+                            "Can't connect to server", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
                 if (APIHandler.signInSuccessful) {
                     // store user info to sharedPreferences
                     SharedPreferences shared = getSharedPreferences(PREFS_NAME, 0);
