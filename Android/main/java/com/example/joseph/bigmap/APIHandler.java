@@ -29,6 +29,7 @@ public class APIHandler extends AsyncTask {
 
     public static String URLHead = "http://192.169.148.214/BigMap/PHP/";
     public static String signIn = "android/SignIn.php";
+    public static String signUp = "android/MakeUser.php";
     public static String myBroadcastingChannels = "accounts/MyBroadcastingChannels.php";
     public static String receiveLocationPacket = "ChannelSocket/ReceiveLocationPacket.php";
 
@@ -70,12 +71,15 @@ public class APIHandler extends AsyncTask {
     protected Object doInBackground(Object[] params) {
         switch (executeCommand) {
             case 0:
-                signInSuccessful();
+                signIn();
                 break;
             case 1:
                 if (isBroadcasting = isBroadcastingChannels()) {
                     userChannels = getRegisteredChannels();
                 }
+                break;
+            case 2:
+                signUp();
                 break;
         }
         return null;
@@ -84,7 +88,7 @@ public class APIHandler extends AsyncTask {
     /****************************************
      * Methods interacting with BigMap Server
      ****************************************/
-    private void signInSuccessful() {
+    private void signIn() {
         List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
         parameters.add(new AbstractMap.SimpleEntry("user-info[]", userInputs[0]));
         parameters.add(new AbstractMap.SimpleEntry("user-info[]", userInputs[1]));
@@ -233,48 +237,17 @@ public class APIHandler extends AsyncTask {
         }
     }
 
-    /*****************************************************************************
-     * @deprecated the location updates are now being sent with the web socket
-     *
-     *  The server receives location with 4 types of inputs, in the form of POST:
-     *      1.) the user's info:        [userInfo]
-     *      2.) channels broadcasting:  [channelIds]...
-     *      3.) the locationPackets:    [time, latitude, longitude]...
-     *      4.) the number of packets   [packetCount]
-     *  Returns true if the information was successfully stored.
-     *****************************************************************************
-    private Boolean sendLocationPacket() {
+    public void signUp() {
         List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
-        parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[0]));
-        parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[1]));
-        for (int i : broadcastingChannels) {
-            parameters.add(new AbstractMap.SimpleEntry("channelIds[]", i));
-        }
-        // put locationPacket into POST format
-        HashMap locationPacket = LocationService.getLocationPacket();
-        LocationService.Coordinates coordinates;
-        Iterator iterator = locationPacket.entrySet().iterator();
-        int packetNumber = 0;
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            coordinates = (LocationService.Coordinates) entry.getValue();
-
-            parameters.add(new AbstractMap.SimpleEntry(
-                    "locationPacket" + packetNumber + "[]", entry.getKey()));
-            parameters.add(new AbstractMap.SimpleEntry(
-                    "locationPacket" + packetNumber + "[]", coordinates.lat));
-            parameters.add(new AbstractMap.SimpleEntry(
-                            "locationPacket" + packetNumber + "[]", coordinates.lon));
-            packetNumber++;
-        }
-        parameters.add(new AbstractMap.SimpleEntry("packetCount", packetNumber));
+        parameters.add(new AbstractMap.SimpleEntry("user-info[]", userInputs[0]));
+        parameters.add(new AbstractMap.SimpleEntry("user-info[]", userInputs[1]));
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
         URL url;
         try {
             // get output stream for the connection and write the parameter query string to it
-            url = new URL(URLHead + receiveLocationPacket);
+            url = new URL(URLHead + signUp);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
@@ -295,68 +268,19 @@ public class APIHandler extends AsyncTask {
                 reader = new BufferedReader(new InputStreamReader(stream));
 
                 while ((line = reader.readLine()) != null) {
-                    if (line.contains("Locations properly stored")) {
-                        LocationService.clearLocationPacket();
-                        return true;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return false;
-    }*/
-
-    /**
-     * @deprecated the location updates are now being sent with the
-     *              WebSocketService
-     *
-    // call for the server to hide the user's location
-    private void sendStop() {
-        List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
-        parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[0]));
-        parameters.add(new AbstractMap.SimpleEntry("userInfo[]", userInputs[1]));
-        parameters.add(new AbstractMap.SimpleEntry("STOP", true));
-
-        HttpURLConnection connection = null;
-        BufferedReader reader = null;
-        URL url;
-        try {
-            // get output stream for the connection and write the parameter query string to it
-            url = new URL(URLHead + receiveLocationPacket);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-
-            OutputStream os = connection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(getQuery(parameters));
-            writer.flush();
-            writer.close();
-            os.close();
-
-            connection.connect();
-
-            String line;
-            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                InputStream stream = connection.getInputStream();
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                while ((line = reader.readLine()) != null) {
-                    if (line.contains("Locations properly stored")) {
+                    if (line.matches(".*\\d+.*")) { // check if there's an number in the line
+                        signInSuccessful = true;
+                        // save user id
+                        int id = Integer.parseInt(line.trim());
+                        sharedPreferences = context.getSharedPreferences(PREFS_NAME, 0);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("userId", id);
+                        editor.apply();
+                        Log.i(TAG, "User stored with id " + id);
+                        return;
+                    } else if (line.contains("User already exists")) {
+                        signInSuccessful = false;
+                        Log.i(TAG, "User already exists");
                     }
                 }
             }
@@ -374,7 +298,7 @@ public class APIHandler extends AsyncTask {
                 }
             }
         }
-    }*/
+    }
 
     // method turns query params to a POST String. I found the method on this stackoverflow thread:
     // stackoverflow.com/questions/9767952/how-to-add-parameters-to-httpurlconnection-using-post
