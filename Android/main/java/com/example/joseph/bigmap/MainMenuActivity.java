@@ -57,7 +57,7 @@ public class MainMenuActivity extends AppCompatActivity {
                     Intent channels = new Intent(MainMenuActivity.this, ChannelListActivity.class);
                     startActivity(channels);
                 } else {
-                    welcome.setText("You are not broadcasting to any channels");
+                    welcome.setText("You have no channels");
                 }
             }
         });

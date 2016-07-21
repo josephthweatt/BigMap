@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            signup = (Button) findViewById(R.id.signup);
+            signup = (Button) findViewById(R.id.signup_button);
             signup.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View args) {
