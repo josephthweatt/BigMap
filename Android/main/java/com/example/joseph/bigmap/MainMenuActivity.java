@@ -79,9 +79,27 @@ public class MainMenuActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         APIHandler handler = new APIHandler(3);
+                        int newChannel = Integer.parseInt(newChannelId.getText().toString());
                         handler.channelToAdd
-                                = Integer.parseInt(newChannelId.getText().toString());
-                        handler.execute();
+                                = newChannel;
+                        try {
+                            handler.execute().get(5000, TimeUnit.MILLISECONDS);
+                        } catch (InterruptedException | TimeoutException | ExecutionException e) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Can't connect to server", Toast.LENGTH_SHORT).show();
+                        }
+                        if (handler.addChannelStatusCode == 1) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Channel " + newChannel + " added", Toast.LENGTH_SHORT).show();
+                        } else if (handler.addChannelStatusCode == 2) {
+                            Toast.makeText(getApplicationContext(),
+                                    "You have already joined Channel " + newChannel,
+                                    Toast.LENGTH_SHORT).show();
+                        } else if (handler.addChannelStatusCode == 3) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Channel " + newChannel + " does not exist",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
