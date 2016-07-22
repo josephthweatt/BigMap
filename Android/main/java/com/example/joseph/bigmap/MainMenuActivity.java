@@ -58,7 +58,8 @@ public class MainMenuActivity extends AppCompatActivity {
                 }
 
                 if (APIHandler.isBroadcasting) {
-                    Intent channels = new Intent(MainMenuActivity.this, ChannelListActivity.class);
+                    Intent channels = new Intent(
+                            MainMenuActivity.this, ChannelListActivity.class);
                     startActivity(channels);
                 } else {
                     welcome.setText("You have no channels");
@@ -77,7 +78,10 @@ public class MainMenuActivity extends AppCompatActivity {
                 newChannelSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        APIHandler handler = new APIHandler(3);
+                        handler.channelToAdd
+                                = Integer.parseInt(newChannelId.getText().toString());
+                        handler.execute();
                     }
                 });
             }

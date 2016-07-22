@@ -31,6 +31,7 @@ public class APIHandler extends AsyncTask {
     public static String signIn = "android/SignIn.php";
     public static String signUp = "android/MakeUser.php";
     public static String myBroadcastingChannels = "accounts/MyBroadcastingChannels.php";
+    public static String addChannel = "android/joinChannel.php";
     public static String receiveLocationPacket = "ChannelSocket/ReceiveLocationPacket.php";
 
     public static Boolean signInSuccessful;
@@ -80,6 +81,11 @@ public class APIHandler extends AsyncTask {
                 break;
             case 2:
                 signUp();
+                break;
+            case 3:
+                if (channelToAdd > 0) {
+                    addChannel();
+                }
                 break;
         }
         return null;
@@ -281,6 +287,83 @@ public class APIHandler extends AsyncTask {
                     } else if (line.contains("User already exists")) {
                         signInSuccessful = false;
                         Log.i(TAG, "User already exists");
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * addChannel() does not accept parameters because it is an Async Task, but the
+     * int's below serve as both the params and returns, which can be called from
+     * an APIHandler's objective to set or read.
+     *
+     * @param channelToAdd - mush be assigned prior to executing addChannel
+     * @return addChannelStatusCode - a number to relay success of adding a channel
+     *          Examples:
+     *                  1 - successful
+     *                  2 - already joined
+     *                  3 - channel doesn't exist
+     */
+    public int channelToAdd = 0;
+    public int addChannelStatusCode = 0;
+    public void addChannel() {
+        List<AbstractMap.SimpleEntry> parameters = new ArrayList<AbstractMap.SimpleEntry>();
+        parameters.add(new AbstractMap.SimpleEntry("name", userInputs[0]));
+        parameters.add(new AbstractMap.SimpleEntry("password", userInputs[1]));
+        parameters.add(new AbstractMap.SimpleEntry("channel-id", channelToAdd));
+
+        HttpURLConnection connection = null;
+        BufferedReader reader = null;
+        URL url;
+        try {
+            // get output stream for the connection and write the parameter query string to it
+            url = new URL(URLHead + addChannel);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            OutputStream os = connection.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getQuery(parameters));
+            writer.flush();
+            writer.close();
+            os.close();
+
+            connection.connect();
+
+            String line;
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                while ((line = reader.readLine()) != null) {
+                    if (line.contains("Success")) {
+                        userChannels = getRegisteredChannels();
+                        Log.i(TAG, "Joined Channel " + channelToAdd);
+                        channelToAdd = 0; // reset channel
+                        addChannelStatusCode = 1;
+                        return;
+                    } else if (line.contains("already joined")) {
+                        addChannelStatusCode = 2;
+                        Log.i(TAG, "User already joined this channel");
+                    } else if (line.contains("Channel does not exist")) {
+                        addChannelStatusCode = 3;
+                        Log.i(TAG, "Channel does not exist");
                     }
                 }
             }
