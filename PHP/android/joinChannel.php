@@ -6,9 +6,9 @@
     // give the user permission to broadcast
     $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
 
-    isset($_COOKIE["name"]) ? $userInfo[0] = $_COOKIE["name"] 
-            : dieNice("user info not set");
-    isset($_COOKIE["password"]) ? $userInfo[1] = $_COOKIE["password"] 
+    isset($_POST["name"]) ? $userInfo[0] = $_POST["name"] 
+            : dieNice("user info not set 1");
+    isset($_POST["password"]) ? $userInfo[1] = $_POST["password"] 
             : dieNice("user info not set");
     isset($_POST["channel-id"]) ? $channelId = $_POST["channel-id"] 
             : dieNice("channel id not specified");
