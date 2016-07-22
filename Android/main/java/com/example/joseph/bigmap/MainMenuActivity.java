@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,9 @@ public class MainMenuActivity extends AppCompatActivity {
 
     TextView welcome;
     Button channels;
+    Button makeChannel;
+    EditText newChannelId;
+    Button newChannelSubmit;
 
     @Override
     public void onCreate(Bundle savedInstanceVariable) {
@@ -53,12 +57,29 @@ public class MainMenuActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (handler.isBroadcasting) {
+                if (APIHandler.isBroadcasting) {
                     Intent channels = new Intent(MainMenuActivity.this, ChannelListActivity.class);
                     startActivity(channels);
                 } else {
                     welcome.setText("You have no channels");
                 }
+            }
+        });
+
+        makeChannel = (Button) findViewById(R.id.add_channel);
+        makeChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newChannelId = (EditText) findViewById(R.id.new_channel_id);
+                newChannelId.setVisibility(View.VISIBLE);
+                newChannelSubmit = (Button) findViewById(R.id.new_channel_id_submit);
+                newChannelSubmit.setVisibility(View.VISIBLE);
+                newChannelSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
             }
         });
 

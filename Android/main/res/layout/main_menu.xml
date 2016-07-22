@@ -15,10 +15,37 @@
 
     <Button
         android:id="@+id/enter_channels"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:paddingRight="5dp"
         android:paddingLeft="5dp"
         android:background="@color/colorAccent"
         android:text="My channels"/>
+
+    <Button
+        android:id="@+id/add_channel"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:background="@color/colorAccent"
+        android:text="Add a Channel"/>
+
+    <EditText
+        android:id="@+id/new_channel_id"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Enter Channed ID"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/new_channel_id_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:text="Register to Channel"
+        android:visibility="invisible"/>
 </LinearLayout>
