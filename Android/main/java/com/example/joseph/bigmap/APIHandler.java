@@ -314,6 +314,7 @@ public class APIHandler extends AsyncTask {
      * @param channelToAdd - mush be assigned prior to executing addChannel
      * @return addChannelStatusCode - a number to relay success of adding a channel
      *          Examples:
+     *                  0 - no action taken
      *                  1 - successful
      *                  2 - already joined
      *                  3 - channel doesn't exist
