@@ -2,7 +2,7 @@
     error_reporting(E_ALL); // uncomment for debugging
     include '../MemberUtilities.php';
     if (!$con) {
-        $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
+        $con = mysqli_connect("localhost," "<username>", "<password>");
     }
 
     isset($_POST["channelId"]) ? $channelId = $_POST["channelId"] : die ("channel id not set");

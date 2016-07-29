@@ -4,7 +4,7 @@
 
     // this will receive user credentials and a channel id to
     // give the user permission to broadcast
-    $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
+    $con = mysqli_connect("localhost," "<username>", "<password>");
 
     isset($_POST["name"]) ? $userInfo[0] = $_POST["name"] 
             : dieNice("user info not set 1");

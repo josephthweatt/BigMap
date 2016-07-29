@@ -3,7 +3,7 @@
     use Ratchet\ConnectionInterface;
 
 if (!isset($con)) {
-    $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
+    $con = mysqli_connect("localhost," "<username>", "<password>");
 }
 
     // required for all user classes
