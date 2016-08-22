@@ -3,6 +3,6 @@ This is a project I worked on during the summer of 2016. It implemented Android,
 
 The application allows users to create groups for people to share their location. Those with Android phones could download the app off the website and begin broadcasting to individual channels with the press of a button. When broadcasting, the broadcasters would show up on other users phones like so:
 
-![Alt text](https://github.com/josephthweatt/BigMap/tree/master/Readme-res/Map-example.PNG "BigMap with friends")
+![Alt text](https://raw.githubusercontent.com/josephthweatt/BigMap/master/Readme-res/Map-example.PNG "BigMap with friends")
 
 The group map was available in both the Android application and on desktop browsers. Feel free to message me if you have any questions on how it works.
