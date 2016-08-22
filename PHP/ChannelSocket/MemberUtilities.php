@@ -6,7 +6,7 @@
      error_reporting(E_ALL); // uncomment for debugging
     /********************************* USER CREDENTIALS ******************************/
     if(!isset($con)) {
-        $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
+        $con = mysqli_connect("localhost," "<username>", "<password>");
     }
 
     // returns user id
@@ -201,6 +201,6 @@
     function checkConnection() {
         global $con;
         return !isset($con)
-            ? $con = mysqli_connect("localhost", "db_friend", "dolTAP3B")
+            ? $con = mysqli_connect("localhost," "<username>", "<password>")
             : true;
     }

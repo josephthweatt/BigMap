@@ -5,7 +5,7 @@
     // this file will return the key of any channel the user is currently in
     // if the user is not in any channels, it displays "-1"
     // if the user is nonexistent, it displays "0"
-    $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
+    $con = mysqli_connect("localhost," "<username>", "<password>");
 
     isset($_POST["user-info"]) ? $userInfo = $_POST["user-info"] : die("user info not set");
 

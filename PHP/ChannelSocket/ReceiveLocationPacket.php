@@ -21,7 +21,7 @@
      * where '#' is the number (starting from zero. 0 is the earliest packet)
      ***********************************************************************************/
     if(!$con) {
-        $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
+        $con = mysqli_connect("localhost," "<username>", "<password>");
     }
 
     isset($_POST["userInfo"]) ? $userInfo = $_POST["userInfo"] : die ("no user id specified");

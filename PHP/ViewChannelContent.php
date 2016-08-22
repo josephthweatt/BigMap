@@ -20,7 +20,7 @@
         <!-- use PHP vars to help execute GoogleMapHelper.js -->
         <?php
             include 'MemberUtilities.php';
-            $con = mysqli_connect("localhost", "db_friend", "dolTAP3B");
+            $con = mysqli_connect("localhost," "<username>", "<password>");
             isset($_COOKIE["name"]) ? $userInfo[0] = $_COOKIE["name"] : dieNice("no user id specified");
             isset($_COOKIE["password"])? $userInfo[1]= $_COOKIE["password"] : dieNice("no user id specified");
             isset($_POST["channelId"])? $channelId= $_POST["channelId"] : dieNice("channel id not specified");
